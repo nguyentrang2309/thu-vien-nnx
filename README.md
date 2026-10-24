@@ -1,27 +1,76 @@
 # Thư viện Bảo hiểm Ngôi Nhà Xanh
 
-Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu của khách, rồi mở brochure, quy tắc, hướng dẫn bồi thường, salekit trên Google Drive. Website cũng tập hợp tin truyền thông, case study và kho content.
+Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu của khách, rồi mở brochure, quy tắc, hướng dẫn bồi thường, salekit trên Google Drive. Website cũng tập hợp tin mới, vinh danh, câu chuyện bồi thường và kho content.
 
-**Link web:** https://nguyentrang2309.github.io/thu-vien-nnx/
+| | Link |
+|---|---|
+| 🌐 **Web cho người bán** | https://nguyentrang2309.github.io/thu-vien-nnx/ |
+| ✏️ **Sửa nội dung** (mở thẳng trình soạn thảo) | https://github.com/nguyentrang2309/thu-vien-nnx/edit/main/data.js |
+| ✅ **Xem web đã cập nhật chưa** | https://github.com/nguyentrang2309/thu-vien-nnx/actions |
+| 🕘 **Lịch sử sửa / khôi phục** | https://github.com/nguyentrang2309/thu-vien-nnx/commits/main |
+| 👥 **Thêm người quản trị** | https://github.com/nguyentrang2309/thu-vien-nnx/settings/access |
 
-## Cấu trúc
+## Mục lục
 
-| File | Nội dung | Có cần sửa? |
-|---|---|---|
-| `data.js` | Toàn bộ nội dung: sản phẩm, link tài liệu, tin tức, case study, kho content, dòng chữ chạy | **Có**, mọi cập nhật nội dung đều sửa ở đây |
-| `index.html` | Giao diện và cách hiển thị | Không, trừ khi muốn đổi thiết kế |
+- [Website có những gì](#website-có-những-gì)
+- [Quy trình cập nhật (4 bước)](#quy-trình-cập-nhật-4-bước)
+- [Cập nhật nhanh: việc gì sửa ở đâu](#cập-nhật-nhanh-việc-gì-sửa-ở-đâu)
+- [1. Lấy link Google Drive](#1-lấy-link-google-drive)
+- [2. Sửa tài liệu của sản phẩm](#2-sửa-tài-liệu-của-sản-phẩm)
+- [3. Thêm sản phẩm mới](#3-thêm-sản-phẩm-mới)
+- [4. Thêm vinh danh, tin mới, câu chuyện bồi thường, kho content](#4-thêm-vinh-danh-tin-mới-câu-chuyện-bồi-thường-kho-content)
+- [5. Dòng chữ chạy trên đầu trang](#5-dòng-chữ-chạy-trên-đầu-trang)
+- [6. Hướng dẫn bồi thường và kỹ năng bán dùng chung](#6-hướng-dẫn-bồi-thường-và-kỹ-năng-bán-dùng-chung)
+- [Quản trị](#quản-trị)
+- [Khi gặp sự cố](#khi-gặp-sự-cố)
 
 ---
 
-## Cách sửa nhanh nhất (ngay trên trình duyệt)
+## Website có những gì
 
-1. Vào repo trên GitHub, bấm vào file **`data.js`**.
-2. Bấm biểu tượng **cây bút ✏️** (Edit this file) ở góc phải.
-3. Sửa nội dung, xem hướng dẫn ở các phần bên dưới.
-4. Bấm **Commit changes…**, ghi một dòng mô tả (ví dụ *"Thêm brochure MIC Care 2027"*), rồi bấm **Commit changes**.
-5. Chờ **1–2 phút**, sau đó tải lại trang web để xem nội dung mới. Nếu chưa thấy thay đổi, bấm `Ctrl + F5`.
+| Khu vực | Nội dung | Lấy dữ liệu từ (trong `data.js`) |
+|---|---|---|
+| **Trang sản phẩm** | Bước 1 chọn nhu cầu → Bước 2 chọn sản phẩm. Lọc theo kênh KDML / Ngôi sao BH | `NEEDS`, `PRODUCTS` |
+| **Trang chi tiết sản phẩm** (toàn màn hình) | Tài liệu sản phẩm, hướng dẫn bồi thường, kỹ năng bán, kho content, vinh danh liên quan | `PRODUCTS`, `CLAIM_GUIDES`, `SKILLS`, `MEDIA` |
+| **Nút 🏆 VINH DANH** trên header | Các case vinh danh, nhóm theo năm, mới nhất lên trước | `MEDIA` mục `sec:"case"` |
+| **Truyền thông & hỗ trợ bán** (sidebar) | Tin mới, Câu chuyện bồi thường, Vinh danh, Kho content, Kỹ năng bán hàng, Hướng dẫn bồi thường | `MEDIA`, `SECTIONS` |
+| **Dòng chữ chạy** trên cùng | Thông báo ngắn | `TICKER` |
 
-Tab **Actions** của repo cho biết tiến độ cập nhật: dấu ✅ xanh là đã lên web, dấu ❌ đỏ là có lỗi (xem phần *Khi web bị trắng / lỗi*).
+Toàn bộ nội dung nằm trong **một file `data.js`**. File `index.html` là giao diện, không cần sửa khi cập nhật nội dung.
+
+Mỗi sản phẩm có link riêng để gửi cho người bán: `https://nguyentrang2309.github.io/thu-vien-nnx/#p-<id>`, ví dụ `…/#p-mic` mở thẳng trang MIC Care.
+
+---
+
+## Quy trình cập nhật (4 bước)
+
+1. **Mở trình soạn thảo:** https://github.com/nguyentrang2309/thu-vien-nnx/edit/main/data.js
+   *(hoặc vào repo → bấm file `data.js` → bấm cây bút ✏️ ở góc phải)*
+2. **Tìm và sửa:** bấm `Ctrl + F`, gõ tên sản phẩm hoặc tiêu đề cần sửa. Sửa theo hướng dẫn ở các mục bên dưới.
+3. **Lưu:** bấm nút xanh **Commit changes…** → ghi một dòng mô tả (ví dụ *"Thêm vinh danh chị Hoa 10/2026"*) → bấm **Commit changes**.
+4. **Kiểm tra:** chờ **1–2 phút**, vào tab [Actions](https://github.com/nguyentrang2309/thu-vien-nnx/actions):
+   - 🟡 vàng: đang cập nhật
+   - ✅ xanh: đã lên web, mở web và bấm **`Ctrl + F5`** để thấy bản mới
+   - ❌ đỏ: có lỗi, xem mục [Khi gặp sự cố](#khi-gặp-sự-cố)
+
+> 💡 GitHub có thể giữ bản cũ trong bộ nhớ đệm tới **10 phút**. Nếu Actions đã ✅ mà web chưa đổi, bấm `Ctrl + F5` hoặc mở bằng tab ẩn danh.
+
+> 💡 Muốn sửa nhiều chỗ cùng lúc thì sửa hết rồi mới Commit một lần.
+
+---
+
+## Cập nhật nhanh: việc gì sửa ở đâu
+
+| Việc cần làm | Tìm trong `data.js` | Xem mục |
+|---|---|---|
+| Thay link brochure / quy tắc / salekit… | Tên sản phẩm → dòng `docs:` | [2](#2-sửa-tài-liệu-của-sản-phẩm) |
+| Thêm sản phẩm mới | `const PRODUCTS` | [3](#3-thêm-sản-phẩm-mới) |
+| Thêm người được **vinh danh** | `sec:"case"` | [4](#4-thêm-vinh-danh-tin-mới-câu-chuyện-bồi-thường-kho-content) |
+| Đăng **tin mới** | `sec:"news"` | [4](#4-thêm-vinh-danh-tin-mới-câu-chuyện-bồi-thường-kho-content) |
+| Thêm **câu chuyện bồi thường** | `sec:"claim"` | [4](#4-thêm-vinh-danh-tin-mới-câu-chuyện-bồi-thường-kho-content) |
+| Thêm link **kho content** | `sec:"content"` | [4](#4-thêm-vinh-danh-tin-mới-câu-chuyện-bồi-thường-kho-content) |
+| Đổi **dòng chữ chạy** | `const TICKER` | [5](#5-dòng-chữ-chạy-trên-đầu-trang) |
+| Đổi hướng dẫn bồi thường / kỹ năng | `CLAIM_GUIDES`, `SKILLS` | [6](#6-hướng-dẫn-bồi-thường-và-kỹ-năng-bán-dùng-chung) |
 
 ---
 
@@ -29,52 +78,53 @@ Tab **Actions** của repo cho biết tiến độ cập nhật: dấu ✅ xanh 
 
 Mở file hoặc thư mục trên Drive, bấm **Chia sẻ → Sao chép đường liên kết**. Có hai cách điền link:
 
-- **Dán nguyên link** trong dấu ngoặc kép: `"https://drive.google.com/file/d/1abc.../view?usp=sharing"`
+- **Dán nguyên link** trong ngoặc kép: `"https://drive.google.com/file/d/1abc.../view?usp=sharing"`
 - **Chỉ dán ID**, tức đoạn mã nằm giữa `/d/` và `/view` (hoặc nằm sau `/folders/`), rồi bọc trong hàm rút gọn:
 
-| Loại link | Cách viết |
-|---|---|
-| File trên Drive (PDF, ảnh…) | `F("1abc...")` |
-| Thư mục Drive | `D("1abc...")` |
-| Google Docs | `DOC("1abc...")` |
-| Sổ tay Thư viện F88 | `LIB("tên-trang")` |
+| Loại link | Cách viết | Ví dụ link gốc |
+|---|---|---|
+| File trên Drive (PDF, ảnh…) | `F("ID")` | drive.google.com/file/d/**ID**/view |
+| Thư mục Drive | `D("ID")` | drive.google.com/drive/folders/**ID** |
+| Google Docs | `DOC("ID")` | docs.google.com/document/d/**ID**/edit |
+| Trang trên Google Site cũ | `SITE("tên-trang")` | sites.google.com/view/tailieu-bao-hiem-nnx/**tên-trang** |
+| Sổ tay Thư viện F88 | `LIB("tên-trang")` | |
+| Link khác (Sheets, Slides, Gapowork…) | `"link đầy đủ"` | |
 
-> ⚠️ Kiểm tra quyền chia sẻ trên Drive: người bán phải có quyền xem file, nếu không họ sẽ thấy trang "Cần quyền truy cập".
+> ⚠️ **Kiểm tra quyền chia sẻ trên Drive:** người bán phải có quyền xem file, nếu không họ sẽ thấy trang "Cần quyền truy cập". Web chỉ dẫn link, quyền xem do Drive quyết định.
 
-## 2. Thay link một tài liệu có sẵn
+## 2. Sửa tài liệu của sản phẩm
 
-Tìm sản phẩm trong mảng `PRODUCTS` (dùng `Ctrl + F` gõ tên sản phẩm), rồi tìm dòng `docs:`. Mỗi tài liệu có dạng `["loại", link]`:
+Tìm sản phẩm trong `PRODUCTS`, đến dòng `docs:`. Mỗi tài liệu có dạng `["loại", link]`:
 
 ```js
 docs:[
   ["brochure", D("1IXsT-dwn_WJmEhu1Jsn-eenKinXLWfLF")],
   ["quytac",   F("1azpZf2QIo0z0w2QBK_V9grjH8WE5Yp8c")],
+  ["phaply",   F("1UdJ7k-KegDT9JwIS6bHGgcCHYWwrodOx"), "Nghị định 67/2023"],
 ],
 ```
 
-Bạn chỉ cần thay phần link. Muốn đặt tên hiển thị riêng thì thêm phần tử thứ 3: `["phaply", F("1Ud..."), "Nghị định 67/2023"]`.
+- **Thay link:** chỉ sửa phần link.
+- **Thêm tài liệu:** thêm một dòng `["loại", link],`.
+- **Đặt tên hiển thị riêng:** thêm phần tử thứ 3, như dòng `phaply` ở ví dụ trên.
+- **Thứ tự dòng** chính là thứ tự hiển thị trên web.
 
-**Các loại tài liệu có sẵn** (mỗi loại tự hiện icon phù hợp):
+**Các loại tài liệu** (mỗi loại tự hiện icon phù hợp):
 
-| Mã | Hiển thị |
-|---|---|
-| `brochure` | Brochure |
-| `quytac` | Quy tắc BH |
-| `salekit` | Salekit bán hàng |
-| `daotao` | Đào tạo sản phẩm |
-| `capdon` | Hướng dẫn cấp đơn |
-| `boithuong` | Hướng dẫn bồi thường |
-| `bieuphi` | Biểu phí |
-| `taituc` | Hướng dẫn tái tục |
-| `chupanh` | Hướng dẫn chụp ảnh xe |
-| `phaply` | Văn bản pháp lý |
-| `tonghop` | Bộ tài liệu |
+| Mã | Hiển thị | Mã | Hiển thị |
+|---|---|---|---|
+| `brochure` | Brochure | `boithuong` | Hướng dẫn bồi thường |
+| `quytac` | Quy tắc BH | `bieuphi` | Biểu phí |
+| `salekit` | Salekit bán hàng | `taituc` | Hướng dẫn tái tục |
+| `daotao` | Đào tạo sản phẩm | `chupanh` | Hướng dẫn chụp ảnh xe |
+| `capdon` | Hướng dẫn cấp đơn | `phaply` | Văn bản pháp lý |
+| | | `tonghop` | Bộ tài liệu |
 
-Muốn thêm loại mới, khai báo nó trong `DOC_TYPES` theo mẫu `mamoi:{label:"Tên hiển thị", icon:"book"},`. Danh sách icon nằm trong `index.html`, mục `ICONS`.
+Muốn thêm loại mới, khai báo nó trong `DOC_TYPES`: `mamoi:{label:"Tên hiển thị", icon:"book"},`
 
-## 3. Thêm một sản phẩm mới
+## 3. Thêm sản phẩm mới
 
-Copy một khối sản phẩm có sẵn trong `PRODUCTS` (từ `{id:` đến `},`), dán ngay bên dưới rồi sửa:
+Copy một khối có sẵn trong `PRODUCTS` (từ `{id:` đến `},`), dán ngay bên dưới rồi sửa:
 
 ```js
 {id:"pti-care", name:"PTI Care", ch:"ns", need:"health", ins:"PTI",
@@ -92,56 +142,90 @@ Copy một khối sản phẩm có sẵn trong `PRODUCTS` (từ `{id:` đến `}
 | `ins` | Hãng bảo hiểm / ghi chú nhỏ |
 | `desc` | Mô tả ngắn |
 | `docs` | Danh sách tài liệu (xem mục 2) |
-| `skills` | Mã tài liệu kỹ năng hiện trong ngăn sản phẩm (xem `SKILLS`) |
-| `cases` | *(không bắt buộc)* Mã case study liên quan, ví dụ `["cs-son"]` |
+| `skills` | Mã tài liệu kỹ năng hiện ở trang chi tiết (xem `SKILLS`): `sk-loan` `sk-qa` `sk-bundle` `sk-tcnv` `sk-objection` `sk-find` `sk-persona` `sk-brand` `sk-digital` |
+| `cases` | *(không bắt buộc)* Mã vinh danh liên quan, ví dụ `["cs-son"]` |
 
-Mỗi sản phẩm còn có link riêng để gửi cho người bán: `https://nguyentrang2309.github.io/thu-vien-nnx/#p-<id>`.
+Sản phẩm mới tự hiện trong đúng nhóm nhu cầu, đúng kênh, và số đếm ở sidebar tự tăng.
 
-## 4. Thêm tin tức, câu chuyện bồi thường, case study, kho content
+**Đổi tên nhóm nhu cầu** (ví dụ nút "Bảo vệ thu nhập khi ốm đau, tai nạn"): sửa `label` (tên trên nút) hoặc `short` (tên trong sidebar) trong `NEEDS`.
 
-Mọi mục truyền thông nằm trong mảng `MEDIA`. Để thêm mục mới, copy một dòng có sẵn rồi sửa:
+## 4. Thêm vinh danh, tin mới, câu chuyện bồi thường, kho content
+
+Mọi mục truyền thông nằm trong `MEDIA`. Copy một dòng cùng loại rồi sửa.
+
+**Ví dụ thêm một người vinh danh:**
 
 ```js
-{id:"n-tet2027", sec:"news", date:"05/01/2027", k:"Chương trình · 01/2027", t:"Ưu đãi Tết 2027 cho TNDS ô tô",
- d:"Mô tả ngắn.", u:F("..."), icon:"news", star:true},
+{id:"cs-hoa", sec:"case", date:"10/2026", k:"Vinh danh · KV3 Hải Phòng", t:"Chị Trần Thị Hoa – Top 1 phí bảo hiểm quý 3", d:"Mô tả ngắn thành tích và bí quyết.", u:F("ID-file-chia-se"), icon:"trophy", star:true},
+```
+
+**Ví dụ đăng tin mới:**
+
+```js
+{id:"n-tet2027", sec:"news", date:"05/01/2027", k:"Chương trình · 01/2027", t:"Ưu đãi Tết 2027 cho TNDS ô tô", d:"Mô tả ngắn.", u:F("..."), icon:"news", star:true},
 ```
 
 | Trường | Ý nghĩa |
 |---|---|
-| `sec` | Mục: `news` Tin mới · `claim` Câu chuyện bồi thường · `case` Case study · `content` Kho content · `skill` Kỹ năng · `guide` Hướng dẫn bồi thường |
-| `k` | Dòng nhỏ phía trên tiêu đề (loại · ngày/khu vực) |
+| `id` | Mã không trùng, viết liền không dấu |
+| `sec` | Mục: `case` **Vinh danh** · `news` Tin mới · `claim` Câu chuyện bồi thường · `content` Kho content · `skill` Kỹ năng · `guide` Hướng dẫn bồi thường |
+| `date` | **Ngày cập nhật**: `"15/09/2026"`, `"09/2026"` hoặc `"2026"`. Thẻ hiện dòng 📅 "Cập nhật …" |
+| `k` | Dòng chữ nhỏ phía trên tiêu đề (loại · khu vực) |
 | `t` | Tiêu đề |
 | `d` | Mô tả (để `""` nếu không cần) |
 | `u` | Link (Drive, Gapowork, Sheets…) |
-| `icon` | `news`, `heart`, `trophy`, `megaphone`, `book`, `gift`, `lifebuoy` |
-| `star` | *(không bắt buộc)* `true` để thẻ có icon nền vàng chanh, dùng cho mục nổi bật |
+| `icon` | `trophy` vinh danh · `news` tin · `heart` bồi thường · `megaphone` content · `book` kỹ năng · `gift` thưởng · `lifebuoy` hướng dẫn |
+| `star` | *(không bắt buộc)* `true` để icon có nền vàng chanh, dùng cho mục nổi bật |
 
-| `date` | *(nên có)* Ngày cập nhật: `"08/04/2026"`, `"04/2026"` hoặc `"2026"`. Thẻ sẽ hiện dòng "Cập nhật …" |
+**Nhóm theo năm và thứ tự:** khi xem riêng một mục (ví dụ bấm **🏆 VINH DANH**), các thẻ tự xếp thành nhóm *Năm 2027*, *Năm 2026*… và mục có `date` mới nhất hiện trước. Vì vậy **không cần quan tâm vị trí dòng**, chỉ cần điền `date` đúng. Mục không có `date` nằm ở nhóm *Chưa có ngày* cuối trang.
 
-**Nhóm theo năm:** khi xem riêng một mục (ví dụ bấm nút **VINH DANH**), các thẻ tự xếp thành nhóm *Năm 2026*, *Năm 2025*… Mục mới nhất hiện trước. Mục không có `date` nằm ở nhóm *Chưa có ngày* cuối trang.
+**Gắn vinh danh vào sản phẩm:** thêm `id` của mục vinh danh vào `cases` của sản phẩm (mục 3), ví dụ `cases:["cs-son","cs-hoa"]`. Mục đó sẽ hiện ở trang chi tiết sản phẩm.
 
-## 5. Sửa dòng chữ chạy trên đầu trang
+## 5. Dòng chữ chạy trên đầu trang
 
-Sửa mảng `TICKER` ở cuối `data.js`. Mỗi dòng nằm trong dấu backtick `` ` ``, chữ trong `<b>...</b>` sẽ có màu nổi bật.
+Sửa mảng `TICKER` ở cuối `data.js`. Mỗi dòng nằm trong dấu backtick `` ` `` và kết thúc bằng dấu phẩy. Chữ trong `<b>...</b>` có màu nổi bật:
 
-## 6. Hướng dẫn bồi thường dùng chung
+```js
+`VINH DANH THÁNG 10: <b>CHỊ HOA – KV3 HẢI PHÒNG</b>`,
+```
 
-Ba link trong `CLAIM_GUIDES` hiện ở **mọi** sản phẩm. Khi có quy trình mới thì sửa tại đây.
+## 6. Hướng dẫn bồi thường và kỹ năng bán dùng chung
+
+- `CLAIM_GUIDES`: ba link hướng dẫn bồi thường hiện ở **mọi** trang chi tiết sản phẩm.
+- `SKILLS`: danh sách tài liệu kỹ năng. Mỗi sản phẩm chọn kỹ năng của mình qua trường `skills`. Muốn tài liệu cũng hiện ở mục *Kỹ năng bán hàng* trong sidebar thì thêm một dòng `sec:"skill"` vào `MEDIA`.
 
 ---
 
-## Khi web bị trắng / lỗi
+## Quản trị
 
-Nguyên nhân gần như luôn là **sai dấu câu** trong `data.js`. Kiểm tra các điểm sau:
+**Thêm người cùng cập nhật:** vào [Settings → Collaborators](https://github.com/nguyentrang2309/thu-vien-nnx/settings/access) → **Add people** → nhập tài khoản GitHub của đồng nghiệp. Sau khi họ chấp nhận email mời, họ sửa được như chủ repo. Người bán chỉ cần link web, **không cần** tài khoản GitHub.
 
+**Xem ai sửa gì, lúc nào:** vào [Commits](https://github.com/nguyentrang2309/thu-vien-nnx/commits/main), bấm vào từng lần sửa. Dòng đỏ là nội dung bị xóa, dòng xanh là nội dung thêm mới.
+
+**Quay lại bản trước khi sửa nhầm:**
+1. Vào [Commits](https://github.com/nguyentrang2309/thu-vien-nnx/commits/main) và mở lần sửa gây lỗi.
+2. Xem dòng đỏ (nội dung cũ) rồi copy lại.
+3. Mở [trình soạn thảo `data.js`](https://github.com/nguyentrang2309/thu-vien-nnx/edit/main/data.js), dán đè vào đúng chỗ và Commit.
+
+**Lưu ý bảo mật:** repo đang để **công khai**, ai có link cũng xem được code và danh sách link Drive. Tài liệu vẫn được bảo vệ bằng quyền chia sẻ trên Drive, nên **không** dán link "Bất kỳ ai có đường liên kết" cho tài liệu nội bộ nhạy cảm.
+
+---
+
+## Khi gặp sự cố
+
+| Hiện tượng | Nguyên nhân thường gặp | Cách xử lý |
+|---|---|---|
+| Web **trắng trơn** hoặc mất hết sản phẩm | Sai dấu câu trong `data.js` | Xem danh sách kiểm tra bên dưới |
+| Actions ✅ nhưng web **chưa đổi** | Bộ nhớ đệm | `Ctrl + F5`, mở tab ẩn danh, hoặc chờ 10 phút |
+| Bấm tài liệu ra trang **"Cần quyền truy cập"** | Quyền chia sẻ trên Drive | Mở file trên Drive → Chia sẻ → cấp quyền cho nhóm người bán |
+| Sản phẩm **không hiện ở nhóm nhu cầu** | Sai mã `need` hoặc `ch` | Kiểm tra lại bằng bảng ở mục 3 |
+| Vinh danh **xếp sai thứ tự** | Thiếu hoặc sai định dạng `date` | Viết `"MM/YYYY"`, ví dụ `"09/2026"` |
+
+**Danh sách kiểm tra dấu câu:**
 - Mỗi dòng `{...}` hoặc `[...]` kết thúc bằng **dấu phẩy `,`**
-- Chữ nằm trong **cặp ngoặc kép `"..."`**. Không dùng ngoặc kép kiểu Word `“ ”`
+- Chữ nằm trong **ngoặc kép thẳng `"..."`**. Không dùng ngoặc kép kiểu Word `“ ”` (hay gặp khi copy từ Word hoặc Zalo)
 - Nếu trong chữ có dấu `"` thì đổi thành `'`
 - Mở/đóng ngoặc đủ cặp: `{ }`, `[ ]`, `( )`
+- Không xóa nhầm các dòng bắt đầu bằng `const`
 
-Cách sửa nhanh: vào tab **Commits**, mở lần sửa gần nhất để xem đã thay đổi gì, rồi sửa lại đúng chỗ đó.
-
-## Lưu ý
-
-- Link Claude Artifact (bản demo đầu tiên) **không tự cập nhật** theo GitHub. Từ giờ hãy dùng link GitHub Pages ở trên.
-- Repo đang để **công khai**: ai có link cũng xem được code và danh sách link Drive. Tài liệu vẫn được bảo vệ bằng quyền chia sẻ trên Drive.
+Không tìm ra lỗi thì quay lại bản trước (xem [Quản trị](#quản-trị)) để web chạy lại đã, rồi sửa từ từ sau.
