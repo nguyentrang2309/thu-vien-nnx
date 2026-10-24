@@ -100,17 +100,19 @@ const CLAIM_GUIDES = [
   {t:"Thu thập hồ sơ bồi thường theo sản phẩm", u:"https://docs.google.com/spreadsheets/d/1Dg_eB94PrjQIQK5eYKlQgQDJF5QU8inzwVG7uPXTSxk/edit"},
 ];
 
-/* Truyền thông */
+/* Truyền thông
+   date: ngày cập nhật, viết "DD/MM/YYYY", "MM/YYYY" hoặc "YYYY".
+   Các mục tự nhóm theo năm và mục mới nhất hiện trước. */
 const MEDIA = [
-  {id:"n-bonus", sec:"news", k:"Chính sách · áp dụng từ 08/04/2026", t:"Chính sách thưởng bảo hiểm độc lập 2026 – KDML F88", d:"Thưởng bảo hiểm = Tỷ lệ thưởng × Phí bảo hiểm. Xem bảng tỷ lệ theo nhóm sản phẩm.", u:SITE("ch%C3%ADnh-s%C3%A1ch-th%C6%B0%E1%BB%9Fng"), icon:"gift", star:true},
-  {id:"n-bundle", sec:"news", k:"Đào tạo · 2026", t:"Quyền lợi BH bán kèm & Tips tư vấn 2026", d:"Cập nhật quyền lợi các gói bán kèm khoản vay và cách mở lời.", u:SKILLS["sk-bundle"].u, icon:"news"},
-  {id:"n-obj", sec:"news", k:"Đào tạo · T6.2025", t:"Kỹ năng xử lý từ chối", d:"Tài liệu buổi đào tạo xử lý các lời từ chối thường gặp.", u:SKILLS["sk-objection"].u, icon:"news"},
+  {id:"n-bonus", sec:"news", date:"08/04/2026", k:"Chính sách · áp dụng từ 08/04/2026", t:"Chính sách thưởng bảo hiểm độc lập 2026 – KDML F88", d:"Thưởng bảo hiểm = Tỷ lệ thưởng × Phí bảo hiểm. Xem bảng tỷ lệ theo nhóm sản phẩm.", u:SITE("ch%C3%ADnh-s%C3%A1ch-th%C6%B0%E1%BB%9Fng"), icon:"gift", star:true},
+  {id:"n-bundle", sec:"news", date:"2026", k:"Đào tạo · 2026", t:"Quyền lợi BH bán kèm & Tips tư vấn 2026", d:"Cập nhật quyền lợi các gói bán kèm khoản vay và cách mở lời.", u:SKILLS["sk-bundle"].u, icon:"news"},
+  {id:"n-obj", sec:"news", date:"06/2025", k:"Đào tạo · T6.2025", t:"Kỹ năng xử lý từ chối", d:"Tài liệu buổi đào tạo xử lý các lời từ chối thường gặp.", u:SKILLS["sk-objection"].u, icon:"news"},
   {id:"c1", sec:"claim", k:"Câu chuyện bồi thường · HNI", t:"Chị Hường PT – CVKD 192 KN HNI", d:"Chia sẻ thực tế hỗ trợ khách hàng nhận bồi thường.", u:"https://www.gapowork.vn/group/2357079808128083968/posts/661879113957330944", icon:"heart", src:"Gapowork"},
   {id:"c2", sec:"claim", k:"Câu chuyện bồi thường · HNI", t:"Chị Tâm NT – CVKD 22 CD HNI", d:"Chia sẻ thực tế hỗ trợ khách hàng nhận bồi thường.", u:"https://www.gapowork.vn/group/2357079808128083968/posts/662356870240809984", icon:"heart", src:"Gapowork"},
   {id:"c3", sec:"claim", k:"Câu chuyện bồi thường · DNO", t:"Chị Trâm HTT – CVKD 04 THD DNO", d:"Chia sẻ thực tế hỗ trợ khách hàng nhận bồi thường.", u:"https://www.gapowork.vn/group/2357079808128083968/posts/662333022405276672", icon:"heart", src:"Gapowork"},
   {id:"c4", sec:"claim", k:"Câu chuyện bồi thường · HDG", t:"Chị Lệ ĐT – CVKD 153 BH HDG", d:"Chia sẻ thực tế hỗ trợ khách hàng nhận bồi thường.", u:"https://www.gapowork.vn/group/2357079808128083968/posts/662283269182025728", icon:"heart", src:"Gapowork"},
-  {id:"cs-linh", sec:"case", k:"Vinh danh · KV5 Hà Nội 2", t:"Anh Nguyễn Mạnh Linh QLKV – Top 1 doanh thu bảo hiểm toàn miền Bắc", d:"Giữ vững Top 1 toàn Vùng và dẫn đầu miền Bắc. Bí kíp quản lý bền bỉ, chủ động, sáng tạo.", u:SITE("kinh-nghi%E1%BB%87m-b%C3%A1n-t%E1%BB%91t"), icon:"trophy", star:true},
-  {id:"cs-son", sec:"case", k:"Vinh danh · KV2 Hà Nội 1", t:"Anh Nguyễn Minh Sơn QLKV – 3 tháng liên tục vượt KPI phí 120–150%", d:"Tập trung TNDS ô tô, chăm sóc lại data khách cũ kết hợp digital bảo hiểm.", u:SITE("kinh-nghi%E1%BB%87m-b%C3%A1n-t%E1%BB%91t"), icon:"trophy", star:true},
+  {id:"cs-linh", sec:"case", date:"2026", k:"Vinh danh · KV5 Hà Nội 2", t:"Anh Nguyễn Mạnh Linh QLKV – Top 1 doanh thu bảo hiểm toàn miền Bắc", d:"Giữ vững Top 1 toàn Vùng và dẫn đầu miền Bắc. Bí kíp quản lý bền bỉ, chủ động, sáng tạo.", u:SITE("kinh-nghi%E1%BB%87m-b%C3%A1n-t%E1%BB%91t"), icon:"trophy", star:true},
+  {id:"cs-son", sec:"case", date:"2026", k:"Vinh danh · KV2 Hà Nội 1", t:"Anh Nguyễn Minh Sơn QLKV – 3 tháng liên tục vượt KPI phí 120–150%", d:"Tập trung TNDS ô tô, chăm sóc lại data khách cũ kết hợp digital bảo hiểm.", u:SITE("kinh-nghi%E1%BB%87m-b%C3%A1n-t%E1%BB%91t"), icon:"trophy", star:true},
   {id:"ct-people", sec:"content", k:"Kho content · Google Sheets", t:"Bảo hiểm con người", d:"Bài đăng mẫu, caption cho sức khỏe, nằm viện, tai nạn, thu nhập.", u:"https://docs.google.com/spreadsheets/d/1qvgII0geFa3SV6Gs4lG-YAuDST0rXa8iPY7Xo1MaXCc/edit", icon:"megaphone"},
   {id:"ct-car", sec:"content", k:"Kho content · Google Sheets", t:"Bảo hiểm xe cơ giới", d:"Bài đăng mẫu, caption cho TNDS, vật chất xe máy và ô tô.", u:"https://docs.google.com/spreadsheets/d/1OcaVYLd3r5QAjBEoSnpS3Z716JK1oCU6ybjqEIToAQA/edit", icon:"megaphone"},
   ...["sk-loan","sk-qa","sk-tcnv","sk-objection","sk-find","sk-persona","sk-brand","sk-digital"].map(k=>({id:k, sec:"skill", k:"Kỹ năng bán hàng", t:SKILLS[k].t, d:"", u:SKILLS[k].u, icon:"book"})),

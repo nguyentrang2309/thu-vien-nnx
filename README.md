@@ -102,7 +102,7 @@ Mỗi sản phẩm còn có link riêng để gửi cho người bán: `https://
 Mọi mục truyền thông nằm trong mảng `MEDIA`. Để thêm mục mới, copy một dòng có sẵn rồi sửa:
 
 ```js
-{id:"n-tet2027", sec:"news", k:"Chương trình · 01/2027", t:"Ưu đãi Tết 2027 cho TNDS ô tô",
+{id:"n-tet2027", sec:"news", date:"05/01/2027", k:"Chương trình · 01/2027", t:"Ưu đãi Tết 2027 cho TNDS ô tô",
  d:"Mô tả ngắn.", u:F("..."), icon:"news", star:true},
 ```
 
@@ -116,7 +116,9 @@ Mọi mục truyền thông nằm trong mảng `MEDIA`. Để thêm mục mới,
 | `icon` | `news`, `heart`, `trophy`, `megaphone`, `book`, `gift`, `lifebuoy` |
 | `star` | *(không bắt buộc)* `true` để thẻ có icon nền vàng chanh, dùng cho mục nổi bật |
 
-Đặt mục mới **lên đầu** nhóm nếu muốn nó hiện trước.
+| `date` | *(nên có)* Ngày cập nhật: `"08/04/2026"`, `"04/2026"` hoặc `"2026"`. Thẻ sẽ hiện dòng "Cập nhật …" |
+
+**Nhóm theo năm:** khi xem riêng một mục (ví dụ bấm nút **VINH DANH**), các thẻ tự xếp thành nhóm *Năm 2026*, *Năm 2025*… Mục mới nhất hiện trước. Mục không có `date` nằm ở nhóm *Chưa có ngày* cuối trang.
 
 ## 5. Sửa dòng chữ chạy trên đầu trang
 
