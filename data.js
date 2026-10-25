@@ -7,7 +7,7 @@
 
 /* Mã Google Sheet: đoạn giữa /d/ và /edit trong link Sheet.
    Để "" thì web dùng dữ liệu dự phòng bên dưới. */
-const SHEET_ID = "";
+const SHEET_ID = "1ktstQNvoHsnaUYQn5lMT8URLb6x8Ml61";
 
 const F = id => `https://drive.google.com/file/d/${id}/view`;
 const D = id => `https://drive.google.com/drive/folders/${id}`;
