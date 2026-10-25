@@ -31,7 +31,7 @@ Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu củ
 | Khu vực | Nội dung | Lấy dữ liệu từ (trong `data.js`) |
 |---|---|---|
 | **Trang sản phẩm** | Bước 1 chọn nhu cầu (và hãng bảo hiểm nếu cần) → Bước 2 chọn sản phẩm. Lọc theo kênh KDML / Ngôi sao BH. Mỗi thẻ có tag kênh và tên hãng bảo hiểm | `NEEDS`, `PRODUCTS` |
-| **Trang chi tiết sản phẩm** (toàn màn hình) | Tài liệu sản phẩm, hướng dẫn bồi thường, kỹ năng bán, kho content, vinh danh liên quan | `PRODUCTS`, `CLAIM_GUIDES`, `SKILLS`, `MEDIA` |
+| **Trang chi tiết sản phẩm** (toàn màn hình) | Tên, kênh, hãng bảo hiểm, mô tả và các tài liệu sản phẩm | `PRODUCTS` |
 | **Nút 🏆 VINH DANH** trên header | Các case vinh danh, nhóm theo năm, mới nhất lên trước | `MEDIA` mục `sec:"case"` |
 | **Truyền thông & hỗ trợ bán** (sidebar) | Tin mới, Câu chuyện bồi thường, Vinh danh, Kho content, Kỹ năng bán hàng, Hướng dẫn bồi thường | `MEDIA`, `SECTIONS` |
 | **Dòng chữ chạy** trên cùng | Thông báo ngắn | `TICKER` |
@@ -144,8 +144,8 @@ Copy một khối có sẵn trong `PRODUCTS` (từ `{id:` đến `},`), dán nga
 | `ins` | Dòng chữ nhỏ dưới tên nhóm, ví dụ "Bảo hiểm Quân đội MIC" hoặc "Bán tại PGD F88" |
 | `desc` | Mô tả ngắn |
 | `docs` | Danh sách tài liệu (xem mục 2) |
-| `skills` | Mã tài liệu kỹ năng hiện ở trang chi tiết (xem `SKILLS`): `sk-loan` `sk-qa` `sk-bundle` `sk-tcnv` `sk-objection` `sk-find` `sk-persona` `sk-brand` `sk-digital` |
-| `cases` | *(không bắt buộc)* Mã vinh danh liên quan, ví dụ `["cs-son"]` |
+| `skills` | *(hiện không hiển thị)* Có thể để nguyên hoặc bỏ |
+| `cases` | *(hiện không hiển thị)* Có thể để nguyên hoặc bỏ |
 
 Sản phẩm mới tự hiện trong đúng nhóm nhu cầu, đúng kênh, và số đếm ở sidebar tự tăng.
 
@@ -181,7 +181,6 @@ Mọi mục truyền thông nằm trong `MEDIA`. Copy một dòng cùng loại r
 
 **Nhóm theo năm và thứ tự:** khi xem riêng một mục (ví dụ bấm **🏆 VINH DANH**), các thẻ tự xếp thành nhóm *Năm 2027*, *Năm 2026*… và mục có `date` mới nhất hiện trước. Vì vậy **không cần quan tâm vị trí dòng**, chỉ cần điền `date` đúng. Mục không có `date` nằm ở nhóm *Chưa có ngày* cuối trang.
 
-**Gắn vinh danh vào sản phẩm:** thêm `id` của mục vinh danh vào `cases` của sản phẩm (mục 3), ví dụ `cases:["cs-son","cs-hoa"]`. Mục đó sẽ hiện ở trang chi tiết sản phẩm.
 
 ## 5. Dòng chữ chạy trên đầu trang
 
@@ -193,8 +192,8 @@ Sửa mảng `TICKER` ở cuối `data.js`. Mỗi dòng nằm trong dấu backti
 
 ## 6. Hướng dẫn bồi thường và kỹ năng bán dùng chung
 
-- `CLAIM_GUIDES`: ba link hướng dẫn bồi thường hiện ở **mọi** trang chi tiết sản phẩm.
-- `SKILLS`: danh sách tài liệu kỹ năng. Mỗi sản phẩm chọn kỹ năng của mình qua trường `skills`. Muốn tài liệu cũng hiện ở mục *Kỹ năng bán hàng* trong sidebar thì thêm một dòng `sec:"skill"` vào `MEDIA`.
+- `CLAIM_GUIDES`: các link hướng dẫn bồi thường, hiện ở mục *Hướng dẫn bồi thường* trong sidebar.
+- `SKILLS`: danh sách tài liệu kỹ năng. Muốn tài liệu cũng hiện ở mục *Kỹ năng bán hàng* trong sidebar thì thêm một dòng `sec:"skill"` vào `MEDIA`.
 
 ---
 

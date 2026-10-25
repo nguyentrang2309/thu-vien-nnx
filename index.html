@@ -391,9 +391,6 @@ function rowLink(t,u,icon){ return `<a class="row" href="${u}" target="_blank" r
 function openProduct(id){
   const p = PRODUCTS.find(x => x.id === id); if(!p) return;
   const n = needOf(p.need);
-  const content = n.id==="bike"||n.id==="car" ? MEDIA.find(m=>m.id==="ct-car") : MEDIA.find(m=>m.id==="ct-people");
-  const cases = (p.cases||[]).map(cid => MEDIA.find(m=>m.id===cid));
-  const claims = MEDIA.filter(m=>m.sec==="claim").slice(0,2);
   $("drawer").innerHTML = `
     <div class="d-cover" style="background:var(--t-${p.need});color:var(--i-${p.need})">
       <button class="d-close" id="dClose">${ic("arrow")}Quay lại danh sách</button>
@@ -406,9 +403,6 @@ function openProduct(id){
     </div>
     <div class="d-body">
       <div class="d-sec wide"><h3>TÀI LIỆU SẢN PHẨM · ${p.docs.length}</h3><div class="docs">${p.docs.map(docTile).join("")}</div></div>
-      <div class="d-sec"><h3>HƯỚNG DẪN BỒI THƯỜNG</h3><div class="list">${CLAIM_GUIDES.map(g=>rowLink(g.t,g.u,"lifebuoy")).join("")}</div></div>
-      <div class="d-sec"><h3>KỸ NĂNG BÁN SẢN PHẨM NÀY</h3><div class="list">${p.skills.map(k=>rowLink(SKILLS[k].t,SKILLS[k].u,"book")).join("")}</div></div>
-      <div class="d-sec"><h3>NỘI DUNG ĐỂ ĐĂNG & KỂ CHUYỆN</h3><div class="list">${rowLink("Kho content: "+content.t, content.u, "megaphone")}${cases.map(m=>rowLink(m.t,m.u,"trophy")).join("")}${claims.map(m=>rowLink("Câu chuyện bồi thường: "+m.t,m.u,"heart")).join("")}</div></div>
     </div>`;
   $("drawer").hidden = false; $("drawer").scrollTop = 0;
   document.body.style.overflow = "hidden";
