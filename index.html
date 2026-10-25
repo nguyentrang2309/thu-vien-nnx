@@ -106,6 +106,14 @@ main{min-width:0;display:flex;flex-direction:column}
 .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden;text-align:left;padding:0;transition:transform .15s,box-shadow .15s}
 .card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--brand)}
 .cover{position:relative;aspect-ratio:16/8;max-width:100%;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.tags{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:6px;max-width:82%}
+.tag.ins{background:var(--ink);color:var(--surface)}
+.d-cover .tag{font-family:var(--f-mono);font-size:12px;font-weight:700;letter-spacing:.1em;border-radius:4px;padding:4px 8px}
+.ins-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ins-row .mono{font-size:11.5px;font-weight:700;color:var(--muted);letter-spacing:.12em;margin-right:4px}
+.ins-chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-family:var(--f-mono);font-size:12.5px;font-weight:700;letter-spacing:.04em}
+.ins-chip:hover{border-color:var(--ink)}
+.ins-chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
 .cover .tag{align-self:flex-start;font-family:var(--f-mono);font-size:11px;font-weight:700;letter-spacing:.12em;background:var(--surface);border-radius:4px;padding:3px 7px}
 .cover .big{position:absolute;right:-14px;bottom:-22px;width:150px;height:150px;opacity:.9;stroke-width:1.1}
 .cover .name{position:relative;font-family:var(--f-display);font-weight:800;font-size:24px;line-height:1.15;max-width:70%;text-wrap:balance}
@@ -265,15 +273,15 @@ const host = u => u.includes("thuvien.f88") ? "THƯ VIỆN F88" : u.includes("ga
 const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d");
 
 /* ============ STATE ============ */
-const S = {view:"products", need:"all", ch:"all", q:""};
+const S = {view:"products", need:"all", ch:"all", ins:"all", q:""};
 const $ = id => document.getElementById(id);
 const needOf = id => NEEDS.find(n => n.id === id);
 const docLabel = d => d[2] || DOC_TYPES[d[0]].label;
 
-function prodText(p){ return norm([p.name,p.ins,p.desc,needOf(p.need).short,CHANNELS[p.ch],...p.docs.map(docLabel)].join(" ")); }
+function prodText(p){ return norm([p.name,p.ins,p.desc,...(p.insurers||[]),needOf(p.need).short,CHANNELS[p.ch],...p.docs.map(docLabel)].join(" ")); }
 function filteredProducts(){
   const q = norm(S.q.trim());
-  return PRODUCTS.filter(p => (S.need==="all"||p.need===S.need) && (S.ch==="all"||p.ch===S.ch) && (!q || prodText(p).includes(q)));
+  return PRODUCTS.filter(p => (S.need==="all"||p.need===S.need) && (S.ch==="all"||p.ch===S.ch) && (S.ins==="all"||(p.insurers||[]).includes(S.ins)) && (!q || prodText(p).includes(q)));
 }
 
 /* ============ RENDER ============ */
@@ -294,12 +302,14 @@ function renderPills(){
   $("pills").hidden = S.view !== "products";
   $("honorBtn").setAttribute("aria-current", S.view === "sec-case");
 }
+const insTags = p => (p.insurers||[]).map(x => `<span class="tag ins">${esc(x)}</span>`).join("");
+const ALL_INS = [...new Set(PRODUCTS.flatMap(p => p.insurers||[]))];
 function card(p){
   const n = needOf(p.need);
   const types = [...new Set(p.docs.map(d=>d[0]))];
   return `<button class="card" data-open="${p.id}">
     <div class="cover" style="background:var(--t-${p.need});color:var(--i-${p.need})">
-      <span class="tag">${CHANNELS[p.ch]}</span>
+      <div class="tags"><span class="tag">${CHANNELS[p.ch]}</span>${insTags(p)}</div>
       ${ic(n.icon,"i big")}
       <div><div class="name" style="color:var(--ink)">${esc(n.short)}</div><div class="ins">${esc(p.ins)}</div></div>
     </div>
@@ -346,8 +356,9 @@ function renderContent(){
     let h = `<section class="needs" aria-label="Chọn nhu cầu"><h2><b>Bước 1:</b> Khách hàng đang cần gì?</h2><div class="need-row">`;
     h += `<button class="need" data-need="all" aria-pressed="${S.need==="all"}"><span class="ic" style="background:var(--brand-soft);color:var(--brand)">${ic("layers")}</span>Xem tất cả</button>`;
     NEEDS.forEach(n => h += `<button class="need" data-need="${n.id}" aria-pressed="${S.need===n.id}"><span class="ic" style="background:var(--t-${n.id});color:var(--i-${n.id})">${ic(n.icon)}</span>${n.label}</button>`);
+    if (ALL_INS.length) h += `</div><div class="ins-row"><span class="mono">HÃNG BẢO HIỂM</span><button class="ins-chip" data-ins="all" aria-pressed="${S.ins==="all"}">Tất cả</button>${ALL_INS.map(x=>`<button class="ins-chip" data-ins="${esc(x)}" aria-pressed="${S.ins===x}">${esc(x)}</button>`).join("")}`;
     h += `</div><h2><b>Bước 2:</b> Chọn sản phẩm để mở brochure, quy tắc, hướng dẫn bồi thường, salekit…</h2></section>`;
-    h += list.length ? `<div class="grid">${list.map(card).join("")}</div>` : `<div class="empty">Không có sản phẩm khớp “${esc(S.q)}”. Thử từ khóa khác, ví dụ “quy tắc”, “ô tô”, “MIC”.</div>`;
+    h += list.length ? `<div class="grid">${list.map(card).join("")}</div>` : `<div class="empty">${S.q.trim() ? `Không có sản phẩm khớp “${esc(S.q)}”. Thử từ khóa khác, ví dụ “quy tắc”, “ô tô”, “MIC”.` : `Chưa có sản phẩm cho lựa chọn này. Chọn “Tất cả” ở nhu cầu, kênh hoặc hãng bảo hiểm để xem thêm.`}</div>`;
     const extra = S.q.trim() ? mediaMatches() : [];
     if (extra.length) h += `<section class="sec"><div class="sec-h"><h2>Truyền thông & kỹ năng khớp từ khóa</h2><span>${extra.length} MỤC</span></div><div class="media">${extra.map(mItem).join("")}</div></section>`;
     c.innerHTML = h;
@@ -385,6 +396,7 @@ function openProduct(id){
       <button class="d-close" id="dClose">${ic("arrow")}Quay lại danh sách</button>
       ${ic(n.icon,"i big")}
       <span class="mono" style="position:relative;font-size:12px;font-weight:700">${CHANNELS[p.ch]} · ${n.short.toUpperCase()}</span>
+      ${(p.insurers||[]).length ? `<div class="tags">${insTags(p)}</div>` : ""}
       <h2 id="dTitle" style="color:var(--ink)">${esc(p.name)}</h2>
       <span class="ins">${esc(p.ins)}</span>
       <p class="lead">${esc(p.desc)}</p>
@@ -413,6 +425,8 @@ document.addEventListener("click", e => {
   if (v){ e.preventDefault(); S.view = v.dataset.view; if (v.dataset.need) S.need = v.dataset.need; render(); $("side").classList.remove("open"); window.scrollTo({top:0}); return; }
   const nd = e.target.closest(".need[data-need]");
   if (nd){ S.need = nd.dataset.need; render(); return; }
+  const ins = e.target.closest("[data-ins]");
+  if (ins){ S.ins = ins.dataset.ins; render(); return; }
   const ch = e.target.closest("[data-ch]");
   if (ch){ S.ch = ch.dataset.ch; render(); return; }
   const op = e.target.closest("[data-open]");
