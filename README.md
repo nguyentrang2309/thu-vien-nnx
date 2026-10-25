@@ -21,6 +21,7 @@ Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu củ
 - [4. Thêm vinh danh, tin mới, câu chuyện bồi thường, kho content](#4-thêm-vinh-danh-tin-mới-câu-chuyện-bồi-thường-kho-content)
 - [5. Dòng chữ chạy trên đầu trang](#5-dòng-chữ-chạy-trên-đầu-trang)
 - [6. Hướng dẫn bồi thường và kỹ năng bán dùng chung](#6-hướng-dẫn-bồi-thường-và-kỹ-năng-bán-dùng-chung)
+- [7. Đổi logo](#7-đổi-logo)
 - [Quản trị](#quản-trị)
 - [Khi gặp sự cố](#khi-gặp-sự-cố)
 
@@ -36,7 +37,14 @@ Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu củ
 | **Truyền thông & hỗ trợ bán** (sidebar) | Tin mới, Câu chuyện bồi thường, Vinh danh, Kho content, Kỹ năng bán hàng, Hướng dẫn bồi thường | `MEDIA`, `SECTIONS` |
 | **Dòng chữ chạy** trên cùng | Thông báo ngắn | `TICKER` |
 
-Toàn bộ nội dung nằm trong **một file `data.js`**. File `index.html` là giao diện, không cần sửa khi cập nhật nội dung.
+**Các file trong repo:**
+
+| File | Nội dung | Khi nào cần sửa |
+|---|---|---|
+| `data.js` | Toàn bộ nội dung: sản phẩm, link tài liệu, hãng bảo hiểm, tin tức, vinh danh, dòng chữ chạy | **Mọi lần cập nhật nội dung** |
+| `logo-nnx.webp` | Logo NNX Insurance ở góc trên bên trái | Khi đổi logo (xem [mục 7](#7-đổi-logo)) |
+| `index.html` | Giao diện và cách hiển thị | Chỉ khi đổi thiết kế |
+| `README.md` | Hướng dẫn này | |
 
 Mỗi sản phẩm có link riêng để gửi cho người bán: `https://nguyentrang2309.github.io/thu-vien-nnx/#p-<id>`, ví dụ `…/#p-mic` mở thẳng trang MIC Care.
 
@@ -72,6 +80,7 @@ Mỗi sản phẩm có link riêng để gửi cho người bán: `https://nguye
 | Thêm link **kho content** | `sec:"content"` | [4](#4-thêm-vinh-danh-tin-mới-câu-chuyện-bồi-thường-kho-content) |
 | Đổi **dòng chữ chạy** | `const TICKER` | [5](#5-dòng-chữ-chạy-trên-đầu-trang) |
 | Đổi hướng dẫn bồi thường / kỹ năng | `CLAIM_GUIDES`, `SKILLS` | [6](#6-hướng-dẫn-bồi-thường-và-kỹ-năng-bán-dùng-chung) |
+| Đổi **logo** | Tải đè file `logo-nnx.webp` | [7](#7-đổi-logo) |
 
 ---
 
@@ -195,6 +204,19 @@ Sửa mảng `TICKER` ở cuối `data.js`. Mỗi dòng nằm trong dấu backti
 - `CLAIM_GUIDES`: các link hướng dẫn bồi thường, hiện ở mục *Hướng dẫn bồi thường* trong sidebar.
 - `SKILLS`: danh sách tài liệu kỹ năng. Muốn tài liệu cũng hiện ở mục *Kỹ năng bán hàng* trong sidebar thì thêm một dòng `sec:"skill"` vào `MEDIA`.
 
+## 7. Đổi logo
+
+Logo ở góc trên bên trái lấy từ file **`logo-nnx.webp`** trong repo. Logo được đặt trên khung trắng nhỏ, nên chế độ tối vẫn hiển thị rõ.
+
+**Cách thay logo:**
+1. Đổi tên file logo mới thành đúng **`logo-nnx.webp`**.
+   *Nếu file là PNG/JPG, có thể đổi đuôi bằng công cụ chuyển đổi trực tuyến sang WebP, hoặc gửi file cho người phụ trách kỹ thuật.*
+2. Vào repo → bấm **Add file → Upload files**.
+3. Kéo thả file vào → bấm **Commit changes**. File mới sẽ đè lên file cũ.
+4. Chờ 1–2 phút rồi bấm `Ctrl + F5` để xem.
+
+> 💡 Nên dùng logo ngang (rộng hơn cao), dung lượng dưới 200KB để web tải nhanh. Logo hiện tại có kích thước 2000×1111px, nặng 35KB.
+
 ---
 
 ## Quản trị
@@ -221,6 +243,8 @@ Sửa mảng `TICKER` ở cuối `data.js`. Mỗi dòng nằm trong dấu backti
 | Bấm tài liệu ra trang **"Cần quyền truy cập"** | Quyền chia sẻ trên Drive | Mở file trên Drive → Chia sẻ → cấp quyền cho nhóm người bán |
 | Sản phẩm **không hiện ở nhóm nhu cầu** | Sai mã `need` hoặc `ch` | Kiểm tra lại bằng bảng ở mục 3 |
 | Vinh danh **xếp sai thứ tự** | Thiếu hoặc sai định dạng `date` | Viết `"MM/YYYY"`, ví dụ `"09/2026"` |
+| **Logo không hiện** (chỉ thấy chữ "NNX Insurance") | Sai tên file khi tải lên | Tên file phải đúng `logo-nnx.webp` (chữ thường, không dấu cách) |
+| Hàng lọc hãng có **2 nút trùng tên** (vd `Tasco` và `TASCO`) | Viết tên hãng không thống nhất | Sửa `insurers` cho giống nhau ở mọi sản phẩm |
 
 **Danh sách kiểm tra dấu câu:**
 - Mỗi dòng `{...}` hoặc `[...]` kết thúc bằng **dấu phẩy `,`**
