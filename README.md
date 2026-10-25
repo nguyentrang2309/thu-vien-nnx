@@ -5,7 +5,7 @@ Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu củ
 | | Link |
 |---|---|
 | 🌐 **Web cho người bán** | https://nguyentrang2309.github.io/thu-vien-nnx/ |
-| 📝 **Sửa nội dung** | Google Sheet *Nội dung Thư viện NNX* (xem [mục Google Sheet](#cập-nhật-nội-dung-bằng-google-sheet)) |
+| 📝 **Sửa nội dung** (Google Sheet) | https://docs.google.com/spreadsheets/d/1CM5UR0rGkWSdaNJPDd3dxXAXwvu4_qzeLu480lIdQtY/edit |
 | 🔎 **Kiểm tra lỗi trong Sheet** | https://nguyentrang2309.github.io/thu-vien-nnx/?kiemtra |
 | ✏️ Sửa bản dự phòng `data.js` | https://github.com/nguyentrang2309/thu-vien-nnx/edit/main/data.js |
 | ✅ **Xem web đã cập nhật chưa** | https://github.com/nguyentrang2309/thu-vien-nnx/actions |
@@ -16,7 +16,11 @@ Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu củ
 
 - [Website có những gì](#website-có-những-gì)
 - [Cập nhật nội dung bằng Google Sheet](#cập-nhật-nội-dung-bằng-google-sheet)
-- [Quy trình cập nhật (4 bước)](#quy-trình-cập-nhật-4-bước)
+  - [Quy trình cập nhật (4 bước)](#quy-trình-cập-nhật-4-bước)
+  - [Việc thường làm](#việc-thường-làm)
+  - [Kết nối Sheet](#kết-nối-sheet)
+- [Sửa bản dự phòng `data.js`](#sửa-bản-dự-phòng-datajs)
+- [Quy trình sửa `data.js` (4 bước)](#quy-trình-sửa-datajs-4-bước)
 - [Cập nhật nhanh: việc gì sửa ở đâu](#cập-nhật-nhanh-việc-gì-sửa-ở-đâu)
 - [1. Lấy link Google Drive](#1-lấy-link-google-drive)
 - [2. Sửa tài liệu của sản phẩm](#2-sửa-tài-liệu-của-sản-phẩm)
@@ -32,13 +36,13 @@ Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu củ
 
 ## Website có những gì
 
-| Khu vực | Nội dung | Lấy dữ liệu từ (trong `data.js`) |
+| Khu vực | Nội dung | Sửa ở tab nào trong Sheet |
 |---|---|---|
-| **Trang sản phẩm** | Bước 1 chọn nhu cầu (và hãng bảo hiểm nếu cần) → Bước 2 chọn sản phẩm. Lọc theo kênh KDML / Ngôi sao BH. Mỗi thẻ có tag kênh và tên hãng bảo hiểm | `NEEDS`, `PRODUCTS` |
-| **Trang chi tiết sản phẩm** (toàn màn hình) | Tên, kênh, hãng bảo hiểm, mô tả và các tài liệu sản phẩm | `PRODUCTS` |
-| **Nút 🏆 VINH DANH** trên header | Các case vinh danh, nhóm theo năm, mới nhất lên trước | `MEDIA` mục `sec:"case"` |
-| **Truyền thông & hỗ trợ bán** (sidebar) | Tin mới, Câu chuyện bồi thường, Vinh danh, Kho content, Kỹ năng bán hàng, Hướng dẫn bồi thường | `MEDIA`, `SECTIONS` |
-| **Dòng chữ chạy** trên cùng | Thông báo ngắn | `TICKER` |
+| **Trang sản phẩm** | Bước 1 chọn nhu cầu (và hãng bảo hiểm nếu cần) → Bước 2 chọn sản phẩm. Lọc theo kênh KDML / Ngôi sao BH. Mỗi thẻ có tag kênh và tên hãng bảo hiểm | **Sản phẩm** |
+| **Trang chi tiết sản phẩm** (toàn màn hình) | Tên, kênh, hãng bảo hiểm, mô tả và các tài liệu sản phẩm | **Sản phẩm**, **Tài liệu** |
+| **Nút 🏆 VINH DANH** trên header | Các case vinh danh, nhóm theo năm, mới nhất lên trước | **Truyền thông**, mục *Vinh danh & case study* |
+| **Truyền thông & hỗ trợ bán** (sidebar) | Tin mới, Câu chuyện bồi thường, Vinh danh, Kho content, Kỹ năng bán hàng, Hướng dẫn bồi thường | **Truyền thông** |
+| **Dòng chữ chạy** trên cùng | Thông báo ngắn | **Chữ chạy** |
 
 **Các file trong repo:**
 
@@ -56,7 +60,18 @@ Mỗi sản phẩm có link riêng để gửi cho người bán: `https://nguye
 
 ## Cập nhật nội dung bằng Google Sheet
 
-Sản phẩm, tài liệu, tin mới, vinh danh, câu chuyện bồi thường, kho content, kỹ năng, hướng dẫn bồi thường và dòng chữ chạy đều nhập trong **Google Sheet**. Sửa Sheet xong, mở lại web (hoặc `Ctrl + F5`) sau khoảng 1 phút là thấy thay đổi. **Không cần GitHub, không cần Commit.**
+Sản phẩm, tài liệu, tin mới, vinh danh, câu chuyện bồi thường, kho content, kỹ năng, hướng dẫn bồi thường và dòng chữ chạy đều nhập trong **Google Sheet**:
+
+👉 **https://docs.google.com/spreadsheets/d/1CM5UR0rGkWSdaNJPDd3dxXAXwvu4_qzeLu480lIdQtY/edit**
+
+Sửa Sheet xong, mở lại web là thấy thay đổi. **Không cần GitHub, không cần Commit.**
+
+### Quy trình cập nhật (4 bước)
+
+1. **Mở Sheet** bằng link trên (cần quyền *Người chỉnh sửa*, xem [Thêm người cùng cập nhật](#thêm-người-cùng-cập-nhật)).
+2. **Sửa hoặc thêm dòng** ở tab cần cập nhật. Google Sheet tự lưu, không có nút Lưu.
+3. **Mở web** và bấm `Ctrl + F5`. Thay đổi thường hiện ngay, chậm nhất khoảng 1–2 phút.
+4. **Kiểm tra lỗi** khi thêm nhiều dòng: mở https://nguyentrang2309.github.io/thu-vien-nnx/?kiemtra. Nếu có dòng sai, bảng ở góc dưới màn hình ghi rõ tab, số dòng và lý do.
 
 | Tab trong Sheet | Nội dung | Mỗi dòng là |
 |---|---|---|
@@ -74,20 +89,43 @@ Sản phẩm, tài liệu, tin mới, vinh danh, câu chuyện bồi thường, 
 - Sản phẩm và tài liệu hiện theo thứ tự dòng. Truyền thông tự xếp theo *Ngày cập nhật*, mới nhất lên trước.
 - Chữ chạy có thể dùng `{SO_SAN_PHAM}` và `{SO_TAI_LIEU}` để tự hiện số sản phẩm, số tài liệu.
 
-**Kiểm tra lỗi:** mở https://nguyentrang2309.github.io/thu-vien-nnx/?kiemtra. Góc dưới màn hình hiện bảng cho biết từng tab đang đọc từ Sheet hay từ bản dự phòng, và liệt kê các dòng bị bỏ qua kèm lý do (thiếu link, sai mã sản phẩm, ngày sai định dạng…).
+**Trang kiểm tra `?kiemtra`** cho biết từng tab đang đọc từ Sheet hay từ bản dự phòng, và liệt kê các dòng bị bỏ qua kèm lý do (thiếu link, sai mã sản phẩm, ngày sai định dạng…). Dòng bị bỏ qua sẽ không hiện trên web cho đến khi sửa xong.
+
+### Việc thường làm
+
+| Việc cần làm | Làm ở đâu trong Sheet |
+|---|---|
+| Thay link brochure / quy tắc / salekit… | Tab **Tài liệu**: tìm dòng có Mã sản phẩm và Loại tài liệu đó (`Ctrl + F`), dán link mới vào cột *Link* |
+| Thêm tài liệu cho sản phẩm | Tab **Tài liệu**: thêm dòng, chọn *Mã sản phẩm* và *Loại tài liệu*, dán link. Muốn tài liệu hiện ở vị trí nào thì chèn dòng ở vị trí đó |
+| Thêm sản phẩm mới | Tab **Sản phẩm**: thêm dòng, đặt *Mã* viết liền không dấu (ví dụ `pti-care`). Sau đó sang tab **Tài liệu** thêm các tài liệu với mã vừa đặt |
+| Gắn / đổi hãng bảo hiểm | Tab **Sản phẩm**, cột *Hãng bảo hiểm*. Nhiều hãng thì cách nhau bằng dấu phẩy |
+| Thêm người được **vinh danh** | Tab **Truyền thông**: thêm dòng, *Mục* chọn *Vinh danh & case study*, điền *Ngày cập nhật* (ví dụ `10/2026`) |
+| Đăng **tin mới** | Tab **Truyền thông**: *Mục* chọn *Tin mới*. Chọn *Nổi bật = Có* nếu muốn biểu tượng có nền vàng chanh |
+| Thêm **câu chuyện bồi thường** / **kho content** / **kỹ năng** / **hướng dẫn bồi thường** | Tab **Truyền thông**, chọn *Mục* tương ứng |
+| Đổi **dòng chữ chạy** | Tab **Chữ chạy**. Bọc chữ trong `**hai dấu sao**` để tô màu |
+| Gỡ tạm một mục | Cột *Hiển thị* chọn **Ẩn** |
+
+Mỗi sản phẩm có link riêng theo *Mã*: `https://nguyentrang2309.github.io/thu-vien-nnx/#p-<mã>`. **Đã gửi link sản phẩm cho người bán thì đừng đổi Mã**, nếu không link cũ sẽ không mở đúng sản phẩm.
 
 **Khi Sheet gặp sự cố** (mất quyền chia sẻ, đổi tên tab, sai tên cột…), web không trắng trang mà tự dùng **bản dự phòng** trong `data.js` cho tab bị lỗi. Bản dự phòng không tự cập nhật theo Sheet, nên thỉnh thoảng nhờ người phụ trách kỹ thuật chép lại nội dung mới vào `data.js`.
 
-**Thêm người cùng cập nhật:** chia sẻ Sheet với quyền **Người chỉnh sửa** cho thành viên team truyền thông. Lịch sử sửa và khôi phục bản cũ: trong Sheet, vào **Tệp → Nhật ký phiên bản**.
+### Thêm người cùng cập nhật
 
-### Kết nối Sheet (làm một lần)
+Trong Sheet bấm **Chia sẻ** → nhập email thành viên team truyền thông → chọn quyền **Người chỉnh sửa**. Người bán chỉ cần link web, không cần quyền vào Sheet.
 
-1. Tải file `Noi-dung-Thu-vien-NNX.xlsx` lên Google Drive → bấm chuột phải → **Mở bằng → Google Trang tính**. Nếu Drive vẫn để dạng .xlsx, vào **Tệp → Lưu dưới dạng Google Trang tính**.
-2. Bấm **Chia sẻ → Quyền truy cập chung → Bất kỳ ai có đường liên kết → Người xem**. (Web cần quyền này để đọc. Người xem không sửa được.)
-3. Copy mã Sheet trong link: đoạn giữa `/d/` và `/edit`.
-   Ví dụ link `https://docs.google.com/spreadsheets/d/`**`1AbC...xyz`**`/edit` thì mã là `1AbC...xyz`.
-4. Mở [data.js](https://github.com/nguyentrang2309/thu-vien-nnx/edit/main/data.js), dán mã vào dòng `const SHEET_ID = "";` → `const SHEET_ID = "1AbC...xyz";` → **Commit changes**.
-5. Chờ 1–2 phút rồi mở web với `?kiemtra` để chắc chắn cả 4 tab báo *đọc từ Google Sheet*.
+**Xem ai sửa gì, khôi phục bản cũ:** trong Sheet vào **Tệp → Nhật ký phiên bản → Xem nhật ký phiên bản**, chọn mốc thời gian rồi bấm **Khôi phục phiên bản này**. Web tự đọc lại bản đã khôi phục.
+
+### Kết nối Sheet
+
+Web đang đọc từ Sheet có mã `1CM5UR0rGkWSdaNJPDd3dxXAXwvu4_qzeLu480lIdQtY` (khai báo ở dòng `const SHEET_ID` trong `data.js`). Sheet phải luôn để **Chia sẻ → Quyền truy cập chung → Bất kỳ ai có đường liên kết → Người xem**, vì web cần quyền này để đọc. Người xem không sửa được Sheet.
+
+**Chỉ khi muốn chuyển sang một Sheet khác** (ví dụ tạo bản sao mới):
+1. Sheet mới phải giữ nguyên tên các tab và dòng tiêu đề. Cách an toàn nhất là **Tệp → Tạo bản sao** từ Sheet hiện tại.
+2. Chia sẻ Sheet mới: *Bất kỳ ai có đường liên kết → Người xem*.
+3. Copy mã Sheet mới trong link: đoạn giữa `/d/` và `/edit`.
+4. Mở [data.js](https://github.com/nguyentrang2309/thu-vien-nnx/edit/main/data.js), thay mã trong dòng `const SHEET_ID = "...";` → **Commit changes**.
+5. Chờ 1–2 phút rồi mở `?kiemtra` để chắc chắn cả 4 tab báo *đọc từ Google Sheet*.
+6. Cập nhật link Sheet ở đầu file README này.
 
 > ⚠️ Sheet để quyền "Bất kỳ ai có đường liên kết đều xem được", nên ai có mã Sheet cũng đọc được nội dung, giống như repo công khai hiện nay. Đừng để thông tin nội bộ nhạy cảm trong Sheet.
 
@@ -97,9 +135,13 @@ Sản phẩm, tài liệu, tin mới, vinh danh, câu chuyện bồi thường, 
 
 ## Sửa bản dự phòng `data.js`
 
-Các mục bên dưới hướng dẫn sửa trực tiếp `data.js`. Từ khi dùng Google Sheet, chỉ cần làm việc này khi cập nhật bản dự phòng hoặc khi chưa kết nối Sheet (`SHEET_ID` để trống).
+Các mục bên dưới hướng dẫn sửa trực tiếp `data.js`. **Team truyền thông không cần đọc phần này.** Chỉ cần làm khi:
+- cập nhật **bản dự phòng** (nội dung web hiện khi không đọc được Sheet) cho khớp với Sheet, hoặc
+- thêm **nhu cầu**, **loại tài liệu**, **mục truyền thông** mới (`NEEDS`, `DOC_TYPES`, `SECTIONS`).
 
-## Quy trình cập nhật (4 bước)
+Lưu ý: khi Sheet đang hoạt động, sửa sản phẩm, tài liệu, truyền thông hay chữ chạy trong `data.js` sẽ **không** thay đổi web.
+
+## Quy trình sửa `data.js` (4 bước)
 
 1. **Mở trình soạn thảo:** https://github.com/nguyentrang2309/thu-vien-nnx/edit/main/data.js
    *(hoặc vào repo → bấm file `data.js` → bấm cây bút ✏️ ở góc phải)*
@@ -287,8 +329,9 @@ Logo ở góc trên bên trái lấy từ file **`logo-nnx.webp`** trong repo. L
 
 | Hiện tượng | Nguyên nhân thường gặp | Cách xử lý |
 |---|---|---|
-| Sửa Sheet mà web **không đổi** | Tab đó đang dùng bản dự phòng, hoặc dòng bị bỏ qua | Mở web với `?kiemtra` để xem lý do |
-| `?kiemtra` báo **lỗi 401/403** hoặc *kiểm tra quyền chia sẻ* | Sheet chưa để "Bất kỳ ai có đường liên kết" | Chia sẻ lại Sheet theo bước 2 ở [Kết nối Sheet](#kết-nối-sheet-làm-một-lần) |
+| Sửa Sheet mà web **không đổi** | Tab đó đang dùng bản dự phòng, dòng bị bỏ qua, hoặc bộ nhớ đệm | Bấm `Ctrl + F5`, rồi mở web với `?kiemtra` để xem lý do |
+| Sửa nhầm Sheet, muốn quay lại | | Trong Sheet: **Tệp → Nhật ký phiên bản** (xem [Thêm người cùng cập nhật](#thêm-người-cùng-cập-nhật)) |
+| `?kiemtra` báo **lỗi 401/403** hoặc *kiểm tra quyền chia sẻ* | Sheet chưa để "Bất kỳ ai có đường liên kết" | Chia sẻ lại Sheet: *Bất kỳ ai có đường liên kết → Người xem* (xem [Kết nối Sheet](#kết-nối-sheet)) |
 | `?kiemtra` báo **thiếu cột** | Đổi tên tab hoặc dòng tiêu đề | Đổi lại đúng tên cũ (xem tab *Hướng dẫn* hoặc file `sheet.js`) |
 | Web **trắng trơn** hoặc mất hết sản phẩm | Sai dấu câu trong `data.js` | Xem danh sách kiểm tra bên dưới |
 | Actions ✅ nhưng web **chưa đổi** | Bộ nhớ đệm | `Ctrl + F5`, mở tab ẩn danh, hoặc chờ 10 phút |
