@@ -1,7 +1,14 @@
 /* =====================================================
-   DỮ LIỆU WEBSITE — chỉ cần sửa file này để cập nhật nội dung.
-   Xem hướng dẫn chi tiết trong README.md
+   DỮ LIỆU WEBSITE
+   Nội dung (sản phẩm, tài liệu, truyền thông, chữ chạy) giờ nhập trong
+   Google Sheet. Dữ liệu bên dưới chỉ là BẢN DỰ PHÒNG, dùng khi không đọc
+   được Sheet. Xem hướng dẫn trong README.md
    ===================================================== */
+
+/* Mã Google Sheet: đoạn giữa /d/ và /edit trong link Sheet.
+   Để "" thì web dùng dữ liệu dự phòng bên dưới. */
+const SHEET_ID = "1CM5UR0rGkWSdaNJPDd3dxXAXwvu4_qzeLu480lIdQtY";
+
 const F = id => `https://drive.google.com/file/d/${id}/view`;
 const D = id => `https://drive.google.com/drive/folders/${id}`;
 const DOC = id => `https://docs.google.com/document/d/${id}/edit`;

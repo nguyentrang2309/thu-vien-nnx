@@ -242,6 +242,7 @@ main{min-width:0;display:flex;flex-direction:column}
 <div class="toast" id="toast" hidden></div>
 
 <script src="data.js"></script>
+<script src="sheet.js"></script>
 <script>
 /* ============ ICONS ============ */
 const P = {
@@ -308,7 +309,7 @@ function renderPills(){
   $("honorBtn").setAttribute("aria-current", S.view === "sec-case");
 }
 const insTags = p => (p.insurers||[]).map(x => `<span class="tag ins">${esc(x)}</span>`).join("");
-const ALL_INS = [...new Set(PRODUCTS.flatMap(p => p.insurers||[]))];
+let ALL_INS = [];
 function card(p){
   const n = needOf(p.need);
   const types = [...new Set(p.docs.map(d=>d[0]))];
@@ -446,11 +447,15 @@ $("themeBtn").addEventListener("click", () => {
 });
 try{ const t = localStorage.getItem("nnx-theme"); if (t) document.documentElement.dataset.theme = t; }catch(e){}
 
-/* Ticker */
-$("ticker").innerHTML = [...TICKER,...TICKER].map(t=>`<span>${t}</span><span>◆</span>`).join("");
-
-render();
-if (location.hash.startsWith("#p-")) openProduct(location.hash.slice(3));
+/* Tải nội dung từ Google Sheet (xem sheet.js), lỗi thì dùng dữ liệu trong data.js */
+function start(){
+  ALL_INS = [...new Set(PRODUCTS.flatMap(p => p.insurers||[]))];
+  $("ticker").innerHTML = [...TICKER,...TICKER].map(t=>`<span>${t}</span><span>◆</span>`).join("");
+  render();
+  if (location.hash.startsWith("#p-")) openProduct(location.hash.slice(3));
+}
+$("content").innerHTML = `<div class="empty">Đang tải nội dung…</div>`;
+loadSheet().catch(e => ({used:{}, problems:["Lỗi khi đọc Sheet: "+e.message]})).then(report => { start(); showSheetReport(report); });
 </script>
 </body>
 </html>
