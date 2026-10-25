@@ -33,7 +33,7 @@ const DOC_TYPES = {
 };
 
 const PRODUCTS = [
-  {id:"tcnv", name:"Trợ cấp nằm viện", ch:"kdml", need:"health", insurers:[], ins:"Bán tại PGD F88",
+  {id:"tcnv", name:"Trợ cấp nằm viện", ch:"kdml", need:"health", insurers:["PVI"], ins:"Bán tại PGD F88",
    desc:"Trợ cấp tiền mặt theo ngày khi khách hàng phải nằm viện do ốm bệnh hoặc tai nạn. Dễ tư vấn kèm khoản vay.",
    docs:[["salekit",D("1XsKGW05w5n2eUHzStaSf31jkF6VhkntJ")],["daotao",LIB("bảo-hiểm-trợ-cấp-nằm-viện")],["capdon",CAP_DON],["quytac",F("1tnHr5QF4YDHBPJ51phEFV-ZwJoFzjbtd")]],
    skills:["sk-tcnv","sk-loan","sk-qa"]},

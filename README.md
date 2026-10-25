@@ -30,7 +30,7 @@ Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu củ
 
 | Khu vực | Nội dung | Lấy dữ liệu từ (trong `data.js`) |
 |---|---|---|
-| **Trang sản phẩm** | Bước 1 chọn nhu cầu (và hãng bảo hiểm nếu cần) → Bước 2 chọn sản phẩm. Lọc theo kênh KDML / Ngôi sao BH. Mỗi thẻ có tag kênh và tag hãng | `NEEDS`, `PRODUCTS` |
+| **Trang sản phẩm** | Bước 1 chọn nhu cầu (và hãng bảo hiểm nếu cần) → Bước 2 chọn sản phẩm. Lọc theo kênh KDML / Ngôi sao BH. Mỗi thẻ có tag kênh và tên hãng bảo hiểm | `NEEDS`, `PRODUCTS` |
 | **Trang chi tiết sản phẩm** (toàn màn hình) | Tài liệu sản phẩm, hướng dẫn bồi thường, kỹ năng bán, kho content, vinh danh liên quan | `PRODUCTS`, `CLAIM_GUIDES`, `SKILLS`, `MEDIA` |
 | **Nút 🏆 VINH DANH** trên header | Các case vinh danh, nhóm theo năm, mới nhất lên trước | `MEDIA` mục `sec:"case"` |
 | **Truyền thông & hỗ trợ bán** (sidebar) | Tin mới, Câu chuyện bồi thường, Vinh danh, Kho content, Kỹ năng bán hàng, Hướng dẫn bồi thường | `MEDIA`, `SECTIONS` |
@@ -140,7 +140,7 @@ Copy một khối có sẵn trong `PRODUCTS` (từ `{id:` đến `},`), dán nga
 | `name` | Tên sản phẩm |
 | `ch` | Kênh: `"kdml"` hoặc `"ns"` (Ngôi sao BH) |
 | `need` | Nhu cầu: `"health"` sức khỏe · `"acc"` tai nạn · `"income"` thu nhập · `"bike"` xe máy · `"car"` ô tô |
-| `insurers` | **Tag hãng bảo hiểm** hiện ở đầu thẻ, ví dụ `["MIC"]` hoặc nhiều hãng `["PJICO","BẢO VIỆT"]`. Để `[]` nếu chưa gắn hãng. Hàng lọc **HÃNG BẢO HIỂM** tự tạo từ các tag này. Hãy viết tên hãng giống nhau ở mọi sản phẩm (cùng viết `TASCO`, không lúc `Tasco` lúc `TASCO`) |
+| `insurers` | **Tên hãng bảo hiểm** hiện ngay dưới tên sản phẩm trên thẻ ("Hãng bảo hiểm PVI"), ví dụ `["MIC"]` hoặc nhiều hãng `["PJICO","BẢO VIỆT"]`. Để `[]` nếu chưa gắn hãng. Hàng lọc **HÃNG BẢO HIỂM** tự tạo từ các tag này. Hãy viết tên hãng giống nhau ở mọi sản phẩm (cùng viết `TASCO`, không lúc `Tasco` lúc `TASCO`) |
 | `ins` | Dòng chữ nhỏ dưới tên nhóm, ví dụ "Bảo hiểm Quân đội MIC" hoặc "Bán tại PGD F88" |
 | `desc` | Mô tả ngắn |
 | `docs` | Danh sách tài liệu (xem mục 2) |
