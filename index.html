@@ -313,14 +313,12 @@ function card(p){
   const types = [...new Set(p.docs.map(d=>d[0]))];
   return `<button class="card" data-open="${p.id}">
     <div class="cover" style="background:var(--t-${p.need});color:var(--i-${p.need})">
-      <div class="tags"><span class="tag">${CHANNELS[p.ch]}</span></div>
+      <div class="tags"><span class="tag">${CHANNELS[p.ch]}</span>${insTags(p)}</div>
       ${ic(n.icon,"i big")}
       <div><div class="name" style="color:var(--ink)">${esc(n.short)}</div><div class="ins">${esc(p.ins)}</div></div>
     </div>
     <div class="card-body">
-      <div class="card-head"><h3>${esc(p.name)}</h3><span class="open">${ic("arrow")}</span></div>
-      ${(p.insurers||[]).length ? `<div class="by">${ic("shield")}<span>Hãng bảo hiểm</span>${p.insurers.map(x=>`<b>${esc(x)}</b>`).join("")}</div>` : ""}
-      <p>${esc(p.desc)}</p>
+      <div class="card-head"><h3>${esc(p.name)}</h3><span class="open">${ic("arrow")}</span></div>      <p>${esc(p.desc)}</p>
       <div class="chips"><span class="chip ok">${p.docs.length} TÀI LIỆU</span>${types.slice(0,3).map(t=>`<span class="chip">${DOC_TYPES[t].label}</span>`).join("")}</div>
     </div></button>`;
 }
