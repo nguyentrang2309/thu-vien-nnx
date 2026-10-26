@@ -18,6 +18,7 @@ Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu củ
 - [Cập nhật nội dung bằng Google Sheet](#cập-nhật-nội-dung-bằng-google-sheet)
   - [Quy trình cập nhật (4 bước)](#quy-trình-cập-nhật-4-bước)
   - [Việc thường làm](#việc-thường-làm)
+  - [Vinh danh có ảnh](#vinh-danh-có-ảnh) (tiêu chuẩn ảnh, thư mục Drive)
   - [Kết nối Sheet](#kết-nối-sheet)
 - [Sửa bản dự phòng `data.js`](#sửa-bản-dự-phòng-datajs)
 - [Quy trình sửa `data.js` (4 bước)](#quy-trình-sửa-datajs-4-bước)
@@ -78,7 +79,7 @@ Sửa Sheet xong, mở lại web là thấy thay đổi. **Không cần GitHub, 
 | **Hướng dẫn** | Cách điền từng cột | |
 | **Sản phẩm** | Mã, tên, kênh, nhu cầu, hãng bảo hiểm, dòng phụ, mô tả | 1 sản phẩm |
 | **Tài liệu** | Mã sản phẩm, loại tài liệu, tên hiển thị riêng, link | 1 tài liệu của 1 sản phẩm |
-| **Truyền thông** | Mục, ngày cập nhật, dòng nhỏ, tiêu đề, mô tả, link, nổi bật, biểu tượng | 1 thẻ tin / vinh danh / content… |
+| **Truyền thông** | Mục, ngày cập nhật, dòng nhỏ, tiêu đề, mô tả, link, nổi bật, biểu tượng. Vinh danh có thêm: ảnh, họ tên, chức danh, PGD / khu vực, thành tích | 1 thẻ tin / vinh danh / content… |
 | **Chữ chạy** | Nội dung dòng chữ chạy. Bọc chữ trong `**hai dấu sao**` để tô màu | 1 thông báo |
 | **Danh mục** | Danh sách cho các ô thả xuống. Không sửa | |
 
@@ -99,7 +100,7 @@ Sửa Sheet xong, mở lại web là thấy thay đổi. **Không cần GitHub, 
 | Thêm tài liệu cho sản phẩm | Tab **Tài liệu**: thêm dòng, chọn *Mã sản phẩm* và *Loại tài liệu*, dán link. Muốn tài liệu hiện ở vị trí nào thì chèn dòng ở vị trí đó |
 | Thêm sản phẩm mới | Tab **Sản phẩm**: thêm dòng, đặt *Mã* viết liền không dấu (ví dụ `pti-care`). Sau đó sang tab **Tài liệu** thêm các tài liệu với mã vừa đặt |
 | Gắn / đổi hãng bảo hiểm | Tab **Sản phẩm**, cột *Hãng bảo hiểm*. Nhiều hãng thì cách nhau bằng dấu phẩy |
-| Thêm người được **vinh danh** | Tab **Truyền thông**: thêm dòng, *Mục* chọn *Vinh danh & case study*, điền *Ngày cập nhật* (ví dụ `10/2026`) |
+| Thêm người được **vinh danh** (có ảnh) | Tab **Truyền thông**: thêm dòng, *Mục* chọn *Vinh danh & case study*, điền *Ngày cập nhật* (ví dụ `10/2026`), *Ảnh, Họ tên, Chức danh, PGD / khu vực, Thành tích*. Xem [Vinh danh có ảnh](#vinh-danh-có-ảnh) |
 | Đăng **tin mới** | Tab **Truyền thông**: *Mục* chọn *Tin mới*. Chọn *Nổi bật = Có* nếu muốn biểu tượng có nền vàng chanh |
 | Thêm **câu chuyện bồi thường** / **kho content** / **kỹ năng** / **hướng dẫn bồi thường** | Tab **Truyền thông**, chọn *Mục* tương ứng |
 | Đổi **dòng chữ chạy** | Tab **Chữ chạy**. Bọc chữ trong `**hai dấu sao**` để tô màu |
@@ -108,6 +109,77 @@ Sửa Sheet xong, mở lại web là thấy thay đổi. **Không cần GitHub, 
 Mỗi sản phẩm có link riêng theo *Mã*: `https://nguyentrang2309.github.io/thu-vien-nnx/#p-<mã>`. **Đã gửi link sản phẩm cho người bán thì đừng đổi Mã**, nếu không link cũ sẽ không mở đúng sản phẩm.
 
 **Khi Sheet gặp sự cố** (mất quyền chia sẻ, đổi tên tab, sai tên cột…), web không trắng trang mà tự dùng **bản dự phòng** trong `data.js` cho tab bị lỗi. Bản dự phòng không tự cập nhật theo Sheet, nên thỉnh thoảng nhờ người phụ trách kỹ thuật chép lại nội dung mới vào `data.js`.
+
+### Vinh danh có ảnh
+
+Thẻ vinh danh hiển thị theo dạng ảnh chân dung:
+
+```
+┌──────────────────────────┐
+│ 🏆 Top 1 miền Bắc  09/2026│  ← Thành tích + Ngày cập nhật (tự đặt lên ảnh)
+│                          │
+│      ẢNH CHÂN DUNG       │
+│       (dọc, 3 : 4)       │
+│                          │
+├──────────────────────────┤
+│ Nguyễn Mạnh Linh         │  ← Họ tên (dải xanh)
+│ QLKV · KV5 Vùng Hà Nội 2 │  ← Chức danh · PGD / khu vực
+│ Mô tả ngắn…              │
+│ Xem chia sẻ ↗            │  ← Link
+└──────────────────────────┘
+```
+
+#### Bước 1. Thêm 5 cột vào tab *Truyền thông* (làm 1 lần)
+
+Thêm vào **cuối** dòng tiêu đề (sau cột *Hiển thị*), gõ đúng tên:
+
+| Cột | Ví dụ | Ghi chú |
+|---|---|---|
+| **Ảnh** | `https://drive.google.com/file/d/1AbC…/view?usp=sharing` | Link **file ảnh** trên Drive (không phải link thư mục) |
+| **Họ tên** | `Nguyễn Mạnh Linh` | **Bắt buộc** để hiện dạng thẻ ảnh. Để trống thì thẻ hiện kiểu cũ |
+| **Chức danh** | `QLKV`, `CVKD`, `TPGD` | |
+| **PGD / khu vực** | `PGD 192 Kim Ngưu – HNI` hoặc `KV5 · Vùng Hà Nội 2` | |
+| **Thành tích** | `Top 1 miền Bắc`, `Vượt KPI 150%` | Hiện thành tag vàng chanh trên ảnh. **Ngắn, tối đa ~20 ký tự** |
+
+Các cột còn lại vẫn điền như trước: *Mục* = **Vinh danh & case study**, *Ngày cập nhật* (hiện thành tag thời gian trên ảnh), *Tiêu đề* (dùng khi tìm kiếm), *Mô tả*, *Link* (bài chia sẻ chi tiết).
+
+> Các cột này **không bắt buộc**. Sheet chưa thêm cột thì web vẫn chạy bình thường, thẻ vinh danh hiện theo kiểu cũ.
+
+#### Bước 2. Chuẩn bị thư mục ảnh trên Google Drive (làm 1 lần)
+
+1. Tạo một thư mục riêng, ví dụ **"Ảnh vinh danh – Thư viện NNX"**.
+2. Bấm chuột phải vào thư mục → **Chia sẻ** → *Quyền truy cập chung* chọn **Bất kỳ ai có đường liên kết** → vai trò **Người xem** → **Xong**.
+   Mọi ảnh bỏ vào thư mục này sẽ tự có quyền xem, không cần chia sẻ từng ảnh.
+3. Chia sẻ quyền **Người chỉnh sửa** cho thành viên team truyền thông để họ tải ảnh lên.
+
+> ⚠️ Nếu thư mục chỉ chia sẻ trong công ty, hoặc để "Bị hạn chế", ảnh **sẽ không hiện** trên web, chỉ thấy chữ cái đầu của tên.
+
+#### Bước 3. Thêm một người vinh danh
+
+1. Tải ảnh lên thư mục Drive ở bước 2. Đặt tên file theo mẫu `ho-ten-khong-dau_mm-yyyy.jpg`, ví dụ `nguyen-manh-linh_09-2026.jpg`.
+2. Bấm chuột phải vào **ảnh** → **Chia sẻ** → **Sao chép đường liên kết**.
+3. Mở Sheet, tab **Truyền thông** → thêm 1 dòng → dán link vào cột **Ảnh**, điền *Họ tên, Chức danh, PGD / khu vực, Thành tích, Ngày cập nhật*.
+4. Mở web → bấm **🏆 VINH DANH** → `Ctrl + F5` để kiểm tra.
+
+#### Tiêu chuẩn ảnh
+
+| Tiêu chí | Yêu cầu |
+|---|---|
+| **Hướng ảnh** | **Ảnh dọc**, tỷ lệ **3 : 4** |
+| **Kích thước** | Khuyến nghị **900 × 1200 px**. Tối thiểu 600 × 800 px. Nhỏ hơn thì ảnh bị mờ |
+| **Định dạng** | JPG (khuyến nghị), PNG hoặc WebP. Không dùng HEIC (ảnh iPhone, nên chuyển sang JPG trước) |
+| **Dung lượng** | Dưới **1MB** (lý tưởng 200–500KB). Web tự thu nhỏ khi hiển thị, nhưng file nhỏ giúp Drive tải nhanh hơn |
+| **Khung hình** | Chụp từ **ngực trở lên**, hoặc nửa người khi cầm bằng khen / giấy chứng nhận. Mặt nằm ở khoảng **1/3 phía trên** khung |
+| **Vùng an toàn** | Chừa trống khoảng **15% phía trên** (tag thành tích và ngày sẽ đè lên). Không để đầu chạm sát mép trên |
+| **Ánh sáng** | Đủ sáng, mặt rõ nét, **không ngược sáng** (không đứng quay lưng ra cửa sổ) |
+| **Phông nền** | Gọn gàng: tường trơn, backdrop NNX hoặc quầy giao dịch. Tránh nền lộn xộn, nhiều người phía sau |
+| **Trang phục** | Đồng phục NNX / F88 hoặc trang phục công sở |
+| **Không nên** | Ghép chữ, khung viền, sticker, filter làm đẹp quá đà, ảnh chụp lại màn hình, ảnh nhóm (web sẽ cắt mất người) |
+| **Quyền riêng tư** | **Xin đồng ý** của nhân sự trước khi đăng. Ảnh và họ tên công khai với ai có link web |
+
+**Ảnh không đúng tỷ lệ 3 : 4?** Web tự cắt về 3 : 4, giữ phần giữa và ưu tiên phía trên, nên mặt thường vẫn nằm trong khung. Muốn chắc chắn thì cắt sẵn trên điện thoại (*Chỉnh sửa → Cắt → 3:4*) trước khi tải lên.
+
+**Nén ảnh nhanh:** dùng https://squoosh.app hoặc https://tinypng.com (kéo ảnh vào, tải ảnh đã nén về).
 
 ### Thêm người cùng cập nhật
 
@@ -338,6 +410,9 @@ Logo ở góc trên bên trái lấy từ file **`logo-nnx.webp`** trong repo. L
 | Bấm tài liệu ra trang **"Cần quyền truy cập"** | Quyền chia sẻ trên Drive | Mở file trên Drive → Chia sẻ → cấp quyền cho nhóm người bán |
 | Sản phẩm **không hiện ở nhóm nhu cầu** | Sai mã `need` hoặc `ch` | Kiểm tra lại bằng bảng ở mục 3 |
 | Vinh danh **xếp sai thứ tự** | Thiếu hoặc sai định dạng `date` | Viết `"MM/YYYY"`, ví dụ `"09/2026"` |
+| Thẻ vinh danh **chỉ hiện chữ cái đầu**, không có ảnh | Ảnh trên Drive chưa chia sẻ công khai, hoặc dán link thư mục thay vì link file | Thư mục ảnh: *Bất kỳ ai có đường liên kết → Người xem*. Cột *Ảnh* phải là link **file**, dạng `drive.google.com/file/d/…` |
+| Thẻ vinh danh **vẫn hiện kiểu cũ** (không có ảnh, không có dải tên) | Cột *Họ tên* trống hoặc tên cột gõ sai | Kiểm tra dòng tiêu đề có đúng `Họ tên`, và ô Họ tên đã điền |
+| **Ảnh bị cắt mất đầu** | Ảnh ngang, hoặc mặt sát mép trên | Dùng ảnh dọc 3 : 4, chừa trống phía trên đầu (xem [Tiêu chuẩn ảnh](#tiêu-chuẩn-ảnh)) |
 | **Logo không hiện** (chỉ thấy chữ "NNX Insurance") | Sai tên file khi tải lên | Tên file phải đúng `logo-nnx.webp` (chữ thường, không dấu cách) |
 | Hàng lọc hãng có **2 nút trùng tên** (vd `Tasco` và `TASCO`) | Viết tên hãng không thống nhất | Sửa `insurers` cho giống nhau ở mọi sản phẩm |
 

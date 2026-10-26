@@ -154,6 +154,22 @@ main{min-width:0;display:flex;flex-direction:column}
 .sec-h.year{border-bottom:2px solid var(--brand);padding-bottom:8px}
 .sec-h.year h2{color:var(--brand)}
 .m.star .ic{background:var(--lime);color:#1d2a06}
+/* Thẻ vinh danh có ảnh */
+.media:has(> .hc){grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.hc{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;text-decoration:none;min-width:0}
+.hc:hover{border-color:var(--brand);box-shadow:var(--shadow)}
+.hc-ph{position:relative;aspect-ratio:3/4;max-width:100%;background:var(--brand-soft);display:grid;place-items:center;overflow:hidden}
+.hc-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.hc-ini{font-family:var(--f-display);font-weight:800;font-size:56px;color:var(--brand);letter-spacing:.02em}
+.hc-badge{position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:6px;max-width:calc(100% - 92px);background:var(--lime);color:#1B2A06;font-family:var(--f-mono);font-size:12px;font-weight:700;line-height:1.3;padding:5px 9px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.hc-badge svg{width:14px;height:14px;flex:none}
+.hc-date{position:absolute;top:10px;right:10px;background:rgba(8,20,13,.78);color:#fff;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.04em;padding:4px 8px;border-radius:6px}
+.hc-name{background:var(--brand-deep);color:#fff;font-weight:700;font-size:16px;line-height:1.3;padding:10px 14px}
+.hc-info{padding:10px 14px 0;font-size:13.5px;color:var(--muted)}
+.hc-info b{color:var(--ink)}
+.hc p{margin:6px 14px 0;font-size:13.5px;color:var(--muted)}
+.hc .go{display:inline-flex;align-items:center;gap:6px;margin:10px 14px 14px;font-size:13px;color:var(--brand);font-weight:600}
+.hc .go svg{width:14px;height:14px}
 
 /* Drawer */
 .scrim{position:fixed;inset:0;background:rgba(8,18,12,.45);z-index:40}
@@ -324,7 +340,26 @@ function card(p){
       <div class="chips"><span class="chip ok">${p.docs.length} TÀI LIỆU</span>${types.slice(0,3).map(t=>`<span class="chip">${DOC_TYPES[t].label}</span>`).join("")}</div>
     </div></button>`;
 }
+/* Ảnh vinh danh: nhận link file Google Drive (hoặc mã file) và đổi sang link ảnh thu nhỏ */
+const driveId = s => {
+  const v = String(s||"").trim();
+  const m = v.match(/\/d\/([\w-]{20,})/) || v.match(/[?&]id=([\w-]{20,})/);
+  return m ? m[1] : (/^[\w-]{20,}$/.test(v) ? v : "");
+};
+const photoUrl = s => { const id = driveId(s); return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w800` : (/^https?:\/\//.test(s||"") ? s : ""); };
+const initials = n => String(n||"").split(/\s+/).filter(Boolean).slice(-2).map(w => w[0]).join("").toUpperCase();
+function honorCard(m){
+  const ph = photoUrl(m.photo);
+  return `<a class="hc" href="${m.u}" target="_blank" rel="noopener">
+    <div class="hc-ph"><span class="hc-ini" aria-hidden="true">${esc(initials(m.name))}</span>${ph ? `<img src="${esc(ph)}" alt="${esc(m.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ""}
+      ${m.badge ? `<span class="hc-badge">${ic("trophy")}${esc(m.badge)}</span>` : ""}${m.date ? `<span class="hc-date">${esc(m.date)}</span>` : ""}</div>
+    <div class="hc-name">${esc(m.name)}</div>
+    <div class="hc-info">${m.role ? `<b>${esc(m.role)}</b>` : ""}${m.role && m.pgd ? " · " : ""}${esc(m.pgd||"")}</div>
+    ${m.d ? `<p>${esc(m.d)}</p>` : ""}
+    <span class="go">Xem chia sẻ ${ic("ext")}</span></a>`;
+}
 function mItem(m){
+  if (m.sec === "case" && m.name) return honorCard(m);
   return `<a class="m${m.star?" star":""}" href="${m.u}" target="_blank" rel="noopener">
     <span class="ic">${ic(m.icon)}</span>
     <span><span class="k">${esc(m.k)}</span><h3>${esc(m.t)}</h3>${m.d?`<p>${esc(m.d)}</p>`:""}${m.date?`<span class="when">${ic("calendar")}Cập nhật ${esc(m.date)}</span>`:""}<span class="go">Mở trên ${host(m.u).toLowerCase().replace(/^./,c=>c.toUpperCase())} ${ic("ext")}</span></span></a>`;
@@ -350,7 +385,7 @@ function groupByYear(items){
 }
 function mediaMatches(sec){
   const q = norm(S.q.trim());
-  return MEDIA.filter(m => (!sec||m.sec===sec) && (!q || norm(m.t+" "+m.d+" "+m.k).includes(q)));
+  return MEDIA.filter(m => (!sec||m.sec===sec) && (!q || norm([m.t,m.d,m.k,m.name,m.role,m.pgd,m.badge].filter(Boolean).join(" ")).includes(q)));
 }
 function renderContent(){
   const c = $("content");
