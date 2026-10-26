@@ -95,6 +95,14 @@ main{min-width:0;display:flex;flex-direction:column}
 .pill[aria-pressed="true"]{background:var(--brand-soft);border-color:var(--brand);color:var(--brand)}
 .iconbtn{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
 .menu-btn{display:none}
+.side-x{flex:none;width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--muted)}
+.side-x:hover{color:var(--brand);border-color:var(--brand)}
+/* Máy tính: thu gọn menu trái để nội dung chiếm hết chiều ngang */
+@media (min-width:901px){
+  .app.collapsed{grid-template-columns:minmax(0,1fr)}
+  .app.collapsed .side{display:none}
+  .app.collapsed .menu-btn{display:grid}
+}
 
 .content{padding-block:24px 48px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px));display:grid;gap:28px}
 
@@ -235,7 +243,8 @@ main{min-width:0;display:flex;flex-direction:column}
   <aside class="side" id="side" aria-label="Danh mục">
     <div class="brand">
       <img class="logo-img" src="logo-nnx.webp" alt="NNX Insurance" width="2000" height="1111">
-      <div><b>NGÔI NHÀ XANH</b><small>Thư viện bán bảo hiểm</small></div>
+      <div style="min-width:0;flex:1"><b>NGÔI NHÀ XANH</b><small>Thư viện bán bảo hiểm</small></div>
+      <button class="side-x" id="sideClose" title="Thu gọn menu" aria-label="Thu gọn menu"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/><path d="M20 5v14"/></svg></button>
     </div>
     <div class="search">
       <label for="q"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -477,7 +486,22 @@ document.addEventListener("click", e => {
 });
 document.addEventListener("keydown", e => { if (e.key==="Escape" && !$("drawer").hidden) closeDrawer(); });
 $("q").addEventListener("input", e => { S.q = e.target.value; renderContent(); });
-$("menuBtn").addEventListener("click", () => $("side").classList.toggle("open"));
+/* Menu trái: điện thoại thì trượt ra/vào, máy tính thì thu gọn/mở lại (nhớ lựa chọn) */
+const isDesktop = () => matchMedia("(min-width: 901px)").matches;
+function setCollapsed(on){
+  document.querySelector(".app").classList.toggle("collapsed", on);
+  $("menuBtn").setAttribute("aria-label", on ? "Mở menu" : "Mở danh mục");
+  $("menuBtn").title = on ? "Mở menu" : "";
+  try{ localStorage.setItem("nnx-side", on ? "thu" : "mo"); }catch(e){}
+}
+$("menuBtn").addEventListener("click", () => isDesktop() ? setCollapsed(false) : $("side").classList.toggle("open"));
+$("sideClose").addEventListener("click", () => isDesktop() ? setCollapsed(true) : $("side").classList.remove("open"));
+(() => {
+  let saved = null; try{ saved = localStorage.getItem("nnx-side"); }catch(e){}
+  /* Nhúng trong Google Site (khung hẹp) thì mặc định thu gọn */
+  const embedded = window.self !== window.top;
+  if (saved ? saved === "thu" : embedded) setCollapsed(true);
+})();
 $("bonus").addEventListener("click", () => { S.view="sec-news"; S.q=""; $("q").value=""; render(); $("side").classList.remove("open"); });
 $("themeBtn").addEventListener("click", () => {
   const r = document.documentElement;
