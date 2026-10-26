@@ -131,9 +131,8 @@ async function loadSheet(){
       if (date && !/^(\d{1,2}\/)?(\d{1,2}\/)?\d{4}$/.test(date)) bad(T, r._row, `Ngày "${date}" nên viết 15/09/2026, 09/2026 hoặc 2026 (vẫn hiện nhưng có thể xếp sai thứ tự).`);
       list.push({id:"s"+r._row, sec, date, k:r["dòng nhỏ"], t:r["tiêu đề"], d:r["mô tả"], u,
         icon: SHEET_ICONS[sheetKey(r["biểu tượng"])] || SECTION_ICONS[sec] || "news", star:isYes(r["nổi bật"]),
-        /* Cột tùy chọn cho thẻ vinh danh có ảnh */
-        photo:r["ảnh"]||"", name:r["họ tên"]||"", role:r["chức danh"]||"", pgd:r["pgd / khu vực"]||r["pgd"]||"", badge:r["thành tích"]||""});
-      if (sec === "case" && r["ảnh"] && !driveId(r["ảnh"]) && !isLink(r["ảnh"])) bad(T, r._row, "Cột Ảnh cần là link file Google Drive (mở ảnh → Chia sẻ → Sao chép đường liên kết).");
+        /* Cột tùy chọn cho thẻ vinh danh */
+        name:r["họ tên"]||"", role:r["chức danh"]||"", pgd:r["pgd / khu vực"]||r["pgd"]||"", badge:r["thành tích"]||""});
     });
     if (list.length){ MEDIA.splice(0, MEDIA.length, ...list); report.used.media = true; }
     else report.problems.push(`Tab "${T}" không có mục nào đang Hiện, web giữ danh sách dự phòng.`);
