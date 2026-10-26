@@ -79,7 +79,7 @@ Sửa Sheet xong, mở lại web là thấy thay đổi. **Không cần GitHub, 
 | **Hướng dẫn** | Cách điền từng cột | |
 | **Sản phẩm** | Mã, tên, kênh, nhu cầu, hãng bảo hiểm, dòng phụ, mô tả | 1 sản phẩm |
 | **Tài liệu** | Mã sản phẩm, loại tài liệu, tên hiển thị riêng, link | 1 tài liệu của 1 sản phẩm |
-| **Truyền thông** | Mục, ngày cập nhật, dòng nhỏ, tiêu đề, mô tả, link, nổi bật, biểu tượng. Vinh danh có thêm: họ tên, chức danh, PGD / khu vực, thành tích | 1 thẻ tin / vinh danh / content… |
+| **Truyền thông** | Mục, ngày cập nhật, dòng nhỏ, tiêu đề, mô tả, link, nổi bật, biểu tượng. Cột J–M (họ tên, chức danh, PGD / khu vực, thành tích) chỉ dùng cho vinh danh | 1 thẻ tin / vinh danh / content… |
 | **Chữ chạy** | Nội dung dòng chữ chạy. Bọc chữ trong `**hai dấu sao**` để tô màu | 1 thông báo |
 | **Danh mục** | Danh sách cho các ô thả xuống. Không sửa | |
 
@@ -100,7 +100,7 @@ Sửa Sheet xong, mở lại web là thấy thay đổi. **Không cần GitHub, 
 | Thêm tài liệu cho sản phẩm | Tab **Tài liệu**: thêm dòng, chọn *Mã sản phẩm* và *Loại tài liệu*, dán link. Muốn tài liệu hiện ở vị trí nào thì chèn dòng ở vị trí đó |
 | Thêm sản phẩm mới | Tab **Sản phẩm**: thêm dòng, đặt *Mã* viết liền không dấu (ví dụ `pti-care`). Sau đó sang tab **Tài liệu** thêm các tài liệu với mã vừa đặt |
 | Gắn / đổi hãng bảo hiểm | Tab **Sản phẩm**, cột *Hãng bảo hiểm*. Nhiều hãng thì cách nhau bằng dấu phẩy |
-| Thêm người được **vinh danh** | Tab **Truyền thông**: thêm dòng, *Mục* chọn *Vinh danh & case study*, điền *Ngày cập nhật* (ví dụ `10/2026`), *Họ tên, Chức danh, PGD / khu vực, Thành tích*. Xem [Thẻ vinh danh](#thẻ-vinh-danh) |
+| Thêm người được **vinh danh** | Tab **Truyền thông**: thêm dòng, *Mục* chọn *Vinh danh & case study*, điền *Ngày cập nhật* (ví dụ `10/2026`), *Mô tả*, *Link* và 4 cột cuối **J–M**: *Họ tên, Chức danh, PGD / khu vực, Thành tích*. Xem [Thẻ vinh danh](#thẻ-vinh-danh) |
 | Đăng **tin mới** | Tab **Truyền thông**: *Mục* chọn *Tin mới*. Chọn *Nổi bật = Có* nếu muốn biểu tượng có nền vàng chanh |
 | Thêm **câu chuyện bồi thường** / **kho content** / **kỹ năng** / **hướng dẫn bồi thường** | Tab **Truyền thông**, chọn *Mục* tương ứng |
 | Đổi **dòng chữ chạy** | Tab **Chữ chạy**. Bọc chữ trong `**hai dấu sao**` để tô màu |
@@ -126,35 +126,46 @@ Mỗi người được vinh danh có một thẻ như sau:
 └───────────────────────────────┘
 ```
 
-Thẻ tự xếp theo năm, người mới nhất lên trước.
+Thẻ tự nhóm theo năm (*Năm 2026*, *Năm 2027*…), người mới nhất lên trước. Bấm nút **🏆 VINH DANH** trên đầu trang để xem.
 
-#### Bước 1. Thêm 4 cột vào tab *Truyền thông* (làm 1 lần)
+#### Các cột dùng cho thẻ vinh danh
 
-Thêm vào **cuối** dòng tiêu đề (sau cột *Hiển thị*), gõ đúng tên:
+Tab **Truyền thông** đã có sẵn 4 cột dành riêng cho vinh danh ở cuối bảng: **J · Họ tên**, **K · Chức danh**, **L · PGD / khu vực**, **M · Thành tích**. Một dòng vinh danh dùng các cột sau:
 
-| Cột | Ví dụ | Ghi chú |
-|---|---|---|
-| **Họ tên** | `Nguyễn Mạnh Linh` | **Bắt buộc** để hiện dạng thẻ vinh danh. Để trống thì thẻ hiện kiểu cũ |
-| **Chức danh** | `QLKV`, `CVKD`, `TPGD` | Viết tắt, in hoa |
-| **PGD / khu vực** | `PGD 192 Kim Ngưu – HNI` hoặc `KV5 · Vùng Hà Nội 2` | |
-| **Thành tích** | `Top 1 miền Bắc`, `Vượt KPI 150%` | Hiện thành tag vàng chanh. **Ngắn gọn, khoảng 20 ký tự** |
+| Cột | Điền gì | Ví dụ | Hiện ở đâu trên thẻ |
+|---|---|---|---|
+| **A · Mục** | Chọn **Vinh danh & case study** | | |
+| **B · Ngày cập nhật** | `MM/YYYY` hoặc `DD/MM/YYYY` | `10/2026` | Tag 📅 góc phải trên, và dùng để xếp thứ tự |
+| C · Dòng nhỏ | Không hiện trên thẻ vinh danh, có thể để trống | `Vinh danh · KV3 Hải Phòng` | |
+| **D · Tiêu đề** | Câu ngắn, dùng khi tìm kiếm | `Trần Thị Hoa – Top 1 phí Q3` | Không hiện, chỉ để tìm kiếm |
+| **E · Mô tả** | 1–2 câu về thành tích, bí quyết. **Nên dưới 150 ký tự** | `3 tháng liên tục dẫn đầu phí BH độc lập nhờ chăm sóc lại khách cũ.` | Phần dưới của thẻ |
+| **F · Link** | Bài chia sẻ chi tiết (Gapowork, Drive, Google Site…). **Bắt buộc** | `https://www.gapowork.vn/…` | Nút *Xem chia sẻ ↗* |
+| G · Nổi bật, H · Biểu tượng | Không cần cho thẻ vinh danh | | |
+| **I · Hiển thị** | **Hiện** hoặc **Ẩn** | `Hiện` | |
+| **J · Họ tên** | Họ tên đầy đủ, có dấu. **Bắt buộc** để hiện dạng thẻ vinh danh | `Trần Thị Hoa` | Chữ lớn, nền xanh |
+| **K · Chức danh** | Viết tắt, in hoa | `CVKD`, `TPGD`, `QLKV` | Chữ vàng chanh, trước PGD |
+| **L · PGD / khu vực** | Tên PGD hoặc khu vực / vùng | `PGD 192 Kim Ngưu – HNI`, `KV5 · Vùng Hà Nội 2` | Sau chức danh |
+| **M · Thành tích** | Một cụm ngắn, **khoảng 20 ký tự** | `Top 1 phí Q3`, `Vượt KPI 150%` | Tag 🏆 vàng chanh góc trái trên |
 
-> Các cột này **không bắt buộc**. Sheet chưa có cột thì web vẫn chạy bình thường, thẻ vinh danh hiện kiểu cũ.
+> Ô **Họ tên** để trống thì dòng đó hiện kiểu thẻ thường (có biểu tượng cúp nhỏ, không có phần đầu xanh). Các mục khác (Tin mới, Câu chuyện bồi thường, Kho content…) để trống 4 cột J–M.
 
-#### Bước 2. Thêm một người vinh danh
+#### Thêm một người vinh danh (khoảng 2 phút)
 
-Tab **Truyền thông** → thêm 1 dòng:
+1. Mở Sheet → tab **Truyền thông**.
+2. Thêm 1 dòng mới ở **cuối bảng** (thứ tự dòng không quan trọng, web tự xếp theo *Ngày cập nhật*).
+3. Điền theo bảng trên. Ví dụ một dòng hoàn chỉnh:
 
-| Cột | Điền |
-|---|---|
-| *Mục* | **Vinh danh & case study** |
-| *Ngày cập nhật* | `10/2026` (hiện thành tag thời gian) |
-| *Tiêu đề* | Câu ngắn, dùng khi tìm kiếm. Ví dụ `Trần Thị Hoa – Top 1 phí Q3` |
-| *Mô tả* | 1–2 câu về thành tích và bí quyết (nên dưới 150 ký tự) |
-| *Link* | Bài chia sẻ chi tiết (Gapowork, Drive, Google Site…) |
-| *Họ tên, Chức danh, PGD / khu vực, Thành tích* | Như bảng ở bước 1 |
+| Mục | Ngày cập nhật | Tiêu đề | Mô tả | Link | Hiển thị | Họ tên | Chức danh | PGD / khu vực | Thành tích |
+|---|---|---|---|---|---|---|---|---|---|
+| Vinh danh & case study | 10/2026 | Trần Thị Hoa – Top 1 phí Q3 | 3 tháng liên tục dẫn đầu phí BH độc lập nhờ chăm sóc lại khách cũ. | https://www.gapowork.vn/… | Hiện | Trần Thị Hoa | CVKD | PGD 192 Kim Ngưu – HNI | Top 1 phí Q3 |
 
-Mở web → bấm **🏆 VINH DANH** → `Ctrl + F5` để kiểm tra.
+4. Mở web → bấm **🏆 VINH DANH** → `Ctrl + F5` để kiểm tra. Nếu thẻ không hiện, mở `?kiemtra` để xem lý do (thường do thiếu *Link*).
+
+**Mẹo viết cho đẹp:**
+- **Thành tích** càng ngắn càng nổi: `Top 1 miền Bắc` tốt hơn `Đạt giải Top 1 doanh thu bảo hiểm toàn miền Bắc`.
+- **Chức danh** viết tắt in hoa (`CVKD`), để thông tin dài hơn ở cột *PGD / khu vực*.
+- **Mô tả** nêu con số hoặc cách làm cụ thể để người bán khác học theo.
+- Muốn gỡ một người khỏi trang: chọn **Ẩn** ở cột *Hiển thị*, không cần xóa dòng.
 
 ### Thêm người cùng cập nhật
 
