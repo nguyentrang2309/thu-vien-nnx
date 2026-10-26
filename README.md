@@ -52,6 +52,7 @@ Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu củ
 | `data.js` | Mã Google Sheet (`SHEET_ID`), danh mục cố định (nhu cầu, kênh, loại tài liệu, mục truyền thông) và **bản dự phòng** của toàn bộ nội dung | Khi đổi Sheet, thêm nhu cầu / loại tài liệu / mục mới, hoặc khi Sheet gặp sự cố |
 | `sheet.js` | Đọc nội dung từ Google Sheet | Không cần sửa |
 | `logo-nnx.webp` | Logo NNX Insurance ở góc trên bên trái | Khi đổi logo (xem [mục 7](#7-đổi-logo)) |
+| `fonts/` | Font chữ **SVN-Gilroy** (5 độ đậm: 400 Regular, 500 Medium, 600 SemiBold, 700 Bold, 800 XBold) dùng cho toàn bộ web | Không cần sửa. Muốn đổi font thì nhờ người phụ trách kỹ thuật |
 | `index.html` | Giao diện và cách hiển thị | Chỉ khi đổi thiết kế |
 | `README.md` | Hướng dẫn này | |
 

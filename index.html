@@ -4,9 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Thư viện Bảo hiểm Ngôi Nhà Xanh</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="preload" href="fonts/svn-gilroy-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/svn-gilroy-700.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+/* Font SVN-Gilroy (file trong thư mục fonts/) */
+@font-face{font-family:"SVN-Gilroy";src:url("fonts/svn-gilroy-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"SVN-Gilroy";src:url("fonts/svn-gilroy-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"SVN-Gilroy";src:url("fonts/svn-gilroy-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"SVN-Gilroy";src:url("fonts/svn-gilroy-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"SVN-Gilroy";src:url("fonts/svn-gilroy-800.woff2") format("woff2");font-weight:800;font-style:normal;font-display:swap}
 /* Layout: sidebar danh mục cố định bên trái + băng tin chạy + lưới thẻ sản phẩm; bấm thẻ mở ngăn tài liệu bên phải */
 :root{
   --bg:#F1F5F0; --surface:#FFFFFF; --ink:#12231A; --muted:#5A6B60; --line:#D9E3DA;
@@ -14,9 +20,9 @@
   --t-health:#E3F3E8; --t-acc:#FFF3D6; --t-income:#E6EEFB; --t-bike:#F2E9FB; --t-car:#E0F2F4;
   --i-health:#0A8A3E; --i-acc:#B26A00; --i-income:#2D5BB8; --i-bike:#7A43B6; --i-car:#0B7C86;
   --shadow:0 1px 2px rgba(18,35,26,.06),0 6px 20px rgba(18,35,26,.06);
-  --f-display:"Be Vietnam Pro",system-ui,"Segoe UI",Arial,sans-serif;
-  --f-body:"Be Vietnam Pro",system-ui,"Segoe UI",Arial,sans-serif;
-  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --f-display:"SVN-Gilroy",system-ui,"Segoe UI",Arial,sans-serif;
+  --f-body:"SVN-Gilroy",system-ui,"Segoe UI",Arial,sans-serif;
+  --f-mono:"SVN-Gilroy",system-ui,"Segoe UI",Arial,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0D1511; --surface:#141E18; --ink:#E5EEE7; --muted:#92A497; --line:#25332A;
