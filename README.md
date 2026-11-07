@@ -31,6 +31,7 @@ Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu củ
 - [6. Hướng dẫn bồi thường và kỹ năng bán dùng chung](#6-hướng-dẫn-bồi-thường-và-kỹ-năng-bán-dùng-chung)
 - [7. Đổi logo](#7-đổi-logo)
 - [Quản trị](#quản-trị)
+- [Thống kê truy cập](#thống-kê-truy-cập)
 - [Khi gặp sự cố](#khi-gặp-sự-cố)
 
 ---
@@ -51,6 +52,9 @@ Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu củ
 |---|---|---|
 | `data.js` | Mã Google Sheet (`SHEET_ID`), danh mục cố định (nhu cầu, kênh, loại tài liệu, mục truyền thông) và **bản dự phòng** của toàn bộ nội dung | Khi đổi Sheet, thêm nhu cầu / loại tài liệu / mục mới, hoặc khi Sheet gặp sự cố |
 | `sheet.js` | Đọc nội dung từ Google Sheet | Không cần sửa |
+| `thongke.js` | Ghi lượt truy cập, mở sản phẩm, bấm tài liệu, tìm kiếm | Không cần sửa |
+| `thong-ke.html` | Trang xem số liệu thống kê | Không cần sửa |
+| `thong-ke-apps-script.gs` | Code dán vào Apps Script của Sheet thống kê (xem [Thống kê truy cập](#thống-kê-truy-cập)) | Chỉ khi cài lần đầu |
 | `logo-nnx.webp` | Logo NNX Insurance ở góc trên bên trái | Khi đổi logo (xem [mục 7](#7-đổi-logo)) |
 | `fonts/` | Font chữ **SVN-Gilroy** (5 độ đậm: 400 Regular, 500 Medium, 600 SemiBold, 700 Bold, 800 XBold) dùng cho toàn bộ web | Không cần sửa. Muốn đổi font thì nhờ người phụ trách kỹ thuật |
 | `index.html` | Giao diện và cách hiển thị | Chỉ khi đổi thiết kế |
@@ -386,6 +390,44 @@ Logo ở góc trên bên trái lấy từ file **`logo-nnx.webp`** trong repo. L
 3. Mở [trình soạn thảo `data.js`](https://github.com/nguyentrang2309/thu-vien-nnx/edit/main/data.js), dán đè vào đúng chỗ và Commit.
 
 **Lưu ý bảo mật:** repo đang để **công khai**, ai có link cũng xem được code và danh sách link Drive. Tài liệu vẫn được bảo vệ bằng quyền chia sẻ trên Drive, nên **không** dán link "Bất kỳ ai có đường liên kết" cho tài liệu nội bộ nhạy cảm.
+
+---
+
+## Thống kê truy cập
+
+Web ghi lại các thao tác của người bán vào **một Google Sheet thống kê riêng**, rồi hiện số liệu ở trang **`thong-ke.html`**:
+https://nguyentrang2309.github.io/thu-vien-nnx/thong-ke.html
+
+| Đo gì | Dùng để làm gì |
+|---|---|
+| Lượt vào trang, số người xem, theo ngày và theo giờ | Biết thư viện có được dùng đều không, giờ nào đông |
+| Sản phẩm được mở nhiều nhất | Sản phẩm người bán quan tâm |
+| Tài liệu được bấm hoặc sao chép link nhiều nhất | Tài liệu nào thật sự được dùng, loại nào ít ai mở |
+| Tin, vinh danh, content được mở nhiều nhất | Bài truyền thông nào hiệu quả |
+| Từ khóa tìm kiếm, và **từ khóa tìm mà không thấy** | Nội dung người bán cần nhưng thư viện chưa có |
+| Vào từ đâu (Google Site, Zalo, gõ trực tiếp…) và thiết bị | Kênh nào đưa người bán vào thư viện |
+
+**Không ghi họ tên, email hay thông tin cá nhân.** Mỗi trình duyệt chỉ có một mã ngẫu nhiên để đếm số người xem. Mở `thong-ke.html?demo` để xem trang với số liệu mẫu.
+
+### Cài đặt (làm một lần, khoảng 10 phút)
+
+1. **Tạo Google Sheet mới**, đặt tên ví dụ *Thống kê thư viện NNX*. Sheet này **để riêng tư**, không cần chia sẻ cho ai.
+2. Trong Sheet, vào **Tiện ích mở rộng → Apps Script**. Xóa hết code có sẵn, dán toàn bộ nội dung file [`thong-ke-apps-script.gs`](thong-ke-apps-script.gs), bấm 💾 **Lưu**.
+3. Ở thanh trên, chọn hàm **`setup`** → bấm **Chạy** → cấp quyền theo hướng dẫn của Google (chọn tài khoản → *Nâng cao* → *Đi tới…* → *Cho phép*). Quay lại Sheet sẽ thấy tab **Nhật ký**.
+4. Bấm **Triển khai → Tùy chọn triển khai mới** → biểu tượng ⚙️ chọn **Ứng dụng web**:
+   - *Thực thi dưới dạng*: **Tôi**
+   - *Người có quyền truy cập*: **Bất kỳ ai**
+   - Bấm **Triển khai**, rồi **sao chép URL ứng dụng web** (dạng `https://script.google.com/macros/s/…/exec`).
+5. Mở [data.js](https://github.com/nguyentrang2309/thu-vien-nnx/edit/main/data.js), dán URL vào dòng `const STATS_URL = "";` (giữa hai dấu ngoặc kép) → **Commit changes**.
+6. Chờ 1–2 phút, mở web, bấm vài sản phẩm, rồi xem tab **Nhật ký** trong Sheet: mỗi thao tác là một dòng. Mở `thong-ke.html` để xem số liệu tổng hợp.
+
+> 💡 **Sửa code Apps Script sau này** thì phải vào **Triển khai → Quản lý các lần triển khai → ✏️ → Phiên bản: Phiên bản mới → Triển khai**, URL giữ nguyên. Chỉ bấm Lưu thì web vẫn chạy code cũ.
+
+> ⚠️ Ai có link `thong-ke.html` đều xem được số liệu tổng hợp (không có dữ liệu cá nhân). Muốn xem từng dòng thì mở tab **Nhật ký** trong Sheet, chỉ người được chia sẻ Sheet mới thấy.
+
+**Lưu ý:**
+- Khi chạy thử trên máy (localhost) web không ghi thống kê. Mở với `?dothu` để ghi thật và in từng thao tác ra Console (F12).
+- Trang thống kê tính trên toàn bộ tab Nhật ký. Sau khoảng 1–2 năm, nếu trang tải chậm, chép các dòng cũ sang Sheet lưu trữ rồi xóa khỏi tab Nhật ký.
 
 ---
 

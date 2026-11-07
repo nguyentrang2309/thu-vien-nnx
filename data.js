@@ -9,6 +9,10 @@
    Để "" thì web dùng dữ liệu dự phòng bên dưới. */
 const SHEET_ID = "1CM5UR0rGkWSdaNJPDd3dxXAXwvu4_qzeLu480lIdQtY";
 
+/* Link Apps Script ghi lượt truy cập (xem mục "Thống kê truy cập" trong README).
+   Để "" thì web không ghi thống kê. */
+const STATS_URL = "https://script.google.com/macros/s/AKfycbxGJ69HxKTn9QLUF0DcUMcKryUlR6ZkRrTTmQgnpkxQiBdGPUvoFAHvShTf0NFwNyZjxQ/exec";
+
 const F = id => `https://drive.google.com/file/d/${id}/view`;
 const D = id => `https://drive.google.com/drive/folders/${id}`;
 const DOC = id => `https://docs.google.com/document/d/${id}/edit`;

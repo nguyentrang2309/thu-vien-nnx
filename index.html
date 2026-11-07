@@ -307,6 +307,7 @@ main{min-width:0;display:flex;flex-direction:column}
 
 <script src="data.js"></script>
 <script src="sheet.js"></script>
+<script src="thongke.js"></script>
 <script>
 /* ============ ICONS ============ */
 const P = {
@@ -473,9 +474,12 @@ function docTile(d){
   return `<div class="doc"><a href="${d[1]}" target="_blank" rel="noopener"><span class="di">${ic(t.icon)}</span><span style="min-width:0"><b>${esc(docLabel(d))}</b><small>${host(d[1])}</small></span></a><button class="cp" data-copy="${d[1]}" aria-label="Sao chép link ${esc(docLabel(d))}">${ic("copy")}</button></div>`;
 }
 function rowLink(t,u,icon){ return `<a class="row" href="${u}" target="_blank" rel="noopener">${ic(icon)}<span>${esc(t)}</span>${ic("ext")}</a>`; }
+let openedProduct = null;
 function openProduct(id){
   const p = PRODUCTS.find(x => x.id === id); if(!p) return;
   const n = needOf(p.need);
+  openedProduct = p;
+  Track.send("product", p.id, p.name, CHANNELS[p.ch]);
   $("drawer").innerHTML = `
     <div class="d-cover" style="background:var(--t-${p.need});color:var(--i-${p.need})">
       <button class="d-close" id="dClose">${ic("arrow")}Quay lại danh sách</button>
@@ -516,6 +520,7 @@ let honorReturn = null;
 function openHonor(id){
   const m = MEDIA.find(x => x.id === id); if (!m) return;
   const pv = previewUrl(m.u);
+  Track.send("honor", m.id, m.name || m.t, m.badge);
   honorReturn = document.activeElement;
   $("honorModal").innerHTML = `<div class="hm-box">
     <button class="hm-x" id="hmClose" aria-label="Đóng">${ic("x")}</button>
@@ -543,6 +548,27 @@ function closeHonor(){
 
 /* ============ EVENTS ============ */
 function toast(msg){ const t=$("toast"); t.textContent=msg; t.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(()=>t.hidden=true,1800); }
+/* Thống kê: ghi lượt bấm tài liệu, sao chép link, mở thẻ truyền thông, đổi mục xem (xem thongke.js) */
+const viewName = v => v === "products" ? "Sản phẩm" : v === "media" ? "Tổng quan truyền thông" : (SECTIONS.find(s => "sec-"+s.id === v) || {}).label || v;
+document.addEventListener("click", e => {
+  const doc = e.target.closest("#drawer .doc a, #drawer .doc .cp");
+  if (doc && openedProduct){
+    const d = openedProduct.docs.find(x => x[1] === (doc.getAttribute("href") || doc.dataset.copy));
+    if (d) Track.send("doc", openedProduct.id+" · "+d[0], openedProduct.name+" · "+docLabel(d), doc.classList.contains("cp") ? "Sao chép link" : "Mở");
+    return;
+  }
+  const m = e.target.closest("a.m, a.hc");
+  if (m && !(m.dataset.honor && !e.ctrlKey && !e.metaKey && !e.shiftKey)){
+    const item = MEDIA.find(x => x.u === m.getAttribute("href"));
+    if (item) Track.send("media", (SECTIONS.find(s => s.id === item.sec) || {}).label || item.sec, item.name || item.t, "Mở");
+    return;
+  }
+  const hl = e.target.closest("#honorModal a.hm-btn, #honorModal [data-copy]");
+  if (hl){ const item = MEDIA.find(x => x.u === (hl.getAttribute("href") || hl.dataset.copy));
+    if (item) Track.send("media", "Vinh danh & case study", item.name || item.t, hl.dataset.copy ? "Sao chép link" : "Mở"); return; }
+  const v = e.target.closest("[data-view], #bonus");
+  if (v) setTimeout(() => Track.send("view", viewName(S.view), S.view === "products" ? (S.need === "all" ? "Tất cả" : needOf(S.need).short) : ""), 0);
+}, true);
 document.addEventListener("click", e => {
   const v = e.target.closest("[data-view]");
   if (v){ e.preventDefault(); S.view = v.dataset.view; if (v.dataset.need) S.need = v.dataset.need; render(); $("side").classList.remove("open"); window.scrollTo({top:0}); return; }
@@ -568,7 +594,10 @@ document.addEventListener("keydown", e => {
   if (!$("honorModal").hidden) closeHonor();
   else if (!$("drawer").hidden) closeDrawer();
 });
-$("q").addEventListener("input", e => { S.q = e.target.value; renderContent(); });
+$("q").addEventListener("input", e => {
+  S.q = e.target.value; renderContent();
+  Track.search(S.q, S.view === "products" ? filteredProducts().length + mediaMatches().length : mediaMatches(S.view.startsWith("sec-") ? S.view.slice(4) : "").length);
+});
 /* Menu trái: điện thoại thì trượt ra/vào, máy tính thì thu gọn/mở lại (nhớ lựa chọn) */
 const isDesktop = () => matchMedia("(min-width: 901px)").matches;
 function setCollapsed(on){
@@ -599,6 +628,7 @@ function start(){
   ALL_INS = [...new Set(PRODUCTS.flatMap(p => p.insurers||[]))];
   $("ticker").innerHTML = [...TICKER,...TICKER].map(t=>`<span>${t}</span><span>◆</span>`).join("");
   render();
+  Track.visit();
   if (location.hash.startsWith("#p-")) openProduct(location.hash.slice(3));
 }
 $("content").innerHTML = `<div class="empty">Đang tải nội dung…</div>`;
