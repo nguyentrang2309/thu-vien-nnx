@@ -62,8 +62,10 @@ function doGet(e){
   const top = {products:{}, docs:{}, docTypes:{}, media:{}, searches:{}, noResult:{}, sources:{}, devices:{}, views:{}};
   const hours = new Array(24).fill(0);
 
+  let counted = 0;
   rows.forEach(r => {
-    const t = r[0]; if (!(t instanceof Date)) return;
+    const t = time_(r[0]); if (!t) return;
+    counted++;
     const k = dayKey(t), type = r[1], target = String(r[2]), label = String(r[3]), extra = String(r[4]), vid = r[5];
     if (k < prevFrom) return;
     const P = k >= from ? cur : prev;
@@ -99,7 +101,7 @@ function doGet(e){
     products:P.products, docs:P.docs, searches:P.searches});
 
   return out_({
-    ok:true, days, from, to:keys[keys.length - 1],
+    ok:true, days, from, to:keys[keys.length - 1], rows:rows.length, counted,
     updated:Utilities.formatDate(today, TZ, "HH:mm dd/MM/yyyy"),
     totals:sum(cur), previous:sum(prev),
     daily:keys.map(k => ({d:k, visits:daily[k].visits, visitors:Object.keys(daily[k].visitors).length})),
@@ -108,6 +110,17 @@ function doGet(e){
     topMedia:rank(top.media), topSearches:rank(top.searches), noResult:rank(top.noResult),
     sources:rank(top.sources, 6), devices:rank(top.devices, 4), views:rank(top.views, 8),
   });
+}
+
+/* Cột Thời gian có thể là ngày giờ, số (ô định dạng số) hoặc chữ "07/11/2026 22:40:05" (ô định dạng văn bản) */
+function time_(v){
+  if (v && typeof v.getTime === "function") return isNaN(v.getTime()) ? null : v;
+  if (typeof v === "number" && v > 0) return new Date(Math.round((v - 25569) * 864e5) - 7 * 36e5);
+  const s = String(v || "").trim();
+  const m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[ ,]+(\d{1,2}):(\d{2})(?::(\d{2}))?)?/);
+  if (m) return new Date(Date.UTC(+m[3], +m[2] - 1, +m[1], (+m[4] || 0) - 7, +m[5] || 0, +m[6] || 0));
+  const d = s ? new Date(s) : null;
+  return d && !isNaN(d.getTime()) ? d : null;
 }
 
 function blank_(){ return {visits:0, visitors:{}, sessions:{}, products:0, docs:0, searches:0}; }
