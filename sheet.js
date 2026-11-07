@@ -132,7 +132,7 @@ async function loadSheet(){
       list.push({id:"s"+r._row, sec, date, k:r["dòng nhỏ"], t:r["tiêu đề"], d:r["mô tả"], u,
         icon: SHEET_ICONS[sheetKey(r["biểu tượng"])] || SECTION_ICONS[sec] || "news", star:isYes(r["nổi bật"]),
         /* Cột tùy chọn cho thẻ vinh danh */
-        name:r["họ tên"]||"", role:r["chức danh"]||"", pgd:r["pgd / khu vực"]||r["pgd"]||"", badge:r["thành tích"]||""});
+        name:r["họ tên"]||"", role:r["chức danh"]||"", pgd:r["pgd / khu vực"]||r["pgd"]||"", badge:r["thành tích"]||"", c:r["nội dung chi tiết"]||""});
     });
     if (list.length){ MEDIA.splice(0, MEDIA.length, ...list); report.used.media = true; }
     else report.problems.push(`Tab "${T}" không có mục nào đang Hiện, web giữ danh sách dự phòng.`);

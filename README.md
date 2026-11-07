@@ -123,11 +123,13 @@ Mỗi người được vinh danh có một thẻ như sau:
 │ QLKV · KV5 · Vùng Hà Nội 2    │  ← Chức danh · PGD / khu vực
 ├───────────────────────────────┤
 │ Giữ vững Top 1 toàn Vùng…     │  ← Mô tả
-│ Xem chia sẻ ↗                 │  ← Link
+│ Xem chi tiết →                │  ← Bấm vào thẻ mở popup
 └───────────────────────────────┘
 ```
 
 Thẻ tự nhóm theo năm (*Năm 2026*, *Năm 2027*…), người mới nhất lên trước. Bấm nút **🏆 VINH DANH** trên đầu trang để xem.
+
+**Bấm vào thẻ** sẽ mở popup ngay trong trang, hiện: tiêu đề, mô tả, *Nội dung chi tiết* (cột N), nút mở bài gốc và nút sao chép link. Nếu *Link* là file Google Drive / Docs / Slides thì popup xem trước file ngay bên trong. Link Google Sites, Gapowork không cho nhúng vào trang khác nên popup chỉ có nút mở bài gốc, vì vậy nên điền cột N để người xem đọc được ngay.
 
 #### Các cột dùng cho thẻ vinh danh
 
@@ -138,17 +140,20 @@ Tab **Truyền thông** đã có sẵn 4 cột dành riêng cho vinh danh ở cu
 | **A · Mục** | Chọn **Vinh danh & case study** | | |
 | **B · Ngày cập nhật** | `MM/YYYY` hoặc `DD/MM/YYYY` | `10/2026` | Tag 📅 góc phải trên, và dùng để xếp thứ tự |
 | C · Dòng nhỏ | Không hiện trên thẻ vinh danh, có thể để trống | `Vinh danh · KV3 Hải Phòng` | |
-| **D · Tiêu đề** | Câu ngắn, dùng khi tìm kiếm | `Trần Thị Hoa – Top 1 phí Q3` | Không hiện, chỉ để tìm kiếm |
+| **D · Tiêu đề** | Câu ngắn, dùng khi tìm kiếm | `Trần Thị Hoa – Top 1 phí Q3` | Không hiện trên thẻ, hiện ở đầu popup |
 | **E · Mô tả** | 1–2 câu về thành tích, bí quyết. **Nên dưới 150 ký tự** | `3 tháng liên tục dẫn đầu phí BH độc lập nhờ chăm sóc lại khách cũ.` | Phần dưới của thẻ |
-| **F · Link** | Bài chia sẻ chi tiết (Gapowork, Drive, Google Site…). **Bắt buộc** | `https://www.gapowork.vn/…` | Nút *Xem chia sẻ ↗* |
+| **F · Link** | Bài chia sẻ chi tiết (Gapowork, Drive, Google Site…). **Bắt buộc** | `https://www.gapowork.vn/…` | Nút *Xem bài chia sẻ gốc* trong popup |
 | G · Nổi bật, H · Biểu tượng | Không cần cho thẻ vinh danh | | |
 | **I · Hiển thị** | **Hiện** hoặc **Ẩn** | `Hiện` | |
 | **J · Họ tên** | Họ tên đầy đủ, có dấu. **Bắt buộc** để hiện dạng thẻ vinh danh | `Trần Thị Hoa` | Chữ lớn, nền xanh |
 | **K · Chức danh** | Viết tắt, in hoa | `CVKD`, `TPGD`, `QLKV` | Chữ vàng chanh, trước PGD |
 | **L · PGD / khu vực** | Tên PGD hoặc khu vực / vùng | `PGD 192 Kim Ngưu – HNI`, `KV5 · Vùng Hà Nội 2` | Sau chức danh |
 | **M · Thành tích** | Một cụm ngắn, **khoảng 20 ký tự** | `Top 1 phí Q3`, `Vượt KPI 150%` | Tag 🏆 vàng chanh góc trái trên |
+| N · Nội dung chi tiết | *Tùy chọn.* Bài chia sẻ đầy đủ. Xuống dòng trong ô (`Alt + Enter`) để tách đoạn, viết `**chữ**` để in đậm | `**Bí quyết 1:** gọi lại khách cũ mỗi sáng…` | Chỉ hiện trong popup |
 
-> Ô **Họ tên** để trống thì dòng đó hiện kiểu thẻ thường (có biểu tượng cúp nhỏ, không có phần đầu xanh). Các mục khác (Tin mới, Câu chuyện bồi thường, Kho content…) để trống 4 cột J–M.
+> Ô **Họ tên** để trống thì dòng đó hiện kiểu thẻ thường (có biểu tượng cúp nhỏ, không có phần đầu xanh, bấm vào mở thẳng link). Các mục khác (Tin mới, Câu chuyện bồi thường, Kho content…) để trống các cột J–N.
+>
+> Cột **N · Nội dung chi tiết** là cột mới: thêm tiêu đề `Nội dung chi tiết` vào ô N1 của tab Truyền thông.
 
 #### Thêm một người vinh danh (khoảng 2 phút)
 
