@@ -11,7 +11,7 @@ const SHEET_ID = "1CM5UR0rGkWSdaNJPDd3dxXAXwvu4_qzeLu480lIdQtY";
 
 /* Link Apps Script ghi lượt truy cập (xem mục "Thống kê truy cập" trong README).
    Để "" thì web không ghi thống kê. */
-const STATS_URL = "https://script.google.com/macros/s/AKfycbxGJ69HxKTn9QLUF0DcUMcKryUlR6ZkRrTTmQgnpkxQiBdGPUvoFAHvShTf0NFwNyZjxQ/exec";
+const STATS_URL = "https://script.google.com/macros/s/AKfycbzJ227IhbGyHk_bInPT17KN4LxeceoGGUTUxGx4QVnRurBQcIT8u8kPuDbOgJ6FStaY9g/exec";
 
 const F = id => `https://drive.google.com/file/d/${id}/view`;
 const D = id => `https://drive.google.com/drive/folders/${id}`;
