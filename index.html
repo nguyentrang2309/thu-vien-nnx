@@ -471,7 +471,35 @@ function renderContent(){
     c.innerHTML = items.length ? groupByYear(items) : `<div class="empty">Không có mục khớp “${esc(S.q)}”.</div>`;
   }
 }
-function render(){ renderNav(); renderPills(); renderContent(); }
+function render(){ renderNav(); renderPills(); renderContent(); syncHash(); }
+
+/* Ghi trang đang xem lên thanh địa chỉ để tải lại (F5) hoặc gửi link vẫn mở đúng trang:
+   #muc=case (mục truyền thông), #muc=tong-quan, #nhucau=health&kenh=kdml&hang=MIC (sản phẩm) */
+function viewHash(){
+  const p = new URLSearchParams();
+  if (S.view === "media") p.set("muc", "tong-quan");
+  else if (S.view.startsWith("sec-")) p.set("muc", S.view.slice(4));
+  else {
+    if (S.need !== "all") p.set("nhucau", S.need);
+    if (S.ch !== "all") p.set("kenh", S.ch);
+    if (S.ins !== "all") p.set("hang", S.ins);
+  }
+  return p.toString();
+}
+/* Khi đang mở sản phẩm (#p-) hoặc vinh danh (#vd-) thì giữ link riêng đó */
+function syncHash(){
+  if (!$("drawer").hidden || !$("honorModal").hidden) return;
+  const h = viewHash();
+  try{ history.replaceState(null, "", location.pathname + location.search + (h ? "#" + h : "")); }catch(e){}
+}
+function readHash(h){
+  const p = new URLSearchParams(h.replace(/^#/, "")), muc = p.get("muc");
+  if (muc === "tong-quan") S.view = "media";
+  else if (muc && SECTIONS.some(s => s.id === muc)) S.view = "sec-" + muc;
+  if (NEEDS.some(n => n.id === p.get("nhucau"))) S.need = p.get("nhucau");
+  if (CHANNELS[p.get("kenh")]) S.ch = p.get("kenh");
+  if (ALL_INS.includes(p.get("hang"))) S.ins = p.get("hang");
+}
 
 /* ============ DRAWER ============ */
 function docTile(d){
@@ -506,7 +534,7 @@ function openProduct(id){
 function closeDrawer(){
   $("drawer").hidden = true; $("scrim").hidden = true;
   document.body.style.overflow = "";
-  try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){}
+  syncHash();
 }
 
 /* ============ POPUP VINH DANH ============ */
@@ -555,7 +583,7 @@ function closeHonor(){
   $("honorModal").hidden = true; $("honorModal").innerHTML = ""; $("scrim").hidden = true;
   document.body.style.overflow = "";
   openedHonor = null;
-  if (location.hash.startsWith("#vd-")) try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){}
+  syncHash();
   honorReturn?.focus?.();
 }
 
@@ -639,13 +667,18 @@ try{ const t = localStorage.getItem("nnx-theme"); if (t) document.documentElemen
 function start(){
   ALL_INS = [...new Set(PRODUCTS.flatMap(p => p.insurers||[]))];
   $("ticker").innerHTML = [...TICKER,...TICKER].map(t=>`<span>${t}</span><span>◆</span>`).join("");
-  render();
+  const hash = decodeURIComponent(location.hash);
   Track.visit();
-  if (location.hash.startsWith("#p-")) openProduct(location.hash.slice(3));
-  if (location.hash.startsWith("#vd-")){
-    const slug = decodeURIComponent(location.hash.slice(1)), m = MEDIA.find(x => x.sec === "case" && honorSlug(x) === slug);
+  if (hash.startsWith("#p-")){
+    const p = PRODUCTS.find(x => x.id === hash.slice(3));
+    if (p) S.need = p.need;  /* nền phía sau là nhóm nhu cầu của sản phẩm */
+    render(); openProduct(hash.slice(3));
+  } else if (hash.startsWith("#vd-")){
+    const m = MEDIA.find(x => x.sec === "case" && honorSlug(x) === hash.slice(1));
     S.view = "sec-case"; render();
     if (m) openHonor(m.id);
+  } else {
+    readHash(hash); render();
   }
 }
 $("content").innerHTML = `<div class="empty">Đang tải nội dung…</div>`;

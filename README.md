@@ -62,6 +62,8 @@ Website giúp người bán chọn sản phẩm bảo hiểm theo nhu cầu củ
 
 Mỗi sản phẩm có link riêng để gửi cho người bán: `https://nguyentrang2309.github.io/thu-vien-nnx/#p-<id>`, ví dụ `…/#p-mic` mở thẳng trang MIC Care.
 
+Trang đang xem cũng hiện trên thanh địa chỉ, nên tải lại (F5) vẫn ở đúng trang, và có thể copy link gửi người khác: ví dụ `…/#muc=case` (Vinh danh), `…/#muc=news` (Tin mới), `…/#nhucau=car&kenh=kdml` (sản phẩm ô tô kênh KDML).
+
 ---
 
 ## Cập nhật nội dung bằng Google Sheet
