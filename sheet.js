@@ -126,7 +126,8 @@ async function loadSheet(){
       const sec = lookup(r["mục"], secs), u = r["link"];
       if (!sec) return bad(T, r._row, `Mục "${r["mục"]}" không có trong danh sách.`);
       if (!r["tiêu đề"]) return bad(T, r._row, "thiếu Tiêu đề.");
-      if (!isLink(u)) return bad(T, r._row, "Link trống hoặc không bắt đầu bằng https://");
+      /* Link không bắt buộc: thẻ không có link vẫn hiện (vinh danh vẫn mở popup) */
+      if (u && !isLink(u)) return bad(T, r._row, `Link "${u}" phải bắt đầu bằng https:// (hoặc để trống nếu không có link).`);
       const date = r["ngày cập nhật"];
       if (date && !/^(\d{1,2}\/)?(\d{1,2}\/)?\d{4}$/.test(date)) bad(T, r._row, `Ngày "${date}" nên viết 15/09/2026, 09/2026 hoặc 2026 (vẫn hiện nhưng có thể xếp sai thứ tự).`);
       list.push({id:"s"+r._row, sec, date, k:r["dòng nhỏ"], t:r["tiêu đề"], d:r["mô tả"], u,

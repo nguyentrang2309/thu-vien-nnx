@@ -157,6 +157,7 @@ main{min-width:0;display:flex;flex-direction:column}
 .media{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
 .m{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;text-decoration:none}
 .m:hover{border-color:var(--brand);box-shadow:var(--shadow)}
+.m.nolink:hover{border-color:var(--line);box-shadow:none}
 .m .ic{width:42px;height:42px;border-radius:8px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand)}
 .m .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .m h3{margin:2px 0 4px;font-size:15.5px;font-weight:700;line-height:1.35}
@@ -400,7 +401,8 @@ function honorTop(m, nameTag="h3", nameId=""){
 }
 /* Bấm thẻ mở popup; Ctrl/chuột giữa vẫn mở link ở tab mới */
 function honorCard(m){
-  return `<a class="hc" href="${m.u}" target="_blank" rel="noopener" data-honor="${esc(m.id)}">
+  /* Không có link bài gốc thì href là link vinh danh trong thư viện (Ctrl + bấm vẫn mở được tab mới) */
+  return `<a class="hc" href="${m.u ? m.u : "#"+honorSlug(m)}"${m.u ? ` target="_blank" rel="noopener"` : ""} data-honor="${esc(m.id)}">
     ${honorTop(m)}
     <div class="hc-body">
       ${m.d ? `<p>${esc(m.d)}</p>` : ""}
@@ -409,6 +411,9 @@ function honorCard(m){
 }
 function mItem(m){
   if (m.sec === "case" && m.name) return honorCard(m);
+  if (!m.u) return `<div class="m nolink${m.star?" star":""}">
+    <span class="ic">${ic(m.icon)}</span>
+    <span><span class="k">${esc(m.k)}</span><h3>${esc(m.t)}</h3>${m.d?`<p>${esc(m.d)}</p>`:""}${m.date?`<span class="when">${ic("calendar")}Cập nhật ${esc(m.date)}</span>`:""}</span></div>`;
   return `<a class="m${m.star?" star":""}" href="${m.u}" target="_blank" rel="noopener">
     <span class="ic">${ic(m.icon)}</span>
     <span><span class="k">${esc(m.k)}</span><h3>${esc(m.t)}</h3>${m.d?`<p>${esc(m.d)}</p>`:""}${m.date?`<span class="when">${ic("calendar")}Cập nhật ${esc(m.date)}</span>`:""}<span class="go">Mở trên ${host(m.u).toLowerCase().replace(/^./,c=>c.toUpperCase())} ${ic("ext")}</span></span></a>`;
@@ -523,7 +528,7 @@ const honorLink = m => location.origin + location.pathname + "#" + honorSlug(m);
 let honorReturn = null, openedHonor = null;
 function openHonor(id){
   const m = MEDIA.find(x => x.id === id); if (!m) return;
-  const pv = previewUrl(m.u);
+  const pv = m.u ? previewUrl(m.u) : "";
   openedHonor = m;
   Track.send("honor", honorSlug(m), m.name || m.t, m.badge);
   try{ history.replaceState(null,"","#"+honorSlug(m)); }catch(e){}
@@ -537,8 +542,8 @@ function openHonor(id){
       ${m.c ? `<div class="hm-text">${richText(m.c)}</div>` : ""}
       ${pv ? `<iframe class="hm-frame" src="${pv}" title="Bài chia sẻ của ${esc(m.name)}" loading="lazy" allow="autoplay"></iframe>` : ""}
       <div class="hm-acts">
-        <a class="hm-btn${pv ? " ghost" : ""}" href="${m.u}" target="_blank" rel="noopener">${pv ? "Mở toàn màn hình" : "Xem bài chia sẻ gốc"} ${ic("ext")}</a>
-        <button class="hm-btn ghost" data-copy="${esc(honorLink(m))}" data-toast="Đã sao chép link vinh danh, dán vào Zalo để gửi đồng nghiệp">${ic("copy")}Sao chép link</button>
+        ${m.u ? `<a class="hm-btn${pv ? " ghost" : ""}" href="${m.u}" target="_blank" rel="noopener">${pv ? "Mở toàn màn hình" : "Xem bài chia sẻ gốc"} ${ic("ext")}</a>` : ""}
+        <button class="hm-btn${m.u ? " ghost" : ""}" data-copy="${esc(honorLink(m))}" data-toast="Đã sao chép link vinh danh, dán vào Zalo để gửi đồng nghiệp">${ic("copy")}Sao chép link</button>
       </div>
     </div></div>`;
   $("honorModal").hidden = false; $("scrim").hidden = false;

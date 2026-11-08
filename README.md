@@ -95,7 +95,7 @@ Sửa Sheet xong, mở lại web là thấy thay đổi. **Không cần GitHub, 
 - Sản phẩm và tài liệu hiện theo thứ tự dòng. Truyền thông tự xếp theo *Ngày cập nhật*, mới nhất lên trước.
 - Chữ chạy có thể dùng `{SO_SAN_PHAM}` và `{SO_TAI_LIEU}` để tự hiện số sản phẩm, số tài liệu.
 
-**Trang kiểm tra `?kiemtra`** cho biết từng tab đang đọc từ Sheet hay từ bản dự phòng, và liệt kê các dòng bị bỏ qua kèm lý do (thiếu link, sai mã sản phẩm, ngày sai định dạng…). Dòng bị bỏ qua sẽ không hiện trên web cho đến khi sửa xong.
+**Trang kiểm tra `?kiemtra`** cho biết từng tab đang đọc từ Sheet hay từ bản dự phòng, và liệt kê các dòng bị bỏ qua kèm lý do (thiếu link tài liệu, link sai định dạng, sai mã sản phẩm, ngày sai định dạng…). Dòng bị bỏ qua sẽ không hiện trên web cho đến khi sửa xong.
 
 ### Việc thường làm
 
@@ -148,7 +148,7 @@ Tab **Truyền thông** đã có sẵn 4 cột dành riêng cho vinh danh ở cu
 | C · Dòng nhỏ | Không hiện trên thẻ vinh danh, có thể để trống | `Vinh danh · KV3 Hải Phòng` | |
 | **D · Tiêu đề** | Câu ngắn, dùng khi tìm kiếm | `Trần Thị Hoa – Top 1 phí Q3` | Không hiện trên thẻ, hiện ở đầu popup |
 | **E · Mô tả** | 1–2 câu về thành tích, bí quyết. **Nên dưới 150 ký tự** | `3 tháng liên tục dẫn đầu phí BH độc lập nhờ chăm sóc lại khách cũ.` | Phần dưới của thẻ |
-| **F · Link** | Bài chia sẻ chi tiết (Gapowork, Drive, Google Site…). **Bắt buộc** | `https://www.gapowork.vn/…` | Nút *Xem bài chia sẻ gốc* trong popup |
+| F · Link | *Tùy chọn.* Bài chia sẻ gốc (Gapowork, Drive, Google Site…). Để trống thì thẻ vẫn hiện, popup không có nút *Xem bài chia sẻ gốc*. Khi đó nên điền cột N | `https://www.gapowork.vn/…` | Nút *Xem bài chia sẻ gốc* trong popup |
 | G · Nổi bật, H · Biểu tượng | Không cần cho thẻ vinh danh | | |
 | **I · Hiển thị** | **Hiện** hoặc **Ẩn** | `Hiện` | |
 | **J · Họ tên** | Họ tên đầy đủ, có dấu. **Bắt buộc** để hiện dạng thẻ vinh danh | `Trần Thị Hoa` | Chữ lớn, nền xanh |
@@ -158,6 +158,8 @@ Tab **Truyền thông** đã có sẵn 4 cột dành riêng cho vinh danh ở cu
 | N · Nội dung chi tiết | *Tùy chọn.* Bài chia sẻ đầy đủ. Xuống dòng trong ô (`Alt + Enter`) để tách đoạn, viết `**chữ**` để in đậm | `**Bí quyết 1:** gọi lại khách cũ mỗi sáng…` | Chỉ hiện trong popup |
 
 > Ô **Họ tên** để trống thì dòng đó hiện kiểu thẻ thường (có biểu tượng cúp nhỏ, không có phần đầu xanh, bấm vào mở thẳng link). Các mục khác (Tin mới, Câu chuyện bồi thường, Kho content…) để trống các cột J–N.
+>
+> Ở tab **Truyền thông**, ô **Link** có thể để trống: thẻ vẫn hiện nhưng không bấm mở được (riêng thẻ vinh danh vẫn mở popup). Tab **Tài liệu** thì vẫn bắt buộc có link.
 >
 > Cột **N · Nội dung chi tiết** là cột mới: thêm tiêu đề `Nội dung chi tiết` vào ô N1 của tab Truyền thông.
 
@@ -171,7 +173,7 @@ Tab **Truyền thông** đã có sẵn 4 cột dành riêng cho vinh danh ở cu
 |---|---|---|---|---|---|---|---|---|---|
 | Vinh danh & case study | 10/2026 | Trần Thị Hoa – Top 1 phí Q3 | 3 tháng liên tục dẫn đầu phí BH độc lập nhờ chăm sóc lại khách cũ. | https://www.gapowork.vn/… | Hiện | Trần Thị Hoa | CVKD | PGD 192 Kim Ngưu – HNI | Top 1 phí Q3 |
 
-4. Mở web → bấm **🏆 VINH DANH** → `Ctrl + F5` để kiểm tra. Nếu thẻ không hiện, mở `?kiemtra` để xem lý do (thường do thiếu *Link*).
+4. Mở web → bấm **🏆 VINH DANH** → `Ctrl + F5` để kiểm tra. Nếu thẻ không hiện, mở `?kiemtra` để xem lý do (thường do thiếu *Tiêu đề*, hoặc *Link* không bắt đầu bằng `https://`).
 
 **Mẹo viết cho đẹp:**
 - **Thành tích** càng ngắn càng nổi: `Top 1 miền Bắc` tốt hơn `Đạt giải Top 1 doanh thu bảo hiểm toàn miền Bắc`.
