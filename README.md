@@ -133,7 +133,9 @@ Mỗi người được vinh danh có một thẻ như sau:
 
 Thẻ tự nhóm theo năm (*Năm 2026*, *Năm 2027*…), người mới nhất lên trước. Bấm nút **🏆 VINH DANH** trên đầu trang để xem.
 
-**Bấm vào thẻ** sẽ mở popup ngay trong trang, hiện: tiêu đề, mô tả, *Nội dung chi tiết* (cột N), nút mở bài gốc và nút sao chép link. Nếu *Link* là file Google Drive / Docs / Slides thì popup xem trước file ngay bên trong. Link Google Sites, Gapowork không cho nhúng vào trang khác nên popup chỉ có nút mở bài gốc, vì vậy nên điền cột N để người xem đọc được ngay.
+**Bấm vào thẻ** sẽ mở popup ngay trong trang, hiện: tiêu đề, mô tả, *Nội dung chi tiết* (cột N), nút mở bài gốc và nút sao chép link.
+
+**Nút Sao chép link** chép link riêng của thẻ vinh danh trong thư viện, dạng `…/thu-vien-nnx/#vd-<họ-tên>-<ngày>` (ví dụ `#vd-do-phuong-nam-07-11-2026`). Người nhận bấm link sẽ thấy mở thẳng popup của người đó. Link tạo từ *Họ tên* và *Ngày cập nhật*, nên **đã gửi link thì đừng sửa hai ô này**, nếu không link cũ chỉ mở trang Vinh danh chứ không mở đúng popup. Muốn lấy link bài gốc thì bấm *Xem bài chia sẻ gốc*. Nếu *Link* là file Google Drive / Docs / Slides thì popup xem trước file ngay bên trong. Link Google Sites, Gapowork không cho nhúng vào trang khác nên popup chỉ có nút mở bài gốc, vì vậy nên điền cột N để người xem đọc được ngay.
 
 #### Các cột dùng cho thẻ vinh danh
 

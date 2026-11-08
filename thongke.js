@@ -43,7 +43,9 @@ const Track = (() => {
       if (window.self !== window.top) from = "Nhúng trong Google Site";
       else if (document.referrer && new URL(document.referrer).host !== location.host) from = new URL(document.referrer).host;
     } catch (e) { from = "Nhúng trong Google Site"; }
-    send("visit", location.hash.startsWith("#p-") ? location.hash.slice(3) : "", from);
+    /* Vào bằng link riêng: #p-<mã sản phẩm> hoặc #vd-<vinh danh> */
+    const h = decodeURIComponent(location.hash);
+    send("visit", h.startsWith("#p-") ? h.slice(3) : h.startsWith("#vd-") ? h.slice(1) : "", from);
   }
 
   /* Ghi từ khóa khi người dùng ngừng gõ 1,5 giây, bỏ qua từ khóa dưới 2 ký tự */

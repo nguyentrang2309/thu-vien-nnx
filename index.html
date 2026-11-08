@@ -516,11 +516,17 @@ function previewUrl(u){
 /* Nội dung chi tiết: mỗi đoạn xuống dòng là một đoạn văn, **chữ** thành chữ đậm */
 const richText = s => String(s).split(/\n+/).map(x => x.trim()).filter(Boolean)
   .map(x => `<p>${esc(x).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>")}</p>`).join("");
-let honorReturn = null;
+/* Link riêng của từng thẻ vinh danh: …/#vd-<họ-tên>-<ngày>, mở thẳng popup.
+   Tạo từ Họ tên + Ngày cập nhật nên không đổi khi thêm/xóa dòng trong Sheet. */
+const honorSlug = m => "vd-" + norm([m.name || m.t, m.date].filter(Boolean).join(" ")).replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const honorLink = m => location.origin + location.pathname + "#" + honorSlug(m);
+let honorReturn = null, openedHonor = null;
 function openHonor(id){
   const m = MEDIA.find(x => x.id === id); if (!m) return;
   const pv = previewUrl(m.u);
-  Track.send("honor", m.id, m.name || m.t, m.badge);
+  openedHonor = m;
+  Track.send("honor", honorSlug(m), m.name || m.t, m.badge);
+  try{ history.replaceState(null,"","#"+honorSlug(m)); }catch(e){}
   honorReturn = document.activeElement;
   $("honorModal").innerHTML = `<div class="hm-box">
     <button class="hm-x" id="hmClose" aria-label="Đóng">${ic("x")}</button>
@@ -532,7 +538,7 @@ function openHonor(id){
       ${pv ? `<iframe class="hm-frame" src="${pv}" title="Bài chia sẻ của ${esc(m.name)}" loading="lazy" allow="autoplay"></iframe>` : ""}
       <div class="hm-acts">
         <a class="hm-btn${pv ? " ghost" : ""}" href="${m.u}" target="_blank" rel="noopener">${pv ? "Mở toàn màn hình" : "Xem bài chia sẻ gốc"} ${ic("ext")}</a>
-        <button class="hm-btn ghost" data-copy="${m.u}">${ic("copy")}Sao chép link</button>
+        <button class="hm-btn ghost" data-copy="${esc(honorLink(m))}" data-toast="Đã sao chép link vinh danh, dán vào Zalo để gửi đồng nghiệp">${ic("copy")}Sao chép link</button>
       </div>
     </div></div>`;
   $("honorModal").hidden = false; $("scrim").hidden = false;
@@ -543,6 +549,8 @@ function openHonor(id){
 function closeHonor(){
   $("honorModal").hidden = true; $("honorModal").innerHTML = ""; $("scrim").hidden = true;
   document.body.style.overflow = "";
+  openedHonor = null;
+  if (location.hash.startsWith("#vd-")) try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){}
   honorReturn?.focus?.();
 }
 
@@ -564,8 +572,7 @@ document.addEventListener("click", e => {
     return;
   }
   const hl = e.target.closest("#honorModal a.hm-btn, #honorModal [data-copy]");
-  if (hl){ const item = MEDIA.find(x => x.u === (hl.getAttribute("href") || hl.dataset.copy));
-    if (item) Track.send("media", "Vinh danh & case study", item.name || item.t, hl.dataset.copy ? "Sao chép link" : "Mở"); return; }
+  if (hl){ if (openedHonor) Track.send("media", "Vinh danh & case study", openedHonor.name || openedHonor.t, hl.dataset.copy ? "Sao chép link vinh danh" : "Mở bài gốc"); return; }
   const v = e.target.closest("[data-view], #bonus");
   if (v) setTimeout(() => Track.send("view", viewName(S.view), S.view === "products" ? (S.need === "all" ? "Tất cả" : needOf(S.need).short) : ""), 0);
 }, true);
@@ -586,7 +593,7 @@ document.addEventListener("click", e => {
   if (op){ openProduct(op.dataset.open); return; }
   const cp = e.target.closest("[data-copy]");
   if (cp){ const u = cp.dataset.copy;
-    navigator.clipboard?.writeText(u).then(()=>toast("Đã sao chép link, dán vào Zalo để gửi khách"), ()=>toast(u)) ?? toast(u); return; }
+    navigator.clipboard?.writeText(u).then(()=>toast(cp.dataset.toast || "Đã sao chép link, dán vào Zalo để gửi khách"), ()=>toast(u)) ?? toast(u); return; }
   if (e.target.id==="scrim" || e.target.closest("#dClose")){ closeDrawer(); return; }
 });
 document.addEventListener("keydown", e => {
@@ -630,6 +637,11 @@ function start(){
   render();
   Track.visit();
   if (location.hash.startsWith("#p-")) openProduct(location.hash.slice(3));
+  if (location.hash.startsWith("#vd-")){
+    const slug = decodeURIComponent(location.hash.slice(1)), m = MEDIA.find(x => x.sec === "case" && honorSlug(x) === slug);
+    S.view = "sec-case"; render();
+    if (m) openHonor(m.id);
+  }
 }
 $("content").innerHTML = `<div class="empty">Đang tải nội dung…</div>`;
 loadSheet().catch(e => ({used:{}, problems:["Lỗi khi đọc Sheet: "+e.message]})).then(report => { start(); showSheetReport(report); });
