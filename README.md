@@ -95,6 +95,7 @@ Sửa Sheet xong, mở lại web là thấy thay đổi. **Không cần GitHub, 
 - Muốn ẩn tạm một dòng: chọn **Ẩn** ở cột *Hiển thị* (dòng chuyển xám). Không cần xóa.
 - **Không đổi tên tab và dòng tiêu đề** (dòng 1). Đổi là web không đọc được tab đó.
 - Sản phẩm và tài liệu hiện theo thứ tự dòng. Truyền thông tự xếp theo *Ngày cập nhật*, mới nhất lên trước.
+- Mục **Thưởng & Contest**: thẻ tự có nhãn *Đang áp dụng*. Điền cột **Ngày kết thúc** (`DD/MM/YYYY`) thì qua ngày đó thẻ tự chuyển *Đã kết thúc* và mờ đi. Bỏ trống ngày kết thúc = luôn *Đang áp dụng*.
 - Chữ chạy có thể dùng `{SO_SAN_PHAM}` và `{SO_TAI_LIEU}` để tự hiện số sản phẩm, số tài liệu.
 
 **Trang kiểm tra `?kiemtra`** cho biết từng tab đang đọc từ Sheet hay từ bản dự phòng, và liệt kê các dòng bị bỏ qua kèm lý do (thiếu link tài liệu, link sai định dạng, sai mã sản phẩm, ngày sai định dạng…). Dòng bị bỏ qua sẽ không hiện trên web cho đến khi sửa xong.

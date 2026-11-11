@@ -112,11 +112,12 @@ const CLAIM_GUIDES = [
 ];
 
 /* Truyền thông
+   end: ngày kết thúc (chỉ mục "Thưởng & Contest"). Qua ngày này thẻ tự gắn "Đã kết thúc"; bỏ trống = "Đang áp dụng".
    date: ngày cập nhật, viết "DD/MM/YYYY", "MM/YYYY" hoặc "YYYY".
    Các mục tự nhóm theo năm và mục mới nhất hiện trước. */
 const MEDIA = [
-  {id:"ct-sale-1126", sec:"bonus", date:"01/11/2026", k:"Contest · 01/11 đến 30/11/2026", t:"Sale Contest: Bán càng nhiều, thưởng càng cao (BBTNDS ô tô độc lập)", d:"Thưởng thêm trên từng hợp đồng. Nhóm 1 (đã bán tốt) tối đa +12%, nhóm 2 (chưa bán tốt/chưa active) tối đa +10% mỗi đơn. Không thay thế hoa hồng hiện hữu.", u:"images/contest-ban-cang-nhieu-thuong-cang-cao-11-2026.jpg", icon:"trophy", star:true},
-  {id:"ct-thidua-q4", sec:"bonus", date:"01/10/2026", k:"Contest · Quý IV/2026", t:"Thi đua khu vực & thi đua vùng Quý IV/2026", d:"Thi đua khu vực (phí BH độc lập, 72 KV chia 3 nhóm) và thi đua vùng (phí BH đột phá độc lập & tự nguyện, 11 vùng chia 3 nhóm). Thưởng từ 1 đến 20 triệu theo mức đạt.", u:"images/contest-thi-dua-khu-vuc-vung-q4-2026.jpg", icon:"trophy"},
+  {id:"ct-sale-1126", sec:"bonus", date:"01/11/2026", k:"Contest · 01/11 đến 30/11/2026", end:"30/11/2026", t:"Sale Contest: Bán càng nhiều, thưởng càng cao (BBTNDS ô tô độc lập)", d:"Thưởng thêm trên từng hợp đồng. Nhóm 1 (đã bán tốt) tối đa +12%, nhóm 2 (chưa bán tốt/chưa active) tối đa +10% mỗi đơn. Không thay thế hoa hồng hiện hữu.", u:"images/contest-ban-cang-nhieu-thuong-cang-cao-11-2026.jpg", icon:"trophy", star:true},
+  {id:"ct-thidua-q4", sec:"bonus", date:"01/10/2026", k:"Contest · Quý IV/2026", end:"31/12/2026", t:"Thi đua khu vực & thi đua vùng Quý IV/2026", d:"Thi đua khu vực (phí BH độc lập, 72 KV chia 3 nhóm) và thi đua vùng (phí BH đột phá độc lập & tự nguyện, 11 vùng chia 3 nhóm). Thưởng từ 1 đến 20 triệu theo mức đạt.", u:"images/contest-thi-dua-khu-vuc-vung-q4-2026.jpg", icon:"trophy"},
   {id:"n-bonus", sec:"bonus", date:"08/04/2026", k:"Chính sách · đang áp dụng từ 08/04/2026", t:"Chính sách thưởng bảo hiểm độc lập 2026 – KDML F88", d:"Thưởng bảo hiểm = Tỷ lệ thưởng × Phí bảo hiểm. Gồm thưởng doanh số người bán và thưởng ghi nhận thúc đẩy doanh số (TPGD, QLKV, QLV). Áp dụng đến khi có quyết định điều chỉnh.", u:"images/chinh-sach-thuong-doc-lap-2026.jpg", icon:"gift", star:true},
   {id:"n-bundle", sec:"news", date:"2026", k:"Đào tạo · 2026", t:"Quyền lợi BH bán kèm & Tips tư vấn 2026", d:"Cập nhật quyền lợi các gói bán kèm khoản vay và cách mở lời.", u:SKILLS["sk-bundle"].u, icon:"news"},
   {id:"n-obj", sec:"news", date:"06/2025", k:"Đào tạo · T6.2025", t:"Kỹ năng xử lý từ chối", d:"Tài liệu buổi đào tạo xử lý các lời từ chối thường gặp.", u:SKILLS["sk-objection"].u, icon:"news"},
