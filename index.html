@@ -654,7 +654,7 @@ $("sideClose").addEventListener("click", () => isDesktop() ? setCollapsed(true) 
   const embedded = window.self !== window.top;
   if (saved ? saved === "thu" : embedded) setCollapsed(true);
 })();
-$("bonus").addEventListener("click", () => { S.view="sec-news"; S.q=""; $("q").value=""; render(); $("side").classList.remove("open"); });
+$("bonus").addEventListener("click", () => { S.view="sec-bonus"; S.q=""; $("q").value=""; render(); $("side").classList.remove("open"); });
 $("themeBtn").addEventListener("click", () => {
   const r = document.documentElement;
   const dark = r.dataset.theme ? r.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
