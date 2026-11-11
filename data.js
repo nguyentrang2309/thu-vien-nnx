@@ -115,7 +115,7 @@ const CLAIM_GUIDES = [
    date: ngày cập nhật, viết "DD/MM/YYYY", "MM/YYYY" hoặc "YYYY".
    Các mục tự nhóm theo năm và mục mới nhất hiện trước. */
 const MEDIA = [
-  {id:"n-bonus", sec:"bonus", date:"08/04/2026", k:"Chính sách · áp dụng từ 08/04/2026", t:"Chính sách thưởng bảo hiểm độc lập 2026 – KDML F88", d:"Thưởng bảo hiểm = Tỷ lệ thưởng × Phí bảo hiểm. Xem bảng tỷ lệ theo nhóm sản phẩm.", u:SITE("ch%C3%ADnh-s%C3%A1ch-th%C6%B0%E1%BB%9Fng"), icon:"gift", star:true},
+  {id:"n-bonus", sec:"bonus", date:"08/04/2026", k:"Chính sách · đang áp dụng từ 08/04/2026", t:"Chính sách thưởng bảo hiểm độc lập 2026 – KDML F88", d:"Thưởng bảo hiểm = Tỷ lệ thưởng × Phí bảo hiểm. Gồm thưởng doanh số người bán và thưởng ghi nhận thúc đẩy doanh số (TPGD, QLKV, QLV). Áp dụng đến khi có quyết định điều chỉnh.", u:"images/chinh-sach-thuong-doc-lap-2026.jpg", icon:"gift", star:true},
   {id:"n-bundle", sec:"news", date:"2026", k:"Đào tạo · 2026", t:"Quyền lợi BH bán kèm & Tips tư vấn 2026", d:"Cập nhật quyền lợi các gói bán kèm khoản vay và cách mở lời.", u:SKILLS["sk-bundle"].u, icon:"news"},
   {id:"n-obj", sec:"news", date:"06/2025", k:"Đào tạo · T6.2025", t:"Kỹ năng xử lý từ chối", d:"Tài liệu buổi đào tạo xử lý các lời từ chối thường gặp.", u:SKILLS["sk-objection"].u, icon:"news"},
   {id:"c1", sec:"claim", k:"Câu chuyện bồi thường · HNI", t:"Chị Hường PT – CVKD 192 KN HNI", d:"Chia sẻ thực tế hỗ trợ khách hàng nhận bồi thường.", u:"https://www.gapowork.vn/group/2357079808128083968/posts/661879113957330944", icon:"heart", src:"Gapowork"},

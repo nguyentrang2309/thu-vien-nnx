@@ -416,7 +416,7 @@ function mItem(m){
     <span><span class="k">${esc(m.k)}</span><h3>${esc(m.t)}</h3>${m.d?`<p>${esc(m.d)}</p>`:""}${m.date?`<span class="when">${ic("calendar")}Cập nhật ${esc(m.date)}</span>`:""}</span></div>`;
   return `<a class="m${m.star?" star":""}" href="${m.u}" target="_blank" rel="noopener">
     <span class="ic">${ic(m.icon)}</span>
-    <span><span class="k">${esc(m.k)}</span><h3>${esc(m.t)}</h3>${m.d?`<p>${esc(m.d)}</p>`:""}${m.date?`<span class="when">${ic("calendar")}Cập nhật ${esc(m.date)}</span>`:""}<span class="go">Mở trên ${host(m.u).toLowerCase().replace(/^./,c=>c.toUpperCase())} ${ic("ext")}</span></span></a>`;
+    <span><span class="k">${esc(m.k)}</span><h3>${esc(m.t)}</h3>${m.d?`<p>${esc(m.d)}</p>`:""}${m.date?`<span class="when">${ic("calendar")}Cập nhật ${esc(m.date)}</span>`:""}<span class="go">${/^images\//.test(m.u) ? "Xem bảng chính sách" : "Mở trên "+host(m.u).toLowerCase().replace(/^./,c=>c.toUpperCase())} ${ic("ext")}</span></span></a>`;
 }
 /* "08/04/2026" | "04/2026" | "2026" -> số để sắp xếp (20260408) */
 function dateKey(s){
