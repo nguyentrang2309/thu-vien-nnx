@@ -393,8 +393,8 @@ function card(p){
 /* Thẻ vinh danh: phần đầu xanh (thành tích, thời gian, họ tên, chức danh · PGD), phần dưới là mô tả */
 function honorTop(m, nameTag="h3", nameId=""){
   return `<div class="hc-top">
-      ${ic(m.sec==="bonus"?"gift":"trophy","i hc-deco")}
-      <div class="hc-row">${m.badge ? `<span class="hc-badge">${ic(m.sec==="bonus"?"gift":"trophy")}${esc(m.badge)}</span>` : "<span></span>"}${m.date ? `<span class="hc-date">${ic("calendar")}${esc(m.date)}</span>` : ""}</div>
+      ${ic("trophy","i hc-deco")}
+      <div class="hc-row">${m.badge ? `<span class="hc-badge">${ic("trophy")}${esc(m.badge)}</span>` : "<span></span>"}${m.date ? `<span class="hc-date">${ic("calendar")}${esc(m.date)}</span>` : ""}</div>
       <${nameTag} class="hc-name"${nameId ? ` id="${nameId}"` : ""}>${esc(m.name)}</${nameTag}>
       ${m.role || m.pgd ? `<div class="hc-info">${m.role ? `<b>${esc(m.role)}</b>` : ""}${m.role && m.pgd ? `<span class="dot">·</span>` : ""}${esc(m.pgd||"")}</div>` : ""}
     </div>`;
@@ -410,7 +410,7 @@ function honorCard(m){
     </div></a>`;
 }
 function mItem(m){
-  if ((m.sec === "case" || m.sec === "bonus") && m.name) return honorCard(m);
+  if (m.sec === "case" && m.name) return honorCard(m);
   if (!m.u) return `<div class="m nolink${m.star?" star":""}">
     <span class="ic">${ic(m.icon)}</span>
     <span><span class="k">${esc(m.k)}</span><h3>${esc(m.t)}</h3>${m.d?`<p>${esc(m.d)}</p>`:""}${m.date?`<span class="when">${ic("calendar")}Cập nhật ${esc(m.date)}</span>`:""}</span></div>`;
@@ -570,7 +570,7 @@ function openHonor(id){
       ${m.c ? `<div class="hm-text">${richText(m.c)}</div>` : ""}
       ${pv ? `<iframe class="hm-frame" src="${pv}" title="Bài chia sẻ của ${esc(m.name)}" loading="lazy" allow="autoplay"></iframe>` : ""}
       <div class="hm-acts">
-        ${m.u ? `<a class="hm-btn${pv ? " ghost" : ""}" href="${m.u}" target="_blank" rel="noopener">${pv ? "Mở toàn màn hình" : m.sec==="bonus" ? "Xem chính sách chi tiết" : "Xem bài chia sẻ gốc"} ${ic("ext")}</a>` : ""}
+        ${m.u ? `<a class="hm-btn${pv ? " ghost" : ""}" href="${m.u}" target="_blank" rel="noopener">${pv ? "Mở toàn màn hình" : "Xem bài chia sẻ gốc"} ${ic("ext")}</a>` : ""}
         <button class="hm-btn${m.u ? " ghost" : ""}" data-copy="${esc(honorLink(m))}" data-toast="Đã sao chép link vinh danh, dán vào Zalo để gửi đồng nghiệp">${ic("copy")}Sao chép link</button>
       </div>
     </div></div>`;
@@ -674,7 +674,7 @@ function start(){
     if (p) S.need = p.need;  /* nền phía sau là nhóm nhu cầu của sản phẩm */
     render(); openProduct(hash.slice(3));
   } else if (hash.startsWith("#vd-")){
-    const m = MEDIA.find(x => (x.sec === "case" || x.sec === "bonus") && honorSlug(x) === hash.slice(1));
+    const m = MEDIA.find(x => x.sec === "case" && honorSlug(x) === hash.slice(1));
     S.view = "sec-case"; render();
     if (m) openHonor(m.id);
   } else {
