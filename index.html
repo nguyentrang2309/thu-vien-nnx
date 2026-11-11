@@ -365,7 +365,7 @@ function renderNav(){
   NEEDS.forEach(n => h += `<button data-view="products" data-need="${n.id}" aria-current="${cur("products",n.id)}">${ic(n.icon)}${n.short}<span class="n">${counts(n.id)}</span></button>`);
   h += `<h4>TRUYỀN THÔNG & HỖ TRỢ BÁN</h4>`;
   h += `<button data-view="media" aria-current="${S.view==="media"}">${ic("grid")}Tổng quan truyền thông<span class="n">${MEDIA.length}</span></button>`;
-  SECTIONS.forEach(s => h += `<button data-view="sec-${s.id}" aria-current="${S.view==="sec-"+s.id}">${ic(s.icon)}${s.label}<span class="n">${MEDIA.filter(m=>m.sec===s.id).length}</span></button>`);
+  SECTIONS.filter(s => s.id !== "bonus").forEach(s => h += `<button data-view="sec-${s.id}" aria-current="${S.view==="sec-"+s.id}">${ic(s.icon)}${s.label}<span class="n">${MEDIA.filter(m=>m.sec===s.id).length}</span></button>`);
   $("nav").innerHTML = h;
 }
 function renderPills(){
