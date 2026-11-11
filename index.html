@@ -164,6 +164,10 @@ main{min-width:0;display:flex;flex-direction:column}
 .m p{margin:0;font-size:13.5px;color:var(--muted)}
 .m .go{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;color:var(--brand);font-weight:600}
 .m .go svg{width:14px;height:14px}
+.m .stt{display:inline-block;margin:0 0 6px;padding:3px 9px;border-radius:999px;font-family:var(--f-mono);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.m .stt.on{background:#D4EC3A;color:#1B2A06}
+.m .stt.off{background:#E3E6E1;color:#5b645c}
+.m.ended{opacity:.72}
 .m .when{display:flex;align-items:center;gap:6px;margin-top:8px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.04em;color:var(--muted)}
 .m .when svg{width:14px;height:14px}
 .sec-h.year{border-bottom:2px solid var(--brand);padding-bottom:8px}
@@ -409,14 +413,22 @@ function honorCard(m){
       <span class="go">Xem chi tiết ${ic("arrow")}</span>
     </div></a>`;
 }
+/* Mục "Thưởng & Contest": có ngày kết thúc (end) mà đã qua thì "Đã kết thúc"; còn lại "Đang áp dụng" */
+function ended(m){
+  if (m.sec !== "bonus" || !m.end) return false;
+  const p = String(m.end).split("/").map(Number);
+  if (p.length !== 3) return false;
+  return new Date(p[2], p[1]-1, p[0], 23, 59, 59) < new Date();
+}
+const statusTag = m => m.sec !== "bonus" ? "" : ended(m) ? `<span class="stt off">Đã kết thúc</span>` : `<span class="stt on">Đang áp dụng</span>`;
 function mItem(m){
   if (m.sec === "case" && m.name) return honorCard(m);
   if (!m.u) return `<div class="m nolink${m.star?" star":""}">
     <span class="ic">${ic(m.icon)}</span>
     <span><span class="k">${esc(m.k)}</span><h3>${esc(m.t)}</h3>${m.d?`<p>${esc(m.d)}</p>`:""}${m.date?`<span class="when">${ic("calendar")}Cập nhật ${esc(m.date)}</span>`:""}</span></div>`;
-  return `<a class="m${m.star?" star":""}" href="${m.u}" target="_blank" rel="noopener">
+  return `<a class="m${m.star?" star":""}${ended(m)?" ended":""}" href="${m.u}" target="_blank" rel="noopener">
     <span class="ic">${ic(m.icon)}</span>
-    <span><span class="k">${esc(m.k)}</span><h3>${esc(m.t)}</h3>${m.d?`<p>${esc(m.d)}</p>`:""}${m.date?`<span class="when">${ic("calendar")}Cập nhật ${esc(m.date)}</span>`:""}<span class="go">Mở trên ${host(m.u).toLowerCase().replace(/^./,c=>c.toUpperCase())} ${ic("ext")}</span></span></a>`;
+    <span>${statusTag(m)}<br><span class="k">${esc(m.k)}</span><h3>${esc(m.t)}</h3>${m.d?`<p>${esc(m.d)}</p>`:""}${m.date?`<span class="when">${ic("calendar")}Cập nhật ${esc(m.date)}</span>`:""}<span class="go">${/^images\//.test(m.u) ? "Xem bảng chính sách" : "Mở trên "+host(m.u).toLowerCase().replace(/^./,c=>c.toUpperCase())} ${ic("ext")}</span></span></a>`;
 }
 /* "08/04/2026" | "04/2026" | "2026" -> số để sắp xếp (20260408) */
 function dateKey(s){
