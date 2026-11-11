@@ -286,7 +286,6 @@ main{min-width:0;display:flex;flex-direction:column}
     </div>
     <nav class="nav" id="nav"></nav>
     <div class="side-foot">
-      <button class="cta" id="bonus"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 8v13M3 12h18M7.5 8a2.5 2.5 0 1 1 4.5-1.5V8M16.5 8A2.5 2.5 0 1 0 12 6.5"/></svg>CHÍNH SÁCH THƯỞNG 2026</button>
       <p>Tài liệu mở trên Google Drive, cần đăng nhập tài khoản công ty</p>
     </div>
   </aside>
@@ -298,6 +297,7 @@ main{min-width:0;display:flex;flex-direction:column}
       <div class="ttl"><h1 id="title">Tất cả sản phẩm</h1><div class="count" id="count"></div></div>
       <div class="acts">
         <div class="pills" id="pills" role="group" aria-label="Lọc theo kênh"></div>
+        <button class="honor" id="bonus" data-view="sec-bonus" aria-current="false"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 8v13M3 12h18M7.5 8a2.5 2.5 0 1 1 4.5-1.5V8M16.5 8A2.5 2.5 0 1 0 12 6.5"/></svg>CHÍNH SÁCH THƯỞNG</button>
         <button class="honor" id="honorBtn" data-view="sec-case" aria-current="false"><svg class="i" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0Z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v3.5M8.5 20h7l-1-3.5h-5Z"/></svg>VINH DANH</button>
         <button class="iconbtn" id="themeBtn" aria-label="Đổi giao diện sáng/tối"><svg class="i" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg></button>
       </div>
@@ -377,6 +377,7 @@ function renderPills(){
   $("pills").innerHTML = opts.map(([v,l]) => `<button class="pill" data-ch="${v}" aria-pressed="${S.ch===v}">${l}</button>`).join("");
   $("pills").hidden = S.view !== "products";
   $("honorBtn").setAttribute("aria-current", S.view === "sec-case");
+  $("bonus").setAttribute("aria-current", S.view === "sec-bonus");
 }
 const insTags = p => (p.insurers||[]).map(x => `<span class="tag ins">${esc(x)}</span>`).join("");
 let ALL_INS = [];
