@@ -365,7 +365,7 @@ function renderNav(){
   NEEDS.forEach(n => h += `<button data-view="products" data-need="${n.id}" aria-current="${cur("products",n.id)}">${ic(n.icon)}${n.short}<span class="n">${counts(n.id)}</span></button>`);
   h += `<h4>TRUYỀN THÔNG & HỖ TRỢ BÁN</h4>`;
   h += `<button data-view="media" aria-current="${S.view==="media"}">${ic("grid")}Tổng quan truyền thông<span class="n">${MEDIA.length}</span></button>`;
-  SECTIONS.forEach(s => h += `<button data-view="sec-${s.id}" aria-current="${S.view==="sec-"+s.id}">${ic(s.icon)}${s.label}<span class="n">${MEDIA.filter(m=>m.sec===s.id).length}</span></button>`);
+  SECTIONS.filter(s => s.id !== "bonus").forEach(s => h += `<button data-view="sec-${s.id}" aria-current="${S.view==="sec-"+s.id}">${ic(s.icon)}${s.label}<span class="n">${s.id==="news" ? newsFeed().length : MEDIA.filter(m=>m.sec===s.id).length}</span></button>`);
   $("nav").innerHTML = h;
 }
 function renderPills(){
@@ -437,9 +437,13 @@ function groupByYear(items){
   });
   return groups.map(g => `<section class="sec"><div class="sec-h year"><h2>${g.y==="Khác"?"Chưa có ngày":"Năm "+g.y}</h2><span>${g.list.length} MỤC</span></div><div class="media">${g.list.map(mItem).join("")}</div></section>`).join("");
 }
+/* "Tin mới" tự lấy 10 mục có ngày cập nhật mới nhất từ tất cả các mục */
+const NEWS_LIMIT = 10;
+const newsFeed = () => MEDIA.filter(m => m.date).sort((a,b) => dateKey(b.date) - dateKey(a.date)).slice(0, NEWS_LIMIT);
 function mediaMatches(sec){
   const q = norm(S.q.trim());
-  return MEDIA.filter(m => (!sec||m.sec===sec) && (!q || norm([m.t,m.d,m.k,m.name,m.role,m.pgd,m.badge].filter(Boolean).join(" ")).includes(q)));
+  const pool = sec === "news" ? newsFeed() : MEDIA;
+  return pool.filter(m => (!sec||m.sec===sec||sec==="news") && (!q || norm([m.t,m.d,m.k,m.name,m.role,m.pgd,m.badge].filter(Boolean).join(" ")).includes(q)));
 }
 function renderContent(){
   const c = $("content");
@@ -654,7 +658,7 @@ $("sideClose").addEventListener("click", () => isDesktop() ? setCollapsed(true) 
   const embedded = window.self !== window.top;
   if (saved ? saved === "thu" : embedded) setCollapsed(true);
 })();
-$("bonus").addEventListener("click", () => { S.view="sec-news"; S.q=""; $("q").value=""; render(); $("side").classList.remove("open"); });
+$("bonus").addEventListener("click", () => { S.view="sec-bonus"; S.q=""; $("q").value=""; render(); $("side").classList.remove("open"); });
 $("themeBtn").addEventListener("click", () => {
   const r = document.documentElement;
   const dark = r.dataset.theme ? r.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;

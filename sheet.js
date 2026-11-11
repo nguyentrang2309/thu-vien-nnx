@@ -13,7 +13,7 @@ const SHEET_TABS = {
   ticker:   {name:"Chữ chạy",     cols:["nội dung","hiển thị"]},
 };
 const SHEET_ICONS = {"cúp":"trophy","tin tức":"news","trái tim":"heart","loa":"megaphone","sách":"book","quà":"gift","phao cứu sinh":"lifebuoy"};
-const SECTION_ICONS = {news:"news", claim:"heart", case:"trophy", content:"megaphone", skill:"book", guide:"lifebuoy"};
+const SECTION_ICONS = {bonus:"gift", news:"news", claim:"heart", case:"trophy", content:"megaphone", skill:"book", guide:"lifebuoy"};
 
 /* CSV -> mảng các dòng (hỗ trợ ngoặc kép và xuống dòng trong ô) */
 function parseCSV(text){
