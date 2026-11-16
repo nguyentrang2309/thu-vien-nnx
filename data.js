@@ -105,6 +105,16 @@ const SKILLS = {
   "sk-brand":{t:"Xây dựng thương hiệu cá nhân trên MXH", u:F("1CBkuwG-1Jzx6A660mjgmPtBFnCiK4pnB")},
   "sk-digital":{t:"Bộ hành động digital PGD", u:DOC("1eqBG_vf8CxtQtLfjFZdXT0s8HNmOyd0BMkGuVkbHdZU")},
 };
+/* Hướng dẫn bồi thường sản phẩm bán kèm khoản vay (folder Drive "BÁN KÈM").
+   insurers: tên hãng, viết giống tag hãng ở sản phẩm (PVI, BMI…). Để [] nếu chưa rõ hãng: chỉ hiện khi chọn "Tất cả". */
+const BUNDLE_CLAIMS = [
+  {t:"Sức khỏe người vay BMI3", insurers:["BMI"], u:F("171jA20EeSqmLi6GQSe3iYsg2fiKQBrPt")},
+  {t:"Trợ cấp mất giảm thu nhập BMI2", insurers:["BMI"], u:F("1gm89YdU2SOZi90zeZvXlopp437gPd1JO")},
+  {t:"Mất giảm thu nhập PVI2 & Sức khỏe người vay PVI3", insurers:["PVI"], u:F("189jnFsTCLuesdlArFlkpZ9TDZLWrKsaH")},
+  {t:"Mất giảm thu nhập BSH2 & Sức khỏe người vay BSH3", insurers:["BSH"], u:F("1QSlLKqQBAprD6yRpsKh2Mj2Ab-DLcS3y")},
+  {t:"Vững bước tiến MAPTL4", insurers:[], u:F("195xpy-8rl2Q5mHTPrpcX3w5KOM74eFhN")},
+];
+
 const CLAIM_GUIDES = [
   {t:"Quy trình tiếp nhận, xử lý bồi thường tại PGD", u:F("17Fd_SwMbPsOZQDserhsArBIbqyNAg2uE")},
   {t:"Tạo hồ sơ yêu cầu bồi thường trên FBH", u:F("1yLNrHAjLZqekzvNJoiNYYNgGOl-R7DHU")},
