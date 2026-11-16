@@ -521,7 +521,7 @@ function renderGuide(c){
   const general = onlyBK ? [] : mediaMatches("guide").filter(m => { const t = insOf(m); return ins==="all" || !t.length || t.includes(ins); });
   const perProduct = onlyBK ? [] : PRODUCTS
     .filter(p => ins==="all" || (p.insurers||[]).includes(ins))
-    .flatMap(p => p.docs.filter(d => d[0]==="boithuong").map(d => ({k:[...(p.insurers||[]), p.name].join(" · "), t:docLabel(d), d:"", u:d[1], icon:"lifebuoy"})))
+    .flatMap(p => p.docs.filter(d => d[0]==="boithuong").map(d => ({ch:p.ch, k:[...(p.insurers||[]), p.name].join(" · "), t:docLabel(d), d:"", u:d[1], icon:"lifebuoy"})))
     .filter(m => !q || norm([m.k,m.t].join(" ")).includes(q));
   const bundle = bundleItems(ins);
   $("title").textContent = "Hướng dẫn bồi thường" + (ins!=="all" ? " · " + ins : "");
@@ -529,7 +529,7 @@ function renderGuide(c){
   let h = "";
   if (GUIDE_INS.length) h += `<div class="ins-row guide-ins"><span class="mono">HÃNG BẢO HIỂM</span><button class="ins-chip" data-ins="all" aria-pressed="${ins==="all"}">Tất cả</button>${GUIDE_INS.map(x=>`<button class="ins-chip" data-ins="${esc(x)}" aria-pressed="${ins===x}">${esc(x)}</button>`).join("")}<span class="ins-sep" aria-hidden="true"></span><button class="ins-chip bk-chip" data-ins="${BK}" aria-pressed="${onlyBK}">${BK}</button></div>`;
   if (general.length) h += `<section class="sec"><div class="sec-h"><h2>Quy trình & hồ sơ chung</h2><span>${general.length} MỤC</span></div><div class="media">${general.map(mItem).join("")}</div></section>`;
-  if (perProduct.length) h += `<section class="sec"><div class="sec-h"><h2>Theo sản phẩm${ins!=="all" ? " của " + esc(ins) : ""}</h2><span>${perProduct.length} MỤC</span></div><div class="media">${perProduct.map(mItem).join("")}</div></section>`;
+  if (perProduct.length) h += `<section class="sec"><div class="sec-h"><h2>Bán tự nguyện, độc lập & Ngôi sao bảo hiểm${ins!=="all" ? " · " + esc(ins) : ""}</h2><span>${perProduct.length} MỤC</span></div><div class="media">${perProduct.map(mItem).join("")}</div></section>`;
   if (bundle.length) h += `<section class="sec"><div class="sec-h"><h2>Bán kèm${ins!=="all" && !onlyBK ? " của " + esc(ins) : ""}</h2><span>${bundle.length} MỤC</span></div><div class="media">${bundle.map(mItem).join("")}</div></section>`;
   if (!general.length && !perProduct.length && !bundle.length) h += `<div class="empty">${q ? `Không có mục khớp “${esc(S.q)}”.` : `Chưa có hướng dẫn bồi thường cho ${esc(ins)}. Chọn “Tất cả” để xem thêm.`}</div>`;
   c.innerHTML = h;
