@@ -120,6 +120,9 @@ main{min-width:0;display:flex;flex-direction:column}
 .guide-btn .ic{background:var(--brand-soft);color:var(--brand)}
 .guide-btn .gb-ins{font-family:var(--f-mono);font-size:11.5px;font-weight:700;letter-spacing:.04em;background:var(--ink);color:var(--surface);border-radius:999px;padding:2px 8px}
 .guide-ins{margin-bottom:8px}
+.ins-sep{width:1px;height:22px;background:var(--line);margin:0 4px}
+.bk-chip{border-color:var(--brand);color:var(--brand)}
+.bk-chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--surface)}
 
 /* Product grid */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px}
@@ -466,18 +469,21 @@ function mediaMatches(sec){
 function renderContent(){
   const c = $("content");
   if (S.view === "products"){
-    if (S.ins !== "all" && !ALL_INS.includes(S.ins)) S.ins = "all"; /* hãng chỉ có ở bán kèm (BSH) không có sản phẩm */
-    const list = filteredProducts();
-    $("title").textContent = S.need==="all" ? "Tất cả sản phẩm" : needOf(S.need).short;
-    $("count").textContent = `${list.length} sản phẩm · ${list.reduce((a,p)=>a+p.docs.length,0)} tài liệu`;
+    if (S.ins !== "all" && S.ins !== BK && !ALL_INS.includes(S.ins)) S.ins = "all"; /* hãng chỉ có ở bán kèm (BSH) không có sản phẩm */
+    const onlyBK = S.ins === BK;
+    const list = onlyBK ? [] : filteredProducts();
+    const bkList = onlyBK ? bundleItems(BK) : [];
+    $("title").textContent = onlyBK ? "Bán kèm" : S.need==="all" ? "Tất cả sản phẩm" : needOf(S.need).short;
+    $("count").textContent = onlyBK ? `${bkList.length} hướng dẫn bồi thường` : `${list.length} sản phẩm · ${list.reduce((a,p)=>a+p.docs.length,0)} tài liệu`;
     let h = `<section class="needs" aria-label="Chọn nhu cầu"><h2><b>Bước 1:</b> Khách hàng đang cần gì?</h2><div class="need-row">`;
     h += `<button class="need" data-need="all" aria-pressed="${S.need==="all"}"><span class="ic" style="background:var(--brand-soft);color:var(--brand)">${ic("layers")}</span>Xem tất cả</button>`;
     NEEDS.forEach(n => h += `<button class="need" data-need="${n.id}" aria-pressed="${S.need===n.id}"><span class="ic" style="background:var(--t-${n.id});color:var(--i-${n.id})">${ic(n.icon)}</span>${n.label}</button>`);
     /* Nút sang trang Hướng dẫn bồi thường, giữ theo hãng đang chọn (#muc=guide&hang=PVI) */
     h += `<a class="need guide-btn" href="#muc=guide${S.ins!=="all" ? "&hang="+encodeURIComponent(S.ins) : ""}" data-view="sec-guide"><span class="ic">${ic("lifebuoy")}</span>Hướng dẫn bồi thường${S.ins!=="all" ? ` <span class="gb-ins">${esc(S.ins)}</span>` : ""}</a>`;
-    if (ALL_INS.length) h += `</div><div class="ins-row"><span class="mono">HÃNG BẢO HIỂM</span><button class="ins-chip" data-ins="all" aria-pressed="${S.ins==="all"}">Tất cả</button>${ALL_INS.map(x=>`<button class="ins-chip" data-ins="${esc(x)}" aria-pressed="${S.ins===x}">${esc(x)}</button>`).join("")}`;
-    h += `</div><h2><b>Bước 2:</b> Chọn sản phẩm để mở brochure, quy tắc, hướng dẫn bồi thường, salekit…</h2></section>`;
-    h += list.length ? `<div class="grid">${list.map(card).join("")}</div>` : `<div class="empty">${S.q.trim() ? `Không có sản phẩm khớp “${esc(S.q)}”. Thử từ khóa khác, ví dụ “quy tắc”, “ô tô”, “MIC”.` : `Chưa có sản phẩm cho lựa chọn này. Chọn “Tất cả” ở nhu cầu, kênh hoặc hãng bảo hiểm để xem thêm.`}</div>`;
+    if (ALL_INS.length) h += `</div><div class="ins-row"><span class="mono">HÃNG BẢO HIỂM</span><button class="ins-chip" data-ins="all" aria-pressed="${S.ins==="all"}">Tất cả</button>${ALL_INS.map(x=>`<button class="ins-chip" data-ins="${esc(x)}" aria-pressed="${S.ins===x}">${esc(x)}</button>`).join("")}<span class="ins-sep" aria-hidden="true"></span><button class="ins-chip bk-chip" data-ins="${BK}" aria-pressed="${onlyBK}">${BK}</button>`;
+    h += `</div><h2><b>Bước 2:</b> ${onlyBK ? "Mở hướng dẫn bồi thường sản phẩm bán kèm khoản vay" : "Chọn sản phẩm để mở brochure, quy tắc, hướng dẫn bồi thường, salekit…"}</h2></section>`;
+    if (onlyBK) h += bkList.length ? `<section class="sec"><div class="sec-h"><h2>Bán kèm</h2><span>${bkList.length} MỤC</span></div><div class="media">${bkList.map(mItem).join("")}</div></section>` : `<div class="empty">Không có mục khớp “${esc(S.q)}”.</div>`;
+    else h += list.length ? `<div class="grid">${list.map(card).join("")}</div>` : `<div class="empty">${S.q.trim() ? `Không có sản phẩm khớp “${esc(S.q)}”. Thử từ khóa khác, ví dụ “quy tắc”, “ô tô”, “MIC”.` : `Chưa có sản phẩm cho lựa chọn này. Chọn “Tất cả” ở nhu cầu, kênh hoặc hãng bảo hiểm để xem thêm.`}</div>`;
     const extra = S.q.trim() ? mediaMatches() : [];
     if (extra.length) h += `<section class="sec"><div class="sec-h"><h2>Truyền thông & kỹ năng khớp từ khóa</h2><span>${extra.length} MỤC</span></div><div class="media">${extra.map(mItem).join("")}</div></section>`;
     c.innerHTML = h;
@@ -500,26 +506,31 @@ function renderContent(){
 }
 /* Trang Hướng dẫn bồi thường: hướng dẫn chung + hướng dẫn bồi thường của từng sản phẩm.
    Khi chọn hãng: chỉ giữ sản phẩm của hãng đó; mục chung có nhắc tên một hãng khác thì ẩn. */
+const BK = "BÁN KÈM"; /* nút lọc đặc biệt: chỉ xem hướng dẫn bồi thường sản phẩm bán kèm */
+/* Bán kèm khoản vay: lọc theo hãng; mục chưa gắn hãng chỉ hiện ở "Tất cả" / "BÁN KÈM" */
+function bundleItems(ins){
+  const q = norm(S.q.trim());
+  return (typeof BUNDLE_CLAIMS !== "undefined" ? BUNDLE_CLAIMS : [])
+    .filter(b => ins==="all" || ins===BK || (b.insurers||[]).includes(ins))
+    .map(b => ({k:["Bán kèm", ...(b.insurers||[])].join(" · "), t:b.t, d:"", u:b.u, icon:"lifebuoy"}))
+    .filter(m => !q || norm([m.k,m.t].join(" ")).includes(q));
+}
 function renderGuide(c){
-  const q = norm(S.q.trim()), ins = S.ins;
+  const q = norm(S.q.trim()), ins = S.ins, onlyBK = ins === BK;
   const insOf = m => ALL_INS.filter(x => norm([m.t,m.d,m.k].filter(Boolean).join(" ")).includes(norm(x)));
-  const general = mediaMatches("guide").filter(m => { const t = insOf(m); return ins==="all" || !t.length || t.includes(ins); });
-  const perProduct = PRODUCTS
+  const general = onlyBK ? [] : mediaMatches("guide").filter(m => { const t = insOf(m); return ins==="all" || !t.length || t.includes(ins); });
+  const perProduct = onlyBK ? [] : PRODUCTS
     .filter(p => ins==="all" || (p.insurers||[]).includes(ins))
     .flatMap(p => p.docs.filter(d => d[0]==="boithuong").map(d => ({k:[...(p.insurers||[]), p.name].join(" · "), t:docLabel(d), d:"", u:d[1], icon:"lifebuoy"})))
     .filter(m => !q || norm([m.k,m.t].join(" ")).includes(q));
-  /* Bán kèm khoản vay: lọc theo hãng; mục chưa gắn hãng chỉ hiện ở "Tất cả" */
-  const bundle = (typeof BUNDLE_CLAIMS !== "undefined" ? BUNDLE_CLAIMS : [])
-    .filter(b => ins==="all" || (b.insurers||[]).includes(ins))
-    .map(b => ({k:["Bán kèm", ...(b.insurers||[])].join(" · "), t:b.t, d:"", u:b.u, icon:"lifebuoy"}))
-    .filter(m => !q || norm([m.k,m.t].join(" ")).includes(q));
+  const bundle = bundleItems(ins);
   $("title").textContent = "Hướng dẫn bồi thường" + (ins!=="all" ? " · " + ins : "");
   $("count").textContent = `${general.length + perProduct.length + bundle.length} mục`;
   let h = "";
-  if (GUIDE_INS.length) h += `<div class="ins-row guide-ins"><span class="mono">HÃNG BẢO HIỂM</span><button class="ins-chip" data-ins="all" aria-pressed="${ins==="all"}">Tất cả</button>${GUIDE_INS.map(x=>`<button class="ins-chip" data-ins="${esc(x)}" aria-pressed="${ins===x}">${esc(x)}</button>`).join("")}</div>`;
+  if (GUIDE_INS.length) h += `<div class="ins-row guide-ins"><span class="mono">HÃNG BẢO HIỂM</span><button class="ins-chip" data-ins="all" aria-pressed="${ins==="all"}">Tất cả</button>${GUIDE_INS.map(x=>`<button class="ins-chip" data-ins="${esc(x)}" aria-pressed="${ins===x}">${esc(x)}</button>`).join("")}<span class="ins-sep" aria-hidden="true"></span><button class="ins-chip bk-chip" data-ins="${BK}" aria-pressed="${onlyBK}">${BK}</button></div>`;
   if (general.length) h += `<section class="sec"><div class="sec-h"><h2>Quy trình & hồ sơ chung</h2><span>${general.length} MỤC</span></div><div class="media">${general.map(mItem).join("")}</div></section>`;
   if (perProduct.length) h += `<section class="sec"><div class="sec-h"><h2>Theo sản phẩm${ins!=="all" ? " của " + esc(ins) : ""}</h2><span>${perProduct.length} MỤC</span></div><div class="media">${perProduct.map(mItem).join("")}</div></section>`;
-  if (bundle.length) h += `<section class="sec"><div class="sec-h"><h2>Bán kèm${ins!=="all" ? " của " + esc(ins) : ""}</h2><span>${bundle.length} MỤC</span></div><div class="media">${bundle.map(mItem).join("")}</div></section>`;
+  if (bundle.length) h += `<section class="sec"><div class="sec-h"><h2>Bán kèm${ins!=="all" && !onlyBK ? " của " + esc(ins) : ""}</h2><span>${bundle.length} MỤC</span></div><div class="media">${bundle.map(mItem).join("")}</div></section>`;
   if (!general.length && !perProduct.length && !bundle.length) h += `<div class="empty">${q ? `Không có mục khớp “${esc(S.q)}”.` : `Chưa có hướng dẫn bồi thường cho ${esc(ins)}. Chọn “Tất cả” để xem thêm.`}</div>`;
   c.innerHTML = h;
 }
@@ -553,7 +564,7 @@ function readHash(h){
   else if (muc && SECTIONS.some(s => s.id === muc)) S.view = "sec-" + muc;
   if (NEEDS.some(n => n.id === p.get("nhucau"))) S.need = p.get("nhucau");
   if (CHANNELS[p.get("kenh")]) S.ch = p.get("kenh");
-  if (GUIDE_INS.includes(p.get("hang"))) S.ins = p.get("hang");
+  if (GUIDE_INS.includes(p.get("hang")) || p.get("hang") === BK) S.ins = p.get("hang");
 }
 
 /* ============ DRAWER ============ */
